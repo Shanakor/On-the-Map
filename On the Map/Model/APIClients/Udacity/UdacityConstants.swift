@@ -7,19 +7,20 @@ import Foundation
 
 extension UdacityClient{
     struct Constants{
-        static let Scheme = "https"
-        static let BaseUrl = "www.udacity.com/api/"
+        static let APIScheme = "https"
+        static let APIHost = "www.udacity.com"
+        static let APIPath = "/api"
     }
 
     struct Methods{
-        static let NewSession = "session"
+        static let NewSession = "/session"
     }
 
     struct Header{
 
         struct Keys {
             static let Accept = "Accept"
-            static let ContentType = "ContentType"
+            static let ContentType = "Content-Type"
         }
 
         struct Values{
@@ -28,9 +29,16 @@ extension UdacityClient{
         }
     }
 
-    struct JsonBodyKeys{
+    struct JSONBodyKeys {
         static let Udacity = "udacity"
         static let Username = "username"
         static let password = "password"
+    }
+
+    struct JSONResponseKeys {
+        static let Status = "status"
+        static let Error = "error"
+        static let Account = "account"
+        static let AccountKey = "key"
     }
 }

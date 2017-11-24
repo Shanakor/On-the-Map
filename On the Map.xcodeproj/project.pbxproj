@@ -23,9 +23,9 @@
 		3C9DE2E5CA3318B9DE88105F /* UdacityConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UdacityConstants.swift; sourceTree = "<group>"; };
 		3C9DE55A98323D073B3D4136 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		3C9DE55C2AFBA5718D02422E /* UdacityClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UdacityClient.swift; sourceTree = "<group>"; };
-		3C9DE66083E98E8799563368 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.info; path = Info.plist; sourceTree = "<group>"; };
 		3C9DE6CDE347973D1450516B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		3C9DE964C95651A55925121E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		3C9DED46623289574E9A06A3 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.info; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,9 +61,9 @@
 				196E19851FC87D1600B90057 /* AppDelegate.swift */,
 				196E198C1FC87D1600B90057 /* Assets.xcassets */,
 				3C9DE194789800E2A0F919D3 /* Storyboards */,
-				3C9DE2A0AA1B1B2B84788EB2 /* Supporting Files */,
 				3C9DECAEE39F3EFDA3F3B57A /* Controller */,
 				3C9DEA157071993470C5B099 /* Model */,
+				3C9DED46623289574E9A06A3 /* Info.plist */,
 			);
 			path = "On the Map";
 			sourceTree = "<group>";
@@ -84,14 +84,6 @@
 				3C9DE2E5CA3318B9DE88105F /* UdacityConstants.swift */,
 			);
 			path = Udacity;
-			sourceTree = "<group>";
-		};
-		3C9DE2A0AA1B1B2B84788EB2 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				3C9DE66083E98E8799563368 /* Info.plist */,
-			);
-			path = "Supporting Files";
 			sourceTree = "<group>";
 		};
 		3C9DE97EC7B8A60100DBBD79 /* APIClients */ = {
