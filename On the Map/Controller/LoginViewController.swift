@@ -30,11 +30,6 @@ class LoginViewController: UIViewController {
         self.emailTextField.becomeFirstResponder()
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
     // MARK: IBActions
     
     @IBAction func login(_ sender: Any) {
@@ -48,11 +43,8 @@ class LoginViewController: UIViewController {
                 print(error!)
             }
             else{
-                print("Successfully logged in. YEAY!!")
-                print("accountKey: \(UdacityClient.shared.accountKey!)")
-
                 DispatchQueue.main.async {
-                    self.view.backgroundColor = UIColor.green
+                    self.performSegue(withIdentifier: AppDelegate.Identifiers.Segues.MainScene, sender: nil)
                 }
             }
         }

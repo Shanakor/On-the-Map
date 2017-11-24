@@ -13,6 +13,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
+    // MARK: Constants
+
+    struct Identifiers{
+        struct Segues {
+            static let MainScene = "ShowMainScene"
+        }
+    }
+
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
