@@ -43,6 +43,7 @@ class LoginViewController: UIViewController {
 
         UdacityClient.shared.authenticate(username: username, password: password){
             (success, error) in
+
             if !success{
                 print(error!)
             }
@@ -55,6 +56,10 @@ class LoginViewController: UIViewController {
                 }
             }
         }
+    }
+    
+    @IBAction func openSignUpPageInBrowser(_ sender: Any) {
+        UIApplication.shared.open(URL(string: UdacityClient.Constants.SignUpURL)!, options: [:], completionHandler: nil)
     }
 }
 

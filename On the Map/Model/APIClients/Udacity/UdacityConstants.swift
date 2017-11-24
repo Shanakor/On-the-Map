@@ -10,6 +10,8 @@ extension UdacityClient{
         static let APIScheme = "https"
         static let APIHost = "www.udacity.com"
         static let APIPath = "/api"
+
+        static let SignUpURL = "https://www.udacity.com/account/auth#!/signup"
     }
 
     struct Methods{
