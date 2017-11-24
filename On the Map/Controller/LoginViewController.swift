@@ -9,6 +9,20 @@
 import UIKit
 
 class LoginViewController: UIViewController {
+
+    // MARK: Constants
+    struct AlertDialogText{
+        static let connectionErrorTitle = "Connection failed"
+        static let connectionErrorMessage = "Please try again or verify that you are connected to the internet."
+
+        static let parseErrorTitle = "Parse failure"
+        static let parseErrorMessage = "We could not process the data that was returned by the server. We are probably looking" +
+                "into it this very moment."
+
+        static let credentialErrorTitle = "Unauthorized"
+        static let credentialErrorMessage = "Invalid username or password!"
+    }
+
     // MARK: IBOutlets
     
     @IBOutlet weak var emailTextField: UITextField!
@@ -41,6 +55,10 @@ class LoginViewController: UIViewController {
 
             if !success{
                 print(error!)
+
+                DispatchQueue.main.async {
+                    self.presentAlertDialog(error!)
+                }
             }
             else{
                 DispatchQueue.main.async {
@@ -49,7 +67,25 @@ class LoginViewController: UIViewController {
             }
         }
     }
-    
+
+    private func presentAlertDialog(_ error: UdacityClient.UdacityAPIError) {
+        switch(error){
+            case .connectionError:
+                self.presentAlertDialog(title: AlertDialogText.connectionErrorTitle, message: AlertDialogText.connectionErrorMessage)
+            case .parseError:
+                self.presentAlertDialog(title: AlertDialogText.parseErrorTitle, message: AlertDialogText.parseErrorMessage)
+            case .serverError:
+                self.presentAlertDialog(title: AlertDialogText.credentialErrorTitle, message: AlertDialogText.credentialErrorMessage)
+        }
+    }
+
+    private func presentAlertDialog(title: String, message: String){
+        let alertCtrl = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.alert)
+        alertCtrl.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: nil))
+
+        self.present(alertCtrl, animated: true, completion: nil)
+    }
+
     @IBAction func openSignUpPageInBrowser(_ sender: Any) {
         UIApplication.shared.open(URL(string: UdacityClient.Constants.SignUpURL)!, options: [:], completionHandler: nil)
     }
@@ -63,7 +99,7 @@ extension LoginViewController{
     }
 }
 
-// MARK: Extension for UITextFieldDelegate
+// MARK: Extension for UITextFieldDelegate.
 extension LoginViewController : UITextFieldDelegate{
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         let txtFieldText = (textField.text ?? "") as NSString

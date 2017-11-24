@@ -17,7 +17,7 @@ class UdacityClient {
 
     // MARK: Authentication
 
-    public func authenticate(username: String, password: String, completionHandler: @escaping (Bool, NSError?) -> Void = {_, _ in }){
+    public func authenticate(username: String, password: String, completionHandler: @escaping (Bool, UdacityAPIError?) -> Void = {_, _ in }){
         let request = authenticationRequest(username: username, password: password)
 
         let task = URLSession.shared.dataTask(with: request) {
@@ -25,20 +25,20 @@ class UdacityClient {
 
             // GUARD: Did the request fail?
             guard error == nil else {
-                completionHandler(false, self.authenticationError(localizedDescription: "Request failed. Request: \(request)"))
+                completionHandler(false, .connectionError(description: "Request failed. Request: \(request)"))
                 return
             }
 
             // GUARD: Did the request return status code OK?
             guard let httpResponse = response as? HTTPURLResponse,
                   httpResponse.statusCode >= 200 || httpResponse.statusCode <= 299 else {
-                completionHandler(false, self.authenticationError(localizedDescription: "Status code was other than 2XX!"))
+                completionHandler(false, .connectionError(description: "Status code was other than 2XX!"))
                 return
             }
 
             // GUARD: Did the request return actual data?
             guard let data = data else {
-                completionHandler(false, self.authenticationError(localizedDescription: "No data was returned!"))
+                completionHandler(false, .connectionError(description: "No data was returned!"))
                 return
             }
 
@@ -48,7 +48,7 @@ class UdacityClient {
         task.resume()
     }
 
-    private func convertAuthDataWithCompletionHandler(_ data: Data, completionHandler: @escaping (Bool, NSError?) -> Void) {
+    private func convertAuthDataWithCompletionHandler(_ data: Data, completionHandler: @escaping (Bool, UdacityAPIError?) -> Void) {
 
         let parsedResult: [String: AnyObject]!
         let range = Range(5..<data.count)
@@ -58,37 +58,32 @@ class UdacityClient {
             parsedResult = try JSONSerialization.jsonObject(with: subsetData, options: .allowFragments) as! [String: AnyObject]
         }
         catch{
-            completionHandler(false, authenticationError(localizedDescription: "Could not convert to JSON from \(subsetData)"))
+            completionHandler(false, .parseError(description: "Could not convert to JSON from \(subsetData)"))
             return
         }
 
         if let _ = parsedResult[JSONResponseKeys.Status] as? Int{
             guard let errorString = parsedResult[JSONResponseKeys.Error] as? String else{
-                completionHandler(false, self.authenticationError(localizedDescription: "Unknown error!"))
+                completionHandler(false, .parseError(description: "Unknown error!"))
                 return
             }
 
-            completionHandler(false, self.authenticationError(localizedDescription: errorString))
+            completionHandler(false, .serverError(description: errorString))
             return
         }
 
         guard let accountDictionary = parsedResult[JSONResponseKeys.Account] as? [String: AnyObject] else{
-            completionHandler(false, self.authenticationError(localizedDescription: "Can not find key '\(JSONResponseKeys.Account)' in \(parsedResult)"))
+            completionHandler(false, .parseError(description: "Can not find key '\(JSONResponseKeys.Account)' in \(parsedResult)"))
             return
         }
 
         guard let accountKey = accountDictionary[JSONResponseKeys.AccountKey] as? String else{
-            completionHandler(false, self.authenticationError(localizedDescription: "Can not find key '\(JSONResponseKeys.AccountKey)' in \(accountDictionary)"))
+            completionHandler(false, .parseError(description: "Can not find key '\(JSONResponseKeys.AccountKey)' in \(accountDictionary)"))
             return
         }
 
         self.accountKey = accountKey
         completionHandler(true, nil)
-    }
-
-    private func authenticationError(localizedDescription: String) -> NSError{
-        let userInfo = [NSLocalizedDescriptionKey: localizedDescription]
-        return NSError(domain: "authenticate", code: -1, userInfo: userInfo)
     }
 
     private func authenticationRequest(username: String, password: String) -> URLRequest {
