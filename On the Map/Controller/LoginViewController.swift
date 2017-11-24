@@ -8,16 +8,26 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class LoginViewController: UIViewController {
     // MARK: IBOutlets
     
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
-
+    @IBOutlet weak var loginBtn: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view, typically from a nib.
+        emailTextField.delegate = self
+        passwordTextField.delegate = self
+
+        enableLoginButton(false)
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        self.emailTextField.becomeFirstResponder()
     }
 
     override func didReceiveMemoryWarning() {
@@ -45,6 +55,47 @@ class ViewController: UIViewController {
                 }
             }
         }
+    }
+}
+
+// MARK: Extension for configuring UI.
+extension LoginViewController{
+    private func enableLoginButton(_ enabled: Bool){
+        self.loginBtn.isEnabled = enabled
+        self.loginBtn.alpha = enabled ? 1.0 : 0.5
+    }
+}
+
+// MARK: Extension for UITextFieldDelegate
+extension LoginViewController : UITextFieldDelegate{
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        let txtFieldText = (textField.text ?? "") as NSString
+        let textAfterUpdate = txtFieldText.replacingCharacters(in: range, with: string)
+
+        // Determine whether both textFields have text.
+        let shouldEnableLoginBtn = textAfterUpdate.lengthOfBytes(using: .utf8) != 0 &&
+                                    nonFirstResponderTextField().text!.lengthOfBytes(using: .utf8) != 0
+
+        self.enableLoginButton(shouldEnableLoginBtn)
+
+        return true
+    }
+
+    private func nonFirstResponderTextField() -> UITextField{
+        return self.emailTextField.isFirstResponder ? self.passwordTextField : self.emailTextField
+    }
+
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if textField == self.emailTextField {
+            self.passwordTextField.becomeFirstResponder()
+            return false
+        }
+        else if textField == self.passwordTextField{
+            self.login(self)
+            return false
+        }
+
+        return true
     }
 }
 
