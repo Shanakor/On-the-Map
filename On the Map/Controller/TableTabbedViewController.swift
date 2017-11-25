@@ -16,10 +16,9 @@ class TableTabbedViewController: UITableViewController {
         ParseClient.shared.getStudentLocations(limit: 100, order: nil){
             (result, error) in
 
-            if error != nil{
-                print(error!)
-            }
-            else {
+            ParseClient.shared.getStudentLocation(uniqueKey: result![0].uniqueKey){
+                (result, error) in
+
                 print(result!)
             }
         }

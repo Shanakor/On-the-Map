@@ -35,6 +35,8 @@ extension ParseClient{
     struct QueryKeys{
         static let Limit = "limit"
         static let Order = "order"
+        static let Where = "where"
+        static let UniqueKey = "uniqueKey"
     }
 
     struct QueryValues{
