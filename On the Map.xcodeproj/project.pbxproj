@@ -62,7 +62,7 @@
 				196E198C1FC87D1600B90057 /* Assets.xcassets */,
 				3C9DE194789800E2A0F919D3 /* Storyboards */,
 				3C9DECAEE39F3EFDA3F3B57A /* Controller */,
-				3C9DEA157071993470C5B099 /* Model */,
+				3C9DEA157071993470C5B099 /* Business */,
 				3C9DED46623289574E9A06A3 /* Info.plist */,
 			);
 			path = "On the Map";
@@ -94,12 +94,12 @@
 			path = APIClients;
 			sourceTree = "<group>";
 		};
-		3C9DEA157071993470C5B099 /* Model */ = {
+		3C9DEA157071993470C5B099 /* Business */ = {
 			isa = PBXGroup;
 			children = (
 				3C9DE97EC7B8A60100DBBD79 /* APIClients */,
 			);
-			path = Model;
+			path = Business;
 			sourceTree = "<group>";
 		};
 		3C9DECAEE39F3EFDA3F3B57A /* Controller */ = {
