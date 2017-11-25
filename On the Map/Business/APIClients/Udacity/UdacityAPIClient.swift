@@ -18,7 +18,7 @@ class UdacityAPIClient {
     // MARK: Authentication
 
     public func authenticate(username: String, password: String, completionHandler: @escaping (Bool, UdacityAPIError?) -> Void = {_, _ in }){
-        let request = authenticationRequest(username: username, password: password)
+        let request = createAuthenticationRequest(username: username, password: password)
 
         let task = URLSession.shared.dataTask(with: request) {
             data, response, error in
@@ -86,8 +86,8 @@ class UdacityAPIClient {
         completionHandler(true, nil)
     }
 
-    private func authenticationRequest(username: String, password: String) -> URLRequest {
-        var request = URLRequest(url: sessionURL())
+    private func createAuthenticationRequest(username: String, password: String) -> URLRequest {
+        var request = URLRequest(url: createSessionURL())
         request.httpMethod = "POST"
         request.addValue(HeaderValues.Accept, forHTTPHeaderField: HeaderKeys.Accept)
         request.addValue(HeaderValues.ContentType, forHTTPHeaderField: HeaderKeys.ContentType)
@@ -96,7 +96,7 @@ class UdacityAPIClient {
         return request
     }
 
-    private func sessionURL() -> URL{
+    private func createSessionURL() -> URL{
         var urlComponents = URLComponents()
         urlComponents.scheme = Constants.APIScheme
         urlComponents.host = Constants.APIHost
