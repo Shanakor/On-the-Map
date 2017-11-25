@@ -25,6 +25,7 @@ class LoginViewController: UIViewController {
 
     // MARK: IBOutlets
     
+    @IBOutlet weak var contentScrollView: UIScrollView!
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var loginBtn: UIButton!
@@ -113,20 +114,28 @@ extension LoginViewController{
     // MARK: Keyboard behaviour
 
     private func addKeyboardObservers(){
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidShow), name: .UIKeyboardDidShow, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidHide), name: .UIKeyboardDidHide, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: .UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: .UIKeyboardWillHide, object: nil)
     }
 
     private func removeKeyboardObservers(){
         NotificationCenter.default.removeObserver(self)
     }
 
-    @objc private func keyboardDidShow(_ notification: NSNotification){
+    @objc private func keyboardWillShow(_ notification: NSNotification){
 
+        // Reveal view if it is obscured by the keyboard.
+        let keyboardFrame = notification.userInfo![UIKeyboardFrameEndUserInfoKey] as! CGRect
+        let keyboardHeight = keyboardFrame.size.height
+
+        let scrollViewInsets = UIEdgeInsets(top: 0, left: 0, bottom: keyboardHeight + 10, right: 0)
+        contentScrollView.contentInset = scrollViewInsets
+        contentScrollView.scrollIndicatorInsets = scrollViewInsets
     }
 
-    @objc private func keyboardDidHide(_ notification: NSNotification){
-
+    @objc private func keyboardWillHide(_ notification: NSNotification){
+        contentScrollView.contentInset = UIEdgeInsets.zero
+        contentScrollView.scrollIndicatorInsets = UIEdgeInsets.zero
     }
 }
 

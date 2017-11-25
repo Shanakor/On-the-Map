@@ -111,6 +111,10 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
+                        <outlet property="contentScrollView" destination="kq2-2f-Mor" id="Qwx-8E-Llp"/>
+                        <outlet property="emailTextField" destination="HlT-7K-Pci" id="3A6-rn-Lr5"/>
+                        <outlet property="loginBtn" destination="NCm-oL-4Q0" id="I0h-qg-RGS"/>
+                        <outlet property="passwordTextField" destination="Tqv-t8-5fS" id="ti1-yw-3DR"/>
                         <segue destination="94Z-zK-sGq" kind="show" identifier="ShowMainScene" id="fIi-Ds-znk"/>
                     </connections>
                 </viewController>
