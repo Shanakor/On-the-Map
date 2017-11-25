@@ -28,7 +28,9 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var loginBtn: UIButton!
-    
+
+    // MARK: Lifecycle
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -41,7 +43,14 @@ class LoginViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
+        self.addKeyboardObservers()
         self.emailTextField.becomeFirstResponder()
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+
+        self.removeKeyboardObservers()
     }
 
     // MARK: IBActions
@@ -93,9 +102,31 @@ class LoginViewController: UIViewController {
 
 // MARK: Extension for configuring UI.
 extension LoginViewController{
+
+    // MARK: Basic UI Configuration
+
     private func enableLoginButton(_ enabled: Bool){
         self.loginBtn.isEnabled = enabled
         self.loginBtn.alpha = enabled ? 1.0 : 0.5
+    }
+
+    // MARK: Keyboard behaviour
+
+    private func addKeyboardObservers(){
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidShow), name: .UIKeyboardDidShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidHide), name: .UIKeyboardDidHide, object: nil)
+    }
+
+    private func removeKeyboardObservers(){
+        NotificationCenter.default.removeObserver(self)
+    }
+
+    @objc private func keyboardDidShow(_ notification: NSNotification){
+
+    }
+
+    @objc private func keyboardDidHide(_ notification: NSNotification){
+
     }
 }
 
