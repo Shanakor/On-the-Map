@@ -83,8 +83,9 @@ struct StudentLocation {
                 let studentLocation = try StudentLocation(dictionary: dict)
                 studentLocations.append(studentLocation)
             }
-            catch ParseClient.ParseAPIError.parseError(let description){
-                throw ParseClient.ParseAPIError.parseError(description: "Following error happened at position \(i) of \(dictionaryArray)\n\(description)")
+            catch{
+                let apiError = error as! ParseClient.ParseAPIError
+                throw ParseClient.ParseAPIError.parseError(description: "Following error happened at position \(i) of \(dictionaryArray)\n\(apiError.description)")
             }
 
             i += 1
