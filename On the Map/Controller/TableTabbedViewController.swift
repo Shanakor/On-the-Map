@@ -13,11 +13,16 @@ class TableTabbedViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
+        ParseClient.shared.getStudentLocations(limit: 100, order: nil){
+            (result, error) in
 
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+            if error != nil{
+                print(error!)
+            }
+            else {
+                print(result!)
+            }
+        }
     }
 
     override func didReceiveMemoryWarning() {

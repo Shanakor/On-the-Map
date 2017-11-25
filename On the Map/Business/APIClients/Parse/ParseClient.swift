@@ -19,7 +19,7 @@ class ParseClient {
             return
         }
 
-        let request = URLRequest(url: URL)
+        let request = parseAPIRequest(URL: URL)
 
         let task = URLSession.shared.dataTask(with: request) {
             data, response, error in
@@ -49,6 +49,14 @@ class ParseClient {
         task.resume()
     }
 
+    private func parseAPIRequest(URL: URL) -> URLRequest {
+        var request = URLRequest(url: URL)
+        request.addValue(HeaderValues.ApplicationId, forHTTPHeaderField: HeaderKeys.ApplicationId)
+        request.addValue(HeaderValues.RestAPIKey, forHTTPHeaderField: HeaderKeys.RestAPIKey)
+
+        return request
+    }
+
     private func convertDataWithCompletionHandler(_ data: Data, completionHandler: @escaping ([String: AnyObject]?, ParseAPIError?) -> Void) {
 
         let parsedResult: [String: AnyObject]!
@@ -72,10 +80,10 @@ class ParseClient {
 
         // Construct the query.
         if let methodParameters = methodParameters{
-            let queryItems = [URLQueryItem]()
+            var queryItems = [URLQueryItem]()
 
             for (key, value) in methodParameters{
-                urlComponents.queryItems!.append(URLQueryItem(name: key, value: value))
+                queryItems.append(URLQueryItem(name: key, value: value))
             }
 
             urlComponents.queryItems = queryItems

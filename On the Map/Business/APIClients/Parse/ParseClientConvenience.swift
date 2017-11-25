@@ -31,14 +31,8 @@ extension ParseClient{
                 return
             }
 
-            do{
-                let studentLocations = try StudentLocation.studentLocations(from: resultArray)
-                completionHandler(studentLocations, nil)
-            }
-            catch{
-                let apiError = error as! ParseAPIError
-                completionHandler(nil, ParseAPIError.parseError(description: apiError.description))
-            }
+            let studentLocations = StudentLocation.studentLocations(from: resultArray)
+            completionHandler(studentLocations, nil)
         }
     }
 }

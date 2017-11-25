@@ -8,7 +8,7 @@ import Foundation
 struct StudentLocation {
 
     // MARK: Properties.
-    private(set) var createdAt: Date
+//    private(set) var createdAt: Date
     private(set) var firstName: String
     private(set) var lastName : String
     private(set) var latitude: Double
@@ -17,13 +17,18 @@ struct StudentLocation {
     private(set) var mediaURL: String
     private(set) var objectID: String
     private(set) var uniqueKey: Int
-    private(set) var updatedAt: Date
+//    private(set) var updatedAt: Date
+
+    private var dateFormatter: DateFormatter
 
     init(dictionary: [String: AnyObject]) throws{
+        dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: "en_US")
 
-        guard let createdAt = dictionary[ParseClient.JSONResponseKeys.CreatedAt] as? Date else{
-            throw ParseClient.ParseAPIError.parseError(description: "Can not find key '\(ParseClient.JSONResponseKeys.CreatedAt)' in \(dictionary)")
-        }
+//        guard let createdAtString = dictionary[ParseClient.JSONResponseKeys.CreatedAt] as? String,
+//                let createdAt = dateFormatter.date(from: createdAtString) else{
+//            throw ParseClient.ParseAPIError.parseError(description: "Can not find key '\(ParseClient.JSONResponseKeys.CreatedAt)' in \(dictionary)")
+//        }
 
         guard let firstName = dictionary[ParseClient.JSONResponseKeys.FirstName] as? String else{
             throw ParseClient.ParseAPIError.parseError(description: "Can not find key '\(ParseClient.JSONResponseKeys.FirstName)' in \(dictionary)")
@@ -50,18 +55,20 @@ struct StudentLocation {
         }
 
         guard let objectID = dictionary[ParseClient.JSONResponseKeys.ObjectID] as? String else{
-            throw ParseClient.ParseAPIError.parseError(description: "Can not find key '\(ParseClient.JSONResponseKeys.CreatedAt)' in \(dictionary)")
+            throw ParseClient.ParseAPIError.parseError(description: "Can not find key '\(ParseClient.JSONResponseKeys.ObjectID)' in \(dictionary)")
         }
 
-        guard let uniqueKey = dictionary[ParseClient.JSONResponseKeys.UniqueKey] as? Int else{
+        guard let uniqueKeyString = dictionary[ParseClient.JSONResponseKeys.UniqueKey] as? String,
+              let uniqueKey = Int(uniqueKeyString) else{
             throw ParseClient.ParseAPIError.parseError(description: "Can not find key '\(ParseClient.JSONResponseKeys.UniqueKey)' in \(dictionary)")
         }
 
-        guard let updatedAt = dictionary[ParseClient.JSONResponseKeys.UpdatedAt] as? Date else{
-            throw ParseClient.ParseAPIError.parseError(description: "Can not find key '\(ParseClient.JSONResponseKeys.UpdatedAt)' in \(dictionary)")
-        }
+//        guard let updatedAtString = dictionary[ParseClient.JSONResponseKeys.UpdatedAt] as? String,
+//                let updatedAt = dateFormatter.date(from: updatedAtString) else{
+//            throw ParseClient.ParseAPIError.parseError(description: "Can not find key '\(ParseClient.JSONResponseKeys.UpdatedAt)' in \(dictionary)")
+//        }
 
-        self.createdAt = createdAt
+//        self.createdAt = createdAt
         self.firstName = firstName
         self.lastName = lastName
         self.latitude = latitude
@@ -70,11 +77,12 @@ struct StudentLocation {
         self.mediaURL = mediaURL
         self.objectID = objectID
         self.uniqueKey = uniqueKey
-        self.updatedAt = updatedAt
+//        self.updatedAt = updatedAt
     }
 
-    static func studentLocations(from dictionaryArray: [[String: AnyObject]]) throws -> [StudentLocation]{
+    static func studentLocations(from dictionaryArray: [[String: AnyObject]]) -> [StudentLocation]{
         var studentLocations = [StudentLocation]()
+        var errorLog = [Int: ParseClient.ParseAPIError]()
 
         var i = 0
         for dict in dictionaryArray{
@@ -85,10 +93,15 @@ struct StudentLocation {
             }
             catch{
                 let apiError = error as! ParseClient.ParseAPIError
-                throw ParseClient.ParseAPIError.parseError(description: "Following error happened at position \(i) of \(dictionaryArray)\n\(apiError.description)")
+                errorLog[i] = apiError
             }
 
             i += 1
+        }
+
+        if errorLog.count > 0 {
+            print("Parse error log (index: errorDescription):")
+            print("\t \(errorLog)")
         }
 
         return studentLocations
