@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		195701AD1FC9B46300C216F1 /* TableTabbedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 195701AC1FC9B46300C216F1 /* TableTabbedViewController.swift */; };
+		195701AF1FC9DCDA00C216F1 /* MapTabbedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 195701AE1FC9DCDA00C216F1 /* MapTabbedViewController.swift */; };
+		195701B21FC9E62700C216F1 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 195701B11FC9E61000C216F1 /* MapKit.framework */; };
 		196E19861FC87D1600B90057 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 196E19851FC87D1600B90057 /* AppDelegate.swift */; };
 		196E198D1FC87D1600B90057 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 196E198C1FC87D1600B90057 /* Assets.xcassets */; };
 		3C9DE341616A4E50FE3A8388 /* ParseAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C9DE87A748AFC8647B20417 /* ParseAPIClient.swift */; };
@@ -23,6 +25,8 @@
 
 /* Begin PBXFileReference section */
 		195701AC1FC9B46300C216F1 /* TableTabbedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableTabbedViewController.swift; sourceTree = "<group>"; };
+		195701AE1FC9DCDA00C216F1 /* MapTabbedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapTabbedViewController.swift; sourceTree = "<group>"; };
+		195701B11FC9E61000C216F1 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		196E19821FC87D1600B90057 /* On the Map.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "On the Map.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		196E19851FC87D1600B90057 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		196E198C1FC87D1600B90057 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -43,17 +47,27 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				195701B21FC9E62700C216F1 /* MapKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		195701B01FC9E60F00C216F1 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				195701B11FC9E61000C216F1 /* MapKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		196E19791FC87D1600B90057 = {
 			isa = PBXGroup;
 			children = (
 				196E19841FC87D1600B90057 /* On the Map */,
 				196E19831FC87D1600B90057 /* Products */,
+				195701B01FC9E60F00C216F1 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -137,6 +151,7 @@
 			children = (
 				3C9DE55A98323D073B3D4136 /* LoginViewController.swift */,
 				195701AC1FC9B46300C216F1 /* TableTabbedViewController.swift */,
+				195701AE1FC9DCDA00C216F1 /* MapTabbedViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -218,6 +233,7 @@
 				3C9DE9EBDD824D8833666A78 /* UdacityAPIClient.swift in Sources */,
 				3C9DEB26FDCFA2EEFE94AF40 /* UdacityAPIConstants.swift in Sources */,
 				3C9DE341616A4E50FE3A8388 /* ParseAPIClient.swift in Sources */,
+				195701AF1FC9DCDA00C216F1 /* MapTabbedViewController.swift in Sources */,
 				3C9DE5488847E36885BF03A7 /* ParseAPIConstants.swift in Sources */,
 				3C9DE933F234B73A8FC06AE9 /* StudentLocation.swift in Sources */,
 				195701AD1FC9B46300C216F1 /* TableTabbedViewController.swift in Sources */,

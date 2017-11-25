@@ -134,11 +134,23 @@
         <!--On the Map-->
         <scene sceneID="7Tj-C3-ee5">
             <objects>
-                <viewController id="Wlg-VZ-w5S" sceneMemberID="viewController">
+                <viewController id="Wlg-VZ-w5S" customClass="MapTabbedViewController" customModule="On_the_Map" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="INi-8g-QBJ">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4c2-gE-A1c">
+                                <rect key="frame" x="0.0" y="64" width="375" height="554"/>
+                            </mapView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="4c2-gE-A1c" firstAttribute="leading" secondItem="7dz-ml-dwc" secondAttribute="leading" id="8UT-pR-gzl"/>
+                            <constraint firstItem="7dz-ml-dwc" firstAttribute="bottom" secondItem="4c2-gE-A1c" secondAttribute="bottom" id="PJg-O3-9QI"/>
+                            <constraint firstItem="4c2-gE-A1c" firstAttribute="height" secondItem="7dz-ml-dwc" secondAttribute="height" id="g5x-bK-qU0"/>
+                            <constraint firstItem="4c2-gE-A1c" firstAttribute="top" secondItem="7dz-ml-dwc" secondAttribute="top" id="j3j-Mh-Umd"/>
+                            <constraint firstItem="7dz-ml-dwc" firstAttribute="trailing" secondItem="4c2-gE-A1c" secondAttribute="trailing" id="jD3-ol-ujs"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="7dz-ml-dwc"/>
                     </view>
                     <navigationItem key="navigationItem" title="On the Map" id="WMb-FX-gpf"/>
