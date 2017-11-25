@@ -18,17 +18,19 @@ extension UdacityClient{
         static let NewSession = "/session"
     }
 
-    struct Header{
-
-        struct Keys {
-            static let Accept = "Accept"
-            static let ContentType = "Content-Type"
-        }
+    struct HeaderKeys{
+        static let Accept = "Accept"
+        static let ContentType = "Content-Type"
 
         struct Values{
             static let Accept = "application/json"
             static let ContentType = "application/json"
         }
+    }
+
+    struct HeaderValues{
+        static let Accept = "application/json"
+        static let ContentType = "application/json"
     }
 
     struct JSONBodyKeys {

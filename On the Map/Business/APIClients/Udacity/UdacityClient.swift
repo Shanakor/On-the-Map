@@ -89,8 +89,8 @@ class UdacityClient {
     private func authenticationRequest(username: String, password: String) -> URLRequest {
         var request = URLRequest(url: sessionURL())
         request.httpMethod = "POST"
-        request.addValue(Header.Values.Accept, forHTTPHeaderField: Header.Keys.Accept)
-        request.addValue(Header.Values.ContentType, forHTTPHeaderField: Header.Keys.ContentType)
+        request.addValue(HeaderValues.Accept, forHTTPHeaderField: HeaderKeys.Accept)
+        request.addValue(HeaderValues.ContentType, forHTTPHeaderField: HeaderKeys.ContentType)
         request.httpBody = "{\"\(JSONBodyKeys.Udacity)\": {\"\(JSONBodyKeys.Username)\": \"\(username)\", \"\(JSONBodyKeys.password)\": \"\(password)\"}}"
                             .data(using: .utf8)
         return request
