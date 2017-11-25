@@ -5,11 +5,11 @@
 
 import Foundation
 
-class ParseClient {
+class ParseAPIClient {
     // MARK: Properties
 
     // Singleton.
-    static let shared = ParseClient()
+    static let shared = ParseAPIClient()
 
     // MARK: Request methods.
 

@@ -5,12 +5,12 @@
 
 import Foundation
 
-class UdacityClient {
+class UdacityAPIClient {
 
     // MARK: Properties
 
     // Singleton.
-    static let shared = UdacityClient()
+    static let shared = UdacityAPIClient()
 
     private(set) var sessionID: String?
     private(set) var accountKey: String?

@@ -13,10 +13,10 @@ class TableTabbedViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        ParseClient.shared.getStudentLocations(limit: 100, order: nil){
+        ParseAPIClient.shared.getStudentLocations(limit: 100, order: nil){
             (result, error) in
 
-            ParseClient.shared.getStudentLocation(uniqueKey: result![0].uniqueKey){
+            ParseAPIClient.shared.getStudentLocation(uniqueKey: result![0].uniqueKey){
                 (result, error) in
 
                 print(result!)

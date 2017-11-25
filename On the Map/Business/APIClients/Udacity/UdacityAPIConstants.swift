@@ -5,7 +5,7 @@
 
 import Foundation
 
-extension UdacityClient{
+extension UdacityAPIClient {
     struct Constants{
         static let APIScheme = "https"
         static let APIHost = "www.udacity.com"

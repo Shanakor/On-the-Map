@@ -5,7 +5,7 @@
 
 import Foundation
 
-extension ParseClient{
+extension ParseAPIClient {
     func getStudentLocations(limit: Int, order: String?, completionHandler: @escaping ([StudentLocation]?, ParseAPIError?) -> Void){
 
         // Method parameters.

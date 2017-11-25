@@ -5,7 +5,7 @@
 
 import Foundation
 
-extension ParseClient{
+extension ParseAPIClient {
     struct Constants{
         static let APIScheme = "https"
         static let APIHost = "parse.udacity.com"

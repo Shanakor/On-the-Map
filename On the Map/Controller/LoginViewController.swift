@@ -63,7 +63,7 @@ class LoginViewController: UIViewController {
         let username = emailTextField.text!
         let password = passwordTextField.text!
 
-        UdacityClient.shared.authenticate(username: username, password: password){
+        UdacityAPIClient.shared.authenticate(username: username, password: password){
             (success, error) in
 
             DispatchQueue.main.async {
@@ -85,7 +85,7 @@ class LoginViewController: UIViewController {
         }
     }
 
-    private func presentAlertDialog(_ error: UdacityClient.UdacityAPIError) {
+    private func presentAlertDialog(_ error: UdacityAPIClient.UdacityAPIError) {
         switch(error){
             case .connectionError:
                 self.presentAlertDialog(title: AlertDialogText.connectionErrorTitle, message: AlertDialogText.connectionErrorMessage)
@@ -104,7 +104,7 @@ class LoginViewController: UIViewController {
     }
 
     @IBAction func openSignUpPageInBrowser(_ sender: Any) {
-        UIApplication.shared.open(URL(string: UdacityClient.Constants.SignUpURL)!, options: [:], completionHandler: nil)
+        UIApplication.shared.open(URL(string: UdacityAPIClient.Constants.SignUpURL)!, options: [:], completionHandler: nil)
     }
 }
 
