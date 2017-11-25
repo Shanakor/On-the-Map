@@ -26,8 +26,8 @@ extension ParseAPIClient {
                 return
             }
 
-            guard let resultArray = result![JSONResponseKeys.Results] as? [[String: AnyObject]] else{
-                completionHandler(nil, ParseAPIError.parseError(description: "Cannot find key '\(JSONResponseKeys.Results)' in \(result!)"))
+            guard let resultArray = result![JSONKeys.Results] as? [[String: AnyObject]] else{
+                completionHandler(nil, ParseAPIError.parseError(description: "Cannot find key '\(JSONKeys.Results)' in \(result!)"))
                 return
             }
 
@@ -49,8 +49,8 @@ extension ParseAPIClient {
                 return
             }
 
-            guard let resultArray = result![JSONResponseKeys.Results] as? [[String: AnyObject]] else{
-                completionHandler(nil, ParseAPIError.parseError(description: "Cannot find key '\(JSONResponseKeys.Results)' in \(result!)"))
+            guard let resultArray = result![JSONKeys.Results] as? [[String: AnyObject]] else{
+                completionHandler(nil, ParseAPIError.parseError(description: "Cannot find key '\(JSONKeys.Results)' in \(result!)"))
                 return
             }
 
@@ -62,6 +62,19 @@ extension ParseAPIClient {
                 let apiError = error as! ParseAPIError
                 completionHandler(nil, apiError)
             }
+        }
+    }
+
+    func postStudentLocation(studentLocation: StudentLocation, completionHandler: @escaping (Bool?, ParseAPIError?) -> Void){
+        taskForPOSTMethod(method: Methods.GetStudents, methodParameters: nil, studentLocation: studentLocation){
+            (result, error) in
+
+            guard error == nil else{
+                completionHandler(false, error)
+                return
+            }
+
+            completionHandler(true, nil)
         }
     }
 }

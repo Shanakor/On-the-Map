@@ -43,9 +43,7 @@ extension ParseAPIClient {
         static let Limit = 100
     }
 
-    struct JSONBodyKeys {}
-
-    struct JSONResponseKeys {
+    struct JSONKeys {
         static let Results = "results"
         static let CreatedAt = "createdAt"
         static let FirstName = "firstName"

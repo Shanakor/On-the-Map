@@ -19,7 +19,16 @@ class TableTabbedViewController: UITableViewController {
             ParseAPIClient.shared.getStudentLocation(uniqueKey: result![0].uniqueKey){
                 (result, error) in
 
-                print(result!)
+                ParseAPIClient.shared.postStudentLocation(studentLocation: result!){
+                    (success, error) in
+
+                    if success!{
+                        print("Successful!")
+                    }
+                    else {
+                        print(error!)
+                    }
+                }
             }
         }
     }
