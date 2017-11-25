@@ -8,8 +8,7 @@ import Foundation
 extension ParseClient{
     struct Constants{
         static let APIScheme = "https"
-        static let APIHost = "udacity.com"
-        static let APISubDomain = "parse"
+        static let APIHost = "parse.udacity.com"
         static let APIPath = "/parse/classes"
     }
 
@@ -55,20 +54,23 @@ extension ParseClient{
         static let UpdatedAt = "updatedAt"
     }
 
-    enum ParseAPIError: CustomStringConvertible{
+    enum ParseAPIError: CustomStringConvertible, Error{
+        case initializationError(description: String)
         case connectionError(description: String)
         case parseError(description: String)
         case serverError(description: String)
 
         var description: String {
             switch self {
-            case .connectionError(let description):
-                return "Connection failure: \(description)"
-            case .parseError(let description):
-                return "Parse failure: \(description)"
-            case .serverError(let description):
-                return "Server returned error: \(description)"
-            }
+                case .initializationError(let description):
+                    return "Initialisation error: \(description)"
+                case .connectionError(let description):
+                    return "Connection failure: \(description)"
+                case .parseError(let description):
+                    return "Parse failure: \(description)"
+                case .serverError(let description):
+                    return "Server returned error: \(description)"
+                }
         }
     }
 }
