@@ -16,7 +16,7 @@ struct StudentLocation {
     private(set) var mapString: String
     private(set) var mediaURL: String
     private(set) var objectID: String
-    private(set) var uniqueKey: Int
+    private(set) var uniqueKey: String
 //    private(set) var updatedAt: Date
 
     private var dateFormatter: DateFormatter
@@ -58,8 +58,7 @@ struct StudentLocation {
             throw ParseClient.ParseAPIError.parseError(description: "Can not find key '\(ParseClient.JSONResponseKeys.ObjectID)' in \(dictionary)")
         }
 
-        guard let uniqueKeyString = dictionary[ParseClient.JSONResponseKeys.UniqueKey] as? String,
-              let uniqueKey = Int(uniqueKeyString) else{
+        guard let uniqueKey = dictionary[ParseClient.JSONResponseKeys.UniqueKey] as? String else{
             throw ParseClient.ParseAPIError.parseError(description: "Can not find key '\(ParseClient.JSONResponseKeys.UniqueKey)' in \(dictionary)")
         }
 
@@ -100,7 +99,7 @@ struct StudentLocation {
         }
 
         if errorLog.count > 0 {
-            print("Parse error log (index: errorDescription):")
+            print("Parse error log \(errorLog.count) entries. (index: errorDescription):")
             print("\t \(errorLog)")
         }
 
