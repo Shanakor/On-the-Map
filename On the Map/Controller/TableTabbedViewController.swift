@@ -23,7 +23,18 @@ class TableTabbedViewController: UITableViewController {
                     (success, error) in
 
                     if success!{
-                        print("Successful!")
+                        print("Successful POST!")
+                    }
+                    else {
+                        print(error!)
+                    }
+                }
+
+                ParseAPIClient.shared.putStudentLocation(studentLocation: result!){
+                    (success, error) in
+
+                    if success!{
+                        print("Successful PUT!")
                     }
                     else {
                         print(error!)

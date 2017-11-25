@@ -77,4 +77,18 @@ extension ParseAPIClient {
             completionHandler(true, nil)
         }
     }
+
+    func putStudentLocation(studentLocation: StudentLocation, completionHandler: @escaping (Bool?, ParseAPIError?) -> Void){
+
+        taskForPUTMethod(method: Methods.GetStudents, methodParameters: nil, studentLocation: studentLocation){
+            (result, error) in
+
+            guard error == nil else{
+                completionHandler(false, error)
+                return
+            }
+
+            completionHandler(true, nil)
+        }
+    }
 }

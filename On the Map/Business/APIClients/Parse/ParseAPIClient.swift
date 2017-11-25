@@ -69,6 +69,12 @@ class ParseAPIClient {
                 createParseAPIRequest: createParseAPIPOSTRequest, completionHandler: completionHandlerForPOST)
     }
 
+    public func taskForPUTMethod(method: String?, methodParameters: [String: String]?, studentLocation: StudentLocation, completionHandlerForPUT: @escaping ([String: AnyObject]?, ParseAPIError?) -> Void = { _, _ in }){
+
+        taskForHTTPMethod(method: method ?? "" + "/\(studentLocation.objectID)", methodParameters: methodParameters, jsonBody: studentLocation.toJSONData(),
+                createParseAPIRequest: createParseAPIPOSTRequest, completionHandler: completionHandlerForPUT)
+    }
+
     private func createParseAPIGETRequest(URL: URL) -> URLRequest {
         var request = URLRequest(url: URL)
         request.addValue(HeaderValues.ApplicationId, forHTTPHeaderField: HeaderKeys.ApplicationId)
@@ -80,6 +86,16 @@ class ParseAPIClient {
     private func createParseAPIPOSTRequest(URL: URL, jsonBody: Data?) -> URLRequest {
         var request = createParseAPIGETRequest(URL: URL)
         request.httpMethod = "POST"
+        request.addValue(HeaderValues.ContentType, forHTTPHeaderField: HeaderKeys.ContentType)
+
+        request.httpBody = jsonBody!
+
+        return request
+    }
+
+    private func createParseAPIPutTRequest(URL: URL, jsonBody: Data?) -> URLRequest {
+        var request = createParseAPIGETRequest(URL: URL)
+        request.httpMethod = "PUT"
         request.addValue(HeaderValues.ContentType, forHTTPHeaderField: HeaderKeys.ContentType)
 
         request.httpBody = jsonBody!
