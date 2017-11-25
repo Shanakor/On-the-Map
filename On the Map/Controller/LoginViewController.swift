@@ -29,7 +29,8 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var loginBtn: UIButton!
-
+    @IBOutlet weak var loadingIndicator: UIActivityIndicatorView!
+    
     // MARK: Lifecycle
 
     override func viewDidLoad() {
@@ -57,11 +58,17 @@ class LoginViewController: UIViewController {
     // MARK: IBActions
     
     @IBAction func login(_ sender: Any) {
+        configureUILoading(loading: true)
+
         let username = emailTextField.text!
         let password = passwordTextField.text!
 
         UdacityClient.shared.authenticate(username: username, password: password){
             (success, error) in
+
+            DispatchQueue.main.async {
+                self.configureUILoading(loading: false)
+            }
 
             if !success{
                 print(error!)
@@ -109,6 +116,18 @@ extension LoginViewController{
     private func enableLoginButton(_ enabled: Bool){
         self.loginBtn.isEnabled = enabled
         self.loginBtn.alpha = enabled ? 1.0 : 0.5
+    }
+
+    private func configureUILoading(loading: Bool){
+        if loading{
+            loadingIndicator.startAnimating()
+            view.endEditing(true)
+        }
+        else{
+            loadingIndicator.stopAnimating()
+        }
+
+        enableLoginButton(!loading)
     }
 
     // MARK: Keyboard behaviour
