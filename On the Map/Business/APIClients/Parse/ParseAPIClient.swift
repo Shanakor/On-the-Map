@@ -13,77 +13,60 @@ class ParseAPIClient {
 
     // MARK: Request methods.
 
-    public func taskForGETMethod(method: String?, methodParameters: [String: String]?, completionHandlerForGET: @escaping ([String: AnyObject]?, ParseAPIError?) -> Void = { _, _ in }){
+    public func taskForHTTPMethod(method: String?, methodParameters: [String: String]?, jsonBody: Data?,
+                                  createParseAPIRequest: (URL, Data?) -> URLRequest,
+                                  completionHandler: @escaping ([String: AnyObject]?, ParseAPIError?) -> Void = { _, _ in }){
+
         guard let URL = createStudentLocationURL(methodParameters: methodParameters, withPathExtension: method) else{
-            completionHandlerForGET(nil, .initializationError(description: "Cannot form a valid URL with the given parameters!"))
+            completionHandler(nil, .initializationError(description: "Cannot form a valid URL with the given parameters!"))
             return
         }
 
-        let request = createParseAPIGETRequest(URL: URL)
+        let request = createParseAPIRequest(URL, jsonBody)
 
         let task = URLSession.shared.dataTask(with: request) {
             data, response, error in
 
             // GUARD: Did the request fail?
             guard error == nil else {
-                completionHandlerForGET(nil, .connectionError(description: "Request failed. Request: \(request)"))
+                completionHandler(nil, .connectionError(description: "Request failed. Request: \(request)"))
                 return
             }
 
             // GUARD: Did the request return status code OK?
             guard let httpResponse = response as? HTTPURLResponse,
                   httpResponse.statusCode >= 200 || httpResponse.statusCode <= 299 else {
-                completionHandlerForGET(nil, .connectionError(description: "Status code was other than 2XX!"))
+                completionHandler(nil, .connectionError(description: "Status code was other than 2XX!"))
                 return
             }
 
             // GUARD: Did the request return actual data?
             guard let data = data else {
-                completionHandlerForGET(nil, .connectionError(description: "No data was returned!"))
+                completionHandler(nil, .connectionError(description: "No data was returned!"))
                 return
             }
 
-            self.convertDataWithCompletionHandler(data, completionHandler: completionHandlerForGET)
+            self.convertDataWithCompletionHandler(data, completionHandler: completionHandler)
         }
 
         task.resume()
     }
 
+    public func taskForGETMethod(method: String?, methodParameters: [String: String]?, completionHandlerForGET: @escaping ([String: AnyObject]?, ParseAPIError?) -> Void = { _, _ in }){
+
+        let createParseAPIRequest = {(URL: URL, jsonBody: Data?) in
+            self.createParseAPIGETRequest(URL: URL)
+        }
+
+        taskForHTTPMethod(method: method, methodParameters: methodParameters, jsonBody: nil,
+                createParseAPIRequest: createParseAPIRequest,
+                completionHandler: completionHandlerForGET)
+    }
+
     public func taskForPOSTMethod(method: String?, methodParameters: [String: String]?, studentLocation: StudentLocation, completionHandlerForPOST: @escaping ([String: AnyObject]?, ParseAPIError?) -> Void = { _, _ in }){
 
-        guard let URL = createStudentLocationURL(methodParameters: methodParameters, withPathExtension: method) else{
-            completionHandlerForPOST(nil, .initializationError(description: "Cannot form a valid URL with the given parameters!"))
-            return
-        }
-
-        let request = createParseAPIPOSTRequest(URL: URL, studentLocation: studentLocation)
-
-        let task = URLSession.shared.dataTask(with: request) {
-            data, response, error in
-
-            // GUARD: Did the request fail?
-            guard error == nil else {
-                completionHandlerForPOST(nil, .connectionError(description: "Request failed. Request: \(request)"))
-                return
-            }
-
-            // GUARD: Did the request return status code OK?
-            guard let httpResponse = response as? HTTPURLResponse,
-                  httpResponse.statusCode >= 200 || httpResponse.statusCode <= 299 else {
-                completionHandlerForPOST(nil, .connectionError(description: "Status code was other than 2XX!"))
-                return
-            }
-
-            // GUARD: Did the request return actual data?
-            guard let data = data else {
-                completionHandlerForPOST(nil, .connectionError(description: "No data was returned!"))
-                return
-            }
-
-            self.convertDataWithCompletionHandler(data, completionHandler: completionHandlerForPOST)
-        }
-
-        task.resume()
+        taskForHTTPMethod(method: method, methodParameters: methodParameters, jsonBody: studentLocation.toJSONData(),
+                createParseAPIRequest: createParseAPIPOSTRequest, completionHandler: completionHandlerForPOST)
     }
 
     private func createParseAPIGETRequest(URL: URL) -> URLRequest {
@@ -94,14 +77,12 @@ class ParseAPIClient {
         return request
     }
 
-    private func createParseAPIPOSTRequest(URL: URL, studentLocation: StudentLocation) -> URLRequest {
-        var request = URLRequest(url: URL)
+    private func createParseAPIPOSTRequest(URL: URL, jsonBody: Data?) -> URLRequest {
+        var request = createParseAPIGETRequest(URL: URL)
         request.httpMethod = "POST"
-        request.addValue(HeaderValues.ApplicationId, forHTTPHeaderField: HeaderKeys.ApplicationId)
-        request.addValue(HeaderValues.RestAPIKey, forHTTPHeaderField: HeaderKeys.RestAPIKey)
         request.addValue(HeaderValues.ContentType, forHTTPHeaderField: HeaderKeys.ContentType)
 
-        request.httpBody = studentLocation.toJSONData()
+        request.httpBody = jsonBody!
 
         return request
     }
