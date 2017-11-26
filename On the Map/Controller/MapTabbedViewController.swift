@@ -11,15 +11,15 @@ import MapKit
 
 class MapTabbedViewController: BaseTabbedViewController {
 
-    // MARK: IBOutlets
-
-    @IBOutlet weak var mapView: MKMapView!
-
     // MARK: Constants
 
     private struct Identifiers{
-        static let AddLocationSegue = "PresentAddLocationSceneFromMapScene"
+        static let InformationPostingSegue = "ShowInformationPostingViewFromMapView"
     }
+
+    // MARK: IBOutlets
+
+    @IBOutlet weak var mapView: MKMapView!
 
     // MARK: Properties
 
@@ -34,6 +34,8 @@ class MapTabbedViewController: BaseTabbedViewController {
         mapViewDelegate = MapViewDelegate(mapView: mapView)
         mapView.delegate = mapViewDelegate
     }
+
+    // MARK: BaseTabbedViewController members
 
     override func didFinishLoadingStudentLocations(success: Bool, error: ParseAPIClient.APIClientError?) {
         if success {
@@ -60,6 +62,6 @@ class MapTabbedViewController: BaseTabbedViewController {
     // MARK: Navigation
 
     override func segueIdentifierForInformationPostingView() -> String {
-        return Identifiers.AddLocationSegue
+        return Identifiers.InformationPostingSegue
     }
 }

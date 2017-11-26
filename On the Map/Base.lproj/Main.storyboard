@@ -156,7 +156,7 @@
                     <navigationItem key="navigationItem" title="On the Map" id="WMb-FX-gpf"/>
                     <connections>
                         <outlet property="mapView" destination="4c2-gE-A1c" id="zXH-Rh-Imx"/>
-                        <segue destination="8u8-rj-Gsy" kind="presentation" identifier="PresentAddLocationSceneFromMapScene" id="qjl-7U-UU5"/>
+                        <segue destination="8u8-rj-Gsy" kind="presentation" identifier="ShowInformationPostingViewFromMapView" id="qjl-7U-UU5"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0WD-5a-JR6" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -450,6 +450,6 @@
         <image name="logo-u" width="62" height="62"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="mf1-Ro-7w7"/>
+        <segue reference="qjl-7U-UU5"/>
     </inferredMetricsTieBreakers>
 </document>
