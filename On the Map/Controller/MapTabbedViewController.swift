@@ -9,51 +9,32 @@
 import UIKit
 import MapKit
 
-class MapTabbedViewController: UIViewController {
+class MapTabbedViewController: BaseTabbedViewController {
 
     // MARK: IBOutlets
+
     @IBOutlet weak var mapView: MKMapView!
 
     // MARK: Constants
+
     private struct Identifiers{
         static let annotationViewReusableIdentifier = "annotationViewReusableIdentifier"
     }
 
-    // MARK: Properties.
-
-    private var studentLocationRepository: StudentLocationRepository!
-
-    // MARK: Initialization.
+    // MARK: Initialization
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        initStudentLocationRepository()
         mapView.delegate = self
     }
 
-    private func initStudentLocationRepository() {
-        studentLocationRepository = StudentLocationRepository.shared
-
-        if studentLocationRepository.isEmpty(){
-            studentLocationRepository.loadStudentLocations(completionHandler: studentLocationsDidLoad)
+    override func studentLocationsDidLoad(success: Bool, error: ParseAPIClient.ParseAPIError?) {
+        if success {
+            self.refreshAnnotations()
+        } else {
+            presentAlert(title: nil, message: error!.description)
         }
-    }
-
-    private func studentLocationsDidLoad(success: Bool, error: ParseAPIClient.ParseAPIError?){
-        DispatchQueue.main.async {
-            if success {
-                self.refreshAnnotations()
-            } else {
-                self.presentAlert(title: nil, message: error!.description)
-            }
-        }
-    }
-
-    // MARK: Error handling
-    private func presentAlert(title: String?, message: String) {
-        let alertCtrl = UIAlertController(title: title ?? "", message: message, preferredStyle: .alert)
-        self.present(alertCtrl, animated: true)
     }
 }
 
