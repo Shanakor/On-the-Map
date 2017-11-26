@@ -92,7 +92,7 @@ class LoginViewController: UIViewController {
         }
 
         (UIApplication.shared.delegate as! AppDelegate).account = account
-        print(account)
+
         DispatchQueue.main.async {
             self.performSegue(withIdentifier: AppDelegate.Identifiers.Segues.MainScene, sender: nil)
         }

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		192EAECB1FCB217B00751F09 /* InformationPostingDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 192EAECA1FCB217B00751F09 /* InformationPostingDetailViewController.swift */; };
 		195701AF1FC9DCDA00C216F1 /* MapTabbedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 195701AE1FC9DCDA00C216F1 /* MapTabbedViewController.swift */; };
 		195701B21FC9E62700C216F1 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 195701B11FC9E61000C216F1 /* MapKit.framework */; };
 		196E19861FC87D1600B90057 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 196E19851FC87D1600B90057 /* AppDelegate.swift */; };
@@ -29,6 +30,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		192EAECA1FCB217B00751F09 /* InformationPostingDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InformationPostingDetailViewController.swift; sourceTree = "<group>"; };
 		195701AE1FC9DCDA00C216F1 /* MapTabbedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapTabbedViewController.swift; sourceTree = "<group>"; };
 		195701B11FC9E61000C216F1 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		196E19821FC87D1600B90057 /* On the Map.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "On the Map.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -162,6 +164,7 @@
 		3C9DECAEE39F3EFDA3F3B57A /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				192EAECA1FCB217B00751F09 /* InformationPostingDetailViewController.swift */,
 				3C9DE55A98323D073B3D4136 /* LoginViewController.swift */,
 				195701AE1FC9DCDA00C216F1 /* MapTabbedViewController.swift */,
 				198B4B6F1FCADDE800DA8DD9 /* BaseTabbedViewController.swift */,
@@ -246,6 +249,7 @@
 				196E19861FC87D1600B90057 /* AppDelegate.swift in Sources */,
 				3C9DEB1CAA0AD7876A79705B /* LoginViewController.swift in Sources */,
 				3C9DE9EBDD824D8833666A78 /* UdacityAPIClient.swift in Sources */,
+				192EAECB1FCB217B00751F09 /* InformationPostingDetailViewController.swift in Sources */,
 				3C9DEB26FDCFA2EEFE94AF40 /* UdacityAPIConstants.swift in Sources */,
 				198B4B741FCAEC8400DA8DD9 /* InformationPostingViewController.swift in Sources */,
 				3C9DE341616A4E50FE3A8388 /* ParseAPIClient.swift in Sources */,

@@ -339,10 +339,10 @@
             </objects>
             <point key="canvasLocation" x="4360.8000000000002" y="232.53373313343329"/>
         </scene>
-        <!--View Controller-->
+        <!--Information Posting Detail View Controller-->
         <scene sceneID="OnG-Yn-bQI">
             <objects>
-                <viewController id="s6e-On-2A4" sceneMemberID="viewController">
+                <viewController id="s6e-On-2A4" customClass="InformationPostingDetailViewController" customModule="On_the_Map" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="5Pp-Lx-tNq">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

@@ -29,6 +29,10 @@ class InformationPostingViewController: UIViewController {
         static let InformationPostingDetailViewSegue = "ShowInformationPostingDetailScene"
     }
 
+    // MARK: Properties
+
+    private var coordinate: CLLocationCoordinate2D?
+
     // MARK: Lifecycle
 
     override func viewDidLoad() {
@@ -68,6 +72,7 @@ class InformationPostingViewController: UIViewController {
                 self.presentAlertDialog(title: AlertDialogStrings.Title, message: AlertDialogStrings.Message)
             }
             else{
+                self.coordinate = coordinate
                 self.presentInformationPostingDetailView()
             }
         }
@@ -110,7 +115,9 @@ class InformationPostingViewController: UIViewController {
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier! == Identifiers.InformationPostingDetailViewSegue{
-            // TODO: Implement actual preparation.
+            let destCtrl = segue.destination as! InformationPostingDetailViewController
+            destCtrl.coordinate = coordinate
+            destCtrl.url = linkTextField.text!
         }
     }
 }
