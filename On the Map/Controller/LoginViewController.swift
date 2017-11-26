@@ -183,7 +183,10 @@ extension LoginViewController : UITextFieldDelegate{
             return false
         }
         else if textField == self.passwordTextField{
-            self.login(self)
+            if loginBtn.isEnabled {
+                self.login(self)
+            }
+
             return false
         }
 
