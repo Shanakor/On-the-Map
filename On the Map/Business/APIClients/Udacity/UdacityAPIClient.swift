@@ -75,7 +75,7 @@ class UdacityAPIClient: APIClient {
     // MARK: Convenience methods
 
     public func authenticate(username: String, password: String, completionHandler: @escaping (String?, APIClientError?) -> Void = { _, _ in }){
-        let jsonBody = "{\"\(JSONBodyKeys.Udacity)\": {\"\(JSONBodyKeys.Username)\": \"\(username)\", \"\(JSONBodyKeys.password)\": \"\(password)\"}}"
+        let jsonBody = "{\"\(JSONBodyKeys.Udacity)\": {\"\(JSONBodyKeys.Username)\": \"\(username)\", \"\(JSONBodyKeys.Password)\": \"\(password)\"}}"
                         .data(using: .utf8)
 
         taskForPOSTMethod(method: Methods.Session, withPathExtension: nil, methodParameters: nil, jsonBody: jsonBody!){

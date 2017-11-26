@@ -22,11 +22,6 @@ extension UdacityAPIClient {
     struct HeaderKeys{
         static let Accept = "Accept"
         static let ContentType = "Content-Type"
-
-        struct Values{
-            static let Accept = "application/json"
-            static let ContentType = "application/json"
-        }
     }
 
     struct HeaderValues{
@@ -37,7 +32,7 @@ extension UdacityAPIClient {
     struct JSONBodyKeys {
         static let Udacity = "udacity"
         static let Username = "username"
-        static let password = "password"
+        static let Password = "password"
     }
 
     struct JSONResponseKeys {
