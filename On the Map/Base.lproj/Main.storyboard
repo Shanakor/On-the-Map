@@ -240,6 +240,66 @@
             </objects>
             <point key="canvasLocation" x="2308" y="572"/>
         </scene>
+        <!--Add Location-->
+        <scene sceneID="mzG-pa-MH8">
+            <objects>
+                <viewController id="8tP-Wk-B8o" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="aut-DS-g9F">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_world" translatesAutoresizingMaskIntoConstraints="NO" id="Yjt-RR-NS8">
+                                <rect key="frame" x="161.5" y="94" width="52" height="67"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" relation="lessThanOrEqual" constant="156" id="2kT-Lf-GMp"/>
+                                </constraints>
+                            </imageView>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="Ewz-wq-thk" userLabel="Credentials StackView">
+                                <rect key="frame" x="20" y="191" width="335" height="106"/>
+                                <subviews>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Location" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="yBV-aI-NA9">
+                                        <rect key="frame" x="0.0" y="0.0" width="335" height="30"/>
+                                        <nil key="textColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="emailAddress" returnKeyType="next" textContentType="email"/>
+                                    </textField>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Link" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="VSg-kY-BdC">
+                                        <rect key="frame" x="0.0" y="38" width="335" height="30"/>
+                                        <nil key="textColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="go" secureTextEntry="YES" textContentType="password"/>
+                                    </textField>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EhB-wW-iUc">
+                                        <rect key="frame" x="0.0" y="76" width="335" height="30"/>
+                                        <color key="backgroundColor" red="0.0" green="0.58980089430000004" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <state key="normal" title="FIND LOCATION">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="login:" destination="BYZ-38-t0r" eventType="touchUpInside" id="mS4-Ms-nLy"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="Yjt-RR-NS8" firstAttribute="centerX" secondItem="aut-DS-g9F" secondAttribute="centerX" id="VOh-ED-QDE"/>
+                            <constraint firstItem="Ewz-wq-thk" firstAttribute="top" secondItem="Yjt-RR-NS8" secondAttribute="bottom" constant="30" id="agE-bm-qmB"/>
+                            <constraint firstItem="Ewz-wq-thk" firstAttribute="leading" secondItem="IID-oh-GLa" secondAttribute="leading" constant="20" id="eFg-Kh-jUd"/>
+                            <constraint firstItem="IID-oh-GLa" firstAttribute="trailing" secondItem="Ewz-wq-thk" secondAttribute="trailing" constant="20" id="geA-cO-q0y"/>
+                            <constraint firstItem="Yjt-RR-NS8" firstAttribute="top" secondItem="IID-oh-GLa" secondAttribute="top" constant="30" id="xwd-uY-BXs"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="IID-oh-GLa"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Add Location" id="DWx-hs-ZKV">
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="MAu-H5-xl0"/>
+                    </navigationItem>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="8cZ-sh-GSn" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4360.8000000000002" y="232.53373313343329"/>
+        </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="8QI-Dk-MwE">
             <objects>
@@ -278,6 +338,24 @@
             </objects>
             <point key="canvasLocation" x="1438" y="-118"/>
         </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="KaU-cB-T8M">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="8u8-rj-Gsy" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="PV3-qt-Ebi">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="8tP-Wk-B8o" kind="relationship" relationship="rootViewController" id="vV7-B7-Lsh"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Emf-61-gqq" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3497" y="233"/>
+        </scene>
     </scenes>
     <resources>
         <image name="icon_listview-deselected" width="75" height="50"/>
@@ -285,6 +363,7 @@
         <image name="icon_mapview-deselected" width="75" height="50"/>
         <image name="icon_mapview-selected" width="75" height="50"/>
         <image name="icon_pin" width="24" height="24"/>
+        <image name="icon_world" width="52" height="67"/>
         <image name="logo-u" width="62" height="62"/>
     </resources>
 </document>
