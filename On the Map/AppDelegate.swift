@@ -13,6 +13,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
     var account: Account?
+    var studentLocationToOverwrite: StudentLocation?
 
     // MARK: Constants
 

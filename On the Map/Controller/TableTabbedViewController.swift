@@ -35,12 +35,6 @@ class TableTabbedViewController: BaseTabbedViewController {
         tableView.reloadData()
     }
 
-    override func didFinishAddingStudentLocation(_ notification: NSNotification) {
-        let studentLocation = notification.object as! StudentLocation
-        studentLocationRepository.studentLocations.insert(studentLocation, at: 0)
-        tableView.reloadData()
-    }
-
     // MARK: Navigation
 
     override func segueIdentifierAddLocation() -> String {

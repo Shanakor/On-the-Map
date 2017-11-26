@@ -64,17 +64,23 @@ class InformationPostingDetailViewController: UIViewController {
     // MARK: IBActions
 
     @IBAction func uploadStudentLocationAndDismiss(_ sender: Any) {
-        ParseAPIClient.shared.postStudentLocation(studentLocation: studentLocation!){
-            (success, error) in
+        if let studentLocationToOverwrite = (UIApplication.shared.delegate as! AppDelegate).studentLocationToOverwrite{
+            studentLocation!.objectID = studentLocationToOverwrite.objectID
+            ParseAPIClient.shared.putStudentLocation(studentLocation: studentLocation!, completionHandler: didFinishUploadingStudentLocation)
+        }
+        else {
+            ParseAPIClient.shared.postStudentLocation(studentLocation: studentLocation!, completionHandler: didFinishUploadingStudentLocation)
+        }
+    }
 
-            DispatchQueue.main.async {
-                if !success {
-                    print(error!)
-                    self.presentUploadErrorAlertDialog()
-                    return
-                } else {
-                    self.dismiss()
-                }
+    private func didFinishUploadingStudentLocation(_ success: Bool, _ error: APIClient.APIError?){
+        DispatchQueue.main.async {
+            if !success {
+                print(error!)
+                self.presentUploadErrorAlertDialog()
+                return
+            } else {
+                self.dismiss()
             }
         }
     }

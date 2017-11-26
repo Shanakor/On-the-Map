@@ -111,6 +111,11 @@ class ParseAPIClient: APIClient {
                 return
             }
 
+            if resultArray.count == 0{
+                completionHandler(nil, nil)
+                return
+            }
+
             do {
                 let studentLocation = try StudentLocation(dictionary: resultArray[0])
                 completionHandler(studentLocation, nil)
@@ -136,7 +141,6 @@ class ParseAPIClient: APIClient {
     }
 
     func putStudentLocation(studentLocation: StudentLocation, completionHandler: @escaping (Bool, APIError?) -> Void){
-
         taskForPUTMethod(method: Methods.GetStudents + "/\(studentLocation.objectID!)", methodParameters: nil, jsonBody: studentLocation.toJSONData()){
             (result, error) in
 

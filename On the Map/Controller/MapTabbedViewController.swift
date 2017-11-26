@@ -44,6 +44,8 @@ class MapTabbedViewController: BaseTabbedViewController {
     }
 
     override func didFinishAddingStudentLocation(_ notification: NSNotification) {
+        super.didFinishAddingStudentLocation(notification)
+
         let studentLocation = notification.object as! StudentLocation
         let annotation = MKPointAnnotation.fromStudentLocation(studentLocation)
 

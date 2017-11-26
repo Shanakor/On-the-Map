@@ -16,7 +16,7 @@ struct StudentLocation {
     private(set) var longitude: Double
     private(set) var mapString: String
     private(set) var mediaURL: String
-    private(set) var objectID: String?
+    var objectID: String?
     private(set) var uniqueKey: String
 //    private(set) var updatedAt: Date
 

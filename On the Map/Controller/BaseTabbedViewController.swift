@@ -12,6 +12,12 @@ class BaseTabbedViewController: UIViewController {
 
     // MARK: Constants
 
+    struct AlertDialogStrings{
+        static let OverwriteTitle = ""
+        static let OverwriteMessage = "You have already posted a student location. Would you like to overwrite it?"
+        static let OverwritePositiveAction = "Overwrite"
+        static let OverwriteNegativeAction = "Cancel"
+    }
     struct Identifiers{
         static let DidFinishAddingStudentLocationSelector = "didFinishAddingStudentLocation"
     }
@@ -35,7 +41,7 @@ class BaseTabbedViewController: UIViewController {
 
     private func initNavigationBar() {
         self.navigationItem.title = "On the Map"
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(presentAddLocationScene))
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(startAddLocationProcess))
     }
 
     private func initStudentLocationRepository() {
@@ -69,7 +75,7 @@ class BaseTabbedViewController: UIViewController {
     // MARK: AddLocationDelegate members
 
     @objc func didFinishAddingStudentLocation(_ notification: NSNotification) {
-        preconditionFailure("This method has to be implemented")
+        loadStudentLocations()
     }
 
     // MARK: Error handling
@@ -79,13 +85,41 @@ class BaseTabbedViewController: UIViewController {
         self.present(alertCtrl, animated: true)
     }
 
+    func presentOverwriteAlert(){
+        let alertCtrl = UIAlertController(title: AlertDialogStrings.OverwriteTitle, message: AlertDialogStrings.OverwriteMessage, preferredStyle: .alert)
+        alertCtrl.addAction(UIAlertAction(title: AlertDialogStrings.OverwriteNegativeAction, style: .cancel))
+        alertCtrl.addAction(UIAlertAction(title: AlertDialogStrings.OverwritePositiveAction, style: .destructive){
+            alertAction in self.performSegue(withIdentifier: self.segueIdentifierAddLocation(), sender: nil)
+        })
+
+        self.present(alertCtrl, animated: true)
+    }
+
     // MARK: Navigation
 
     func segueIdentifierAddLocation() -> String{
         preconditionFailure("This method has to be implemented")
     }
 
-    @objc func presentAddLocationScene(){
-        performSegue(withIdentifier: segueIdentifierAddLocation(), sender: nil)
+    @objc func startAddLocationProcess(){
+        // Is there already a StudentLocation of this user?
+        let account = (UIApplication.shared.delegate as! AppDelegate).account!
+
+        ParseAPIClient.shared.getStudentLocation(uniqueKey: account.ID){
+            (studentLocation, error) in
+
+            guard error == nil else{
+                print(error!)
+                return
+            }
+
+            guard studentLocation == nil else{
+                (UIApplication.shared.delegate as! AppDelegate).studentLocationToOverwrite = studentLocation
+                self.presentOverwriteAlert()
+                return
+            }
+
+            self.performSegue(withIdentifier: self.segueIdentifierAddLocation(), sender: nil)
+        }
     }
 }
