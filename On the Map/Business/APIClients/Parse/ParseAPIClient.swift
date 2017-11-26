@@ -20,7 +20,8 @@ class ParseAPIClient: APIClient {
         urlComponents.path = Constants.APIPath + (method ?? "") + (pathExtension ?? "")
 
         // Construct the query.
-        if let methodParameters = methodParameters{
+        if let methodParameters = methodParameters,
+           methodParameters.count != 0{
             var queryItems = [URLQueryItem]()
 
             for (key, value) in methodParameters{
@@ -65,7 +66,7 @@ class ParseAPIClient: APIClient {
 
     func getStudentLocations(limit: Int, order: String?, completionHandler: @escaping ([StudentLocation]?, APIClientError?) -> Void){
 
-        // Method parameters.
+        // Construct method parameters.
         var methodParameters: [String: String] = [
             QueryKeys.Limit: String(limit)
         ]
@@ -74,7 +75,7 @@ class ParseAPIClient: APIClient {
             methodParameters[QueryKeys.Order] = order
         }
 
-        // Request.
+        // Make the request.
         taskForGETMethod(method: Methods.GetStudents, withPathExtension: nil, methodParameters: methodParameters){
             (result, error) in
 
@@ -83,21 +84,27 @@ class ParseAPIClient: APIClient {
                 return
             }
 
-            guard let resultArray = result![JSONKeys.Results] as? [[String: AnyObject]] else{
-                completionHandler(nil, APIClientError.parseError(description: "Cannot find key '\(JSONKeys.Results)' in \(result!)"))
-                return
-            }
-
-            let studentLocations = StudentLocation.studentLocations(from: resultArray)
-            completionHandler(studentLocations, nil)
+            self.parseStudentLocationsData(result!, completionHandler: completionHandler)
         }
     }
 
+    private func parseStudentLocationsData(_ parsedResult: [String: AnyObject], completionHandler: @escaping ([StudentLocation]?, APIClientError?) -> Void){
+        guard let resultArray = parsedResult[JSONKeys.Results] as? [[String: AnyObject]] else{
+            completionHandler(nil, APIClientError.parseError(description: "Cannot find key '\(JSONKeys.Results)' in \(parsedResult)"))
+            return
+        }
+
+        let studentLocations = StudentLocation.studentLocations(from: resultArray)
+        completionHandler(studentLocations, nil)
+    }
+
     func getStudentLocation(uniqueKey: String, completionHandler: @escaping (StudentLocation?, APIClientError?) -> Void){
+        // Construct method parameters.
         let methodParameters = [
             QueryKeys.Where: "{\"\(QueryKeys.UniqueKey)\": \"\(uniqueKey)\"}"
         ]
 
+        // Make the request.
         taskForGETMethod(method: Methods.GetStudents, withPathExtension: nil, methodParameters: methodParameters){
             (result, error) in
 
@@ -106,29 +113,31 @@ class ParseAPIClient: APIClient {
                 return
             }
 
-            guard let resultArray = result![JSONKeys.Results] as? [[String: AnyObject]] else{
-                completionHandler(nil, APIClientError.parseError(description: "Cannot find key '\(JSONKeys.Results)' in \(result!)"))
+            self.parseStudentLocation(result!, completionHandler: completionHandler)
+        }
+    }
+
+    private func parseStudentLocation(_ parsedResult: [String: AnyObject], completionHandler: @escaping (StudentLocation?, APIClientError?) -> Void){
+        self.parseStudentLocationsData(parsedResult){
+            (studentLocations, error) in
+
+            guard error == nil else{
+                completionHandler(nil, error)
                 return
             }
 
-            if resultArray.count == 0{
+            if studentLocations!.count == 0{
                 completionHandler(nil, nil)
                 return
             }
 
-            do {
-                let studentLocation = try StudentLocation(dictionary: resultArray[0])
-                completionHandler(studentLocation, nil)
-            }
-            catch{
-                let apiError = error as! APIClientError
-                completionHandler(nil, apiError)
-            }
+            completionHandler(studentLocations![0], nil)
         }
     }
 
     func postStudentLocation(studentLocation: StudentLocation, completionHandler: @escaping (Bool, APIClientError?) -> Void){
-        taskForPOSTMethod(method: Methods.GetStudents, withPathExtension: nil, methodParameters: nil, jsonBody: studentLocation.toJSONData()){
+        taskForPOSTMethod(method: Methods.GetStudents, withPathExtension: nil, methodParameters: nil,
+                jsonBody: studentLocation.toJSONData()){
             (result, error) in
 
             guard error == nil else{
@@ -141,7 +150,8 @@ class ParseAPIClient: APIClient {
     }
 
     func putStudentLocation(studentLocation: StudentLocation, completionHandler: @escaping (Bool, APIClientError?) -> Void){
-        taskForPUTMethod(method: Methods.GetStudents, withPathExtension: "/\(studentLocation.objectID!)", methodParameters: nil, jsonBody: studentLocation.toJSONData()){
+        taskForPUTMethod(method: Methods.GetStudents, withPathExtension: "/\(studentLocation.objectID!)",
+                methodParameters: nil, jsonBody: studentLocation.toJSONData()){
             (result, error) in
 
             guard error == nil else{
