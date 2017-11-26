@@ -10,6 +10,8 @@ extension ParseAPIClient {
         static let APIScheme = "https"
         static let APIHost = "parse.udacity.com"
         static let APIPath = "/parse/classes"
+
+        static let Limit = 100
     }
 
     struct Methods{
@@ -37,10 +39,6 @@ extension ParseAPIClient {
         static let Order = "order"
         static let Where = "where"
         static let UniqueKey = "uniqueKey"
-    }
-
-    struct QueryValues{
-        static let Limit = 100
     }
 
     struct JSONKeys {

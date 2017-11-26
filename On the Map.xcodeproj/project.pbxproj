@@ -18,9 +18,11 @@
 		3C9DE5E5B780C24372BDFFCB /* ParseAPIClientConvenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C9DEA77F337815ED9ECDDD5 /* ParseAPIClientConvenience.swift */; };
 		3C9DE933F234B73A8FC06AE9 /* StudentLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C9DE1A083075577C3A46372 /* StudentLocation.swift */; };
 		3C9DE9EBDD824D8833666A78 /* UdacityAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C9DE55C2AFBA5718D02422E /* UdacityAPIClient.swift */; };
+		3C9DE9F2C45F9BDBBEEB8FB0 /* StudentLocationRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C9DE99720B47499911D69C3 /* StudentLocationRepository.swift */; };
 		3C9DEB1CAA0AD7876A79705B /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C9DE55A98323D073B3D4136 /* LoginViewController.swift */; };
 		3C9DEB26FDCFA2EEFE94AF40 /* UdacityAPIConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C9DE2E5CA3318B9DE88105F /* UdacityAPIConstants.swift */; };
 		3C9DED3CA69D37FCF1D5938A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3C9DE36FEEE11D2CA75F2F2D /* LaunchScreen.storyboard */; };
+		3C9DED552558F574F3DED817 /* MKPointAnnotationConvertExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C9DEFBF78481D6109C013CC /* MKPointAnnotationConvertExtension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,8 +40,10 @@
 		3C9DE86C49E0C80DD8F0FEA2 /* ParseAPIConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParseAPIConstants.swift; sourceTree = "<group>"; };
 		3C9DE87A748AFC8647B20417 /* ParseAPIClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParseAPIClient.swift; sourceTree = "<group>"; };
 		3C9DE964C95651A55925121E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		3C9DE99720B47499911D69C3 /* StudentLocationRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentLocationRepository.swift; sourceTree = "<group>"; };
 		3C9DEA77F337815ED9ECDDD5 /* ParseAPIClientConvenience.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParseAPIClientConvenience.swift; sourceTree = "<group>"; };
 		3C9DED46623289574E9A06A3 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.info; path = Info.plist; sourceTree = "<group>"; };
+		3C9DEFBF78481D6109C013CC /* MKPointAnnotationConvertExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MKPointAnnotationConvertExtension.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,6 +111,7 @@
 			isa = PBXGroup;
 			children = (
 				3C9DE1A083075577C3A46372 /* StudentLocation.swift */,
+				3C9DEFBF78481D6109C013CC /* MKPointAnnotationConvertExtension.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -142,6 +147,7 @@
 			isa = PBXGroup;
 			children = (
 				3C9DE97EC7B8A60100DBBD79 /* APIClients */,
+				3C9DE99720B47499911D69C3 /* StudentLocationRepository.swift */,
 			);
 			path = Business;
 			sourceTree = "<group>";
@@ -238,6 +244,8 @@
 				3C9DE933F234B73A8FC06AE9 /* StudentLocation.swift in Sources */,
 				195701AD1FC9B46300C216F1 /* TableTabbedViewController.swift in Sources */,
 				3C9DE5E5B780C24372BDFFCB /* ParseAPIClientConvenience.swift in Sources */,
+				3C9DE9F2C45F9BDBBEEB8FB0 /* StudentLocationRepository.swift in Sources */,
+				3C9DED552558F574F3DED817 /* MKPointAnnotationConvertExtension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
