@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MapKit
 
 class InformationPostingViewController: UIViewController {
 
@@ -16,6 +17,17 @@ class InformationPostingViewController: UIViewController {
     @IBOutlet weak var locationTextField: UITextField!
     @IBOutlet weak var linkTextField: UITextField!
     @IBOutlet weak var findLocationBtn: UIButton!
+
+    // MARK: Constants
+
+    private struct AlertDialogStrings{
+        static let Title = "Invalid location"
+        static let Message = "We were unable to find the entered location. Please try to be more specific."
+    }
+
+    private struct Identifiers{
+        static let InformationPostingDetailViewSegue = "ShowInformationPostingDetailScene"
+    }
 
     // MARK: Lifecycle
 
@@ -47,6 +59,59 @@ class InformationPostingViewController: UIViewController {
     }
     
     @IBAction func findLocation(_ sender: Any) {
+        let locationString = locationTextField.text!
+
+        geocodeLocationString(locationString){
+            (success, coordinate) in
+
+            if !success{
+                self.presentAlertDialog(title: AlertDialogStrings.Title, message: AlertDialogStrings.Message)
+            }
+            else{
+                self.presentInformationPostingDetailView()
+            }
+        }
+    }
+
+    private func geocodeLocationString(_ locationString: String, completionHandler: @escaping (Bool, CLLocationCoordinate2D?) -> Void){
+        let geocoder = CLGeocoder()
+        
+        geocoder.geocodeAddressString(locationString) { (placemarks, error) in
+            
+            guard error == nil else{
+                completionHandler(false, nil)
+                return
+            }
+            
+            guard let placemarks = placemarks else{
+                completionHandler(false, nil)
+                return
+            }
+            
+            let location = placemarks[0].location!
+            completionHandler(true, location.coordinate)
+        }
+    }
+
+    // MARK: Error handling
+
+    private func presentAlertDialog(title: String, message: String){
+        let alertCtrl = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.alert)
+        alertCtrl.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: nil))
+
+        self.present(alertCtrl, animated: true, completion: nil)
+    }
+
+    // MARK: Navigation
+
+    private func presentInformationPostingDetailView() {
+        self.performSegue(withIdentifier: Identifiers.InformationPostingDetailViewSegue, sender: nil)
+    }
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier! == Identifiers.InformationPostingDetailViewSegue{
+            // TODO: Implement actual preparation.
+        }
     }
 }
 

@@ -332,11 +332,27 @@
                         <outlet property="findLocationBtn" destination="EhB-wW-iUc" id="57r-4d-nR6"/>
                         <outlet property="linkTextField" destination="VSg-kY-BdC" id="c8U-Fv-74e"/>
                         <outlet property="locationTextField" destination="yBV-aI-NA9" id="VxT-OT-3mS"/>
+                        <segue destination="s6e-On-2A4" kind="showDetail" identifier="ShowInformationPostingDetailScene" id="eao-CM-R6s"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8cZ-sh-GSn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="4360.8000000000002" y="232.53373313343329"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="OnG-Yn-bQI">
+            <objects>
+                <viewController id="s6e-On-2A4" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="5Pp-Lx-tNq">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="3cy-eS-tGw"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="7Jt-A4-UGL" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5193" y="233"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="8QI-Dk-MwE">
