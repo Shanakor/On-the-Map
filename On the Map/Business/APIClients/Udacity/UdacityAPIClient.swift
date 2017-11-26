@@ -61,7 +61,7 @@ class UdacityAPIClient: APIClient {
 
     // MARK: Convenience methods
 
-    public func authenticate(username: String, password: String, completionHandler: @escaping (Bool, APIError?) -> Void = {_, _ in }){
+    public func authenticate(username: String, password: String, completionHandler: @escaping (String?, APIError?) -> Void = {_, _ in }){
         let jsonBody = "{\"\(JSONBodyKeys.Udacity)\": {\"\(JSONBodyKeys.Username)\": \"\(username)\", \"\(JSONBodyKeys.password)\": \"\(password)\"}}"
                         .data(using: .utf8)
 
@@ -69,7 +69,7 @@ class UdacityAPIClient: APIClient {
             (result, error) in
 
             guard error == nil else{
-                completionHandler(false, error)
+                completionHandler(nil, error)
                 return
             }
 
@@ -77,30 +77,28 @@ class UdacityAPIClient: APIClient {
         }
     }
 
-    private func convertAuthDataWithCompletionHandler(_ parsedResult: [String: AnyObject], completionHandler: @escaping (Bool, APIError?) -> Void) {
+    private func convertAuthDataWithCompletionHandler(_ parsedResult: [String: AnyObject], completionHandler: @escaping (String?, APIError?) -> Void) {
 
         if let _ = parsedResult[JSONResponseKeys.Status] as? Int{
             guard let errorString = parsedResult[JSONResponseKeys.Error] as? String else{
-                completionHandler(false, .parseError(description: "Unknown error!"))
+                completionHandler(nil, .parseError(description: "Unknown error!"))
                 return
             }
 
-            completionHandler(false, .serverError(description: errorString))
+            completionHandler(nil, .serverError(description: errorString))
             return
         }
 
         guard let accountDictionary = parsedResult[JSONResponseKeys.Account] as? [String: AnyObject] else{
-            completionHandler(false, .parseError(description: "Can not find key '\(JSONResponseKeys.Account)' in \(parsedResult)"))
+            completionHandler(nil, .parseError(description: "Can not find key '\(JSONResponseKeys.Account)' in \(parsedResult)"))
             return
         }
 
         guard let accountKey = accountDictionary[JSONResponseKeys.AccountKey] as? String else{
-            completionHandler(false, .parseError(description: "Can not find key '\(JSONResponseKeys.AccountKey)' in \(accountDictionary)"))
+            completionHandler(nil, .parseError(description: "Can not find key '\(JSONResponseKeys.AccountKey)' in \(accountDictionary)"))
             return
         }
 
-        // TODO: Handle retrieved account key.
-
-        completionHandler(true, nil)
+        completionHandler(accountKey, nil)
     }
 }

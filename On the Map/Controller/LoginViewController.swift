@@ -63,38 +63,45 @@ class LoginViewController: UIViewController {
         let username = emailTextField.text!
         let password = passwordTextField.text!
 
-        UdacityAPIClient.shared.authenticate(username: username, password: password){
-            (success, error) in
+        UdacityAPIClient.shared.authenticate(username: username, password: password, completionHandler: onAuthenticationDidFinish)
+    }
+
+    private func onAuthenticationDidFinish(_ userID: String?, _ error: UdacityAPIClient.APIError?){
+        DispatchQueue.main.async {
+            self.configureUILoading(loading: false)
+        }
+
+        guard error == nil else{
+            print(error!)
 
             DispatchQueue.main.async {
-                self.configureUILoading(loading: false)
+                self.presentAlertDialog(error!)
             }
 
-            if !success{
-                print(error!)
+            return
+        }
 
-                DispatchQueue.main.async {
-                    self.presentAlertDialog(error!)
-                }
-            }
-            else{
-                DispatchQueue.main.async {
-                    self.performSegue(withIdentifier: AppDelegate.Identifiers.Segues.MainScene, sender: nil)
-                }
-            }
+        DispatchQueue.main.async {
+            self.performSegue(withIdentifier: AppDelegate.Identifiers.Segues.MainScene, sender: nil)
         }
     }
 
+    @IBAction func openSignUpPageInBrowser(_ sender: Any) {
+        UIApplication.shared.open(URL(string: UdacityAPIClient.Constants.SignUpURL)!, options: [:], completionHandler: nil)
+    }
+
+    // MARK: Error handling
+
     private func presentAlertDialog(_ error: UdacityAPIClient.APIError) {
         switch(error){
-            case .connectionError:
-                self.presentAlertDialog(title: AlertDialogText.connectionErrorTitle, message: AlertDialogText.connectionErrorMessage)
-            case .parseError:
-                self.presentAlertDialog(title: AlertDialogText.parseErrorTitle, message: AlertDialogText.parseErrorMessage)
-            case .serverError:
-                self.presentAlertDialog(title: AlertDialogText.credentialErrorTitle, message: AlertDialogText.credentialErrorMessage)
-            default:
-                break
+        case .connectionError:
+            self.presentAlertDialog(title: AlertDialogText.connectionErrorTitle, message: AlertDialogText.connectionErrorMessage)
+        case .parseError:
+            self.presentAlertDialog(title: AlertDialogText.parseErrorTitle, message: AlertDialogText.parseErrorMessage)
+        case .serverError:
+            self.presentAlertDialog(title: AlertDialogText.credentialErrorTitle, message: AlertDialogText.credentialErrorMessage)
+        default:
+            break
         }
     }
 
@@ -103,10 +110,6 @@ class LoginViewController: UIViewController {
         alertCtrl.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: nil))
 
         self.present(alertCtrl, animated: true, completion: nil)
-    }
-
-    @IBAction func openSignUpPageInBrowser(_ sender: Any) {
-        UIApplication.shared.open(URL(string: UdacityAPIClient.Constants.SignUpURL)!, options: [:], completionHandler: nil)
     }
 }
 
