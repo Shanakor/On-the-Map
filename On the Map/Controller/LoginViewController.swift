@@ -11,16 +11,17 @@ import UIKit
 class LoginViewController: UIViewController {
 
     // MARK: Constants
-    struct AlertDialogText{
-        static let connectionErrorTitle = "Connection failed"
-        static let connectionErrorMessage = "Please try again or verify that you are connected to the internet."
 
-        static let parseErrorTitle = "Parse failure"
-        static let parseErrorMessage = "We could not process the data that was returned by the server. We are probably looking" +
-                "into it this very moment."
+    struct AlertDialogStrings {
+        static let ConnectionErrorTitle = "Connection failed"
+        static let ConnectionErrorMessage = "Please try again or verify that you are connected to the internet."
 
-        static let credentialErrorTitle = "Unauthorized"
-        static let credentialErrorMessage = "Invalid username or password!"
+        static let ParseErrorTitle = "Parse error"
+        static let ParseErrorMessage = "We could not process the data that was returned by the server. We are probably looking" +
+                " into it this very moment."
+
+        static let CredentialErrorTitle = "Unauthorized"
+        static let CredentialErrorMessage = "You entered an invalid username or password."
     }
 
     // MARK: IBOutlets
@@ -28,9 +29,9 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var contentScrollView: UIScrollView!
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
-    @IBOutlet weak var loginBtn: UIButton!
     @IBOutlet weak var loadingIndicator: UIActivityIndicatorView!
-    
+    @IBOutlet weak var loginBtn: UIButton!
+
     // MARK: Lifecycle
 
     override func viewDidLoad() {
@@ -75,7 +76,7 @@ class LoginViewController: UIViewController {
             print(error!)
 
             DispatchQueue.main.async {
-                self.presentAlertDialog(error!)
+                self.presentAlertDialog(error: error!)
             }
 
             return
@@ -87,14 +88,14 @@ class LoginViewController: UIViewController {
     private func onGetUserInfoDidFinish(_ account: Account?, _ error: UdacityAPIClient.APIClientError?){
         guard error == nil else{
             print(error!)
-            presentAlertDialog(error!)
+            presentAlertDialog(error: error!)
             return
         }
 
         (UIApplication.shared.delegate as! AppDelegate).account = account
 
         DispatchQueue.main.async {
-            self.performSegue(withIdentifier: AppDelegate.Identifiers.Segues.MainScene, sender: nil)
+            self.performSegue(withIdentifier: AppDelegate.Identifiers.Segues.MainView, sender: nil)
         }
     }
 
@@ -102,16 +103,16 @@ class LoginViewController: UIViewController {
         AppDelegate.openURL(urlString: UdacityAPIClient.Constants.SignUpURL)
     }
 
-    // MARK: Error handling
+    // MARK: Presenting errors
 
-    private func presentAlertDialog(_ error: UdacityAPIClient.APIClientError) {
+    private func presentAlertDialog(error: UdacityAPIClient.APIClientError) {
         switch(error){
         case .connectionError:
-            self.presentAlertDialog(title: AlertDialogText.connectionErrorTitle, message: AlertDialogText.connectionErrorMessage)
+            self.presentAlertDialog(title: AlertDialogStrings.ConnectionErrorTitle, message: AlertDialogStrings.ConnectionErrorMessage)
         case .parseError:
-            self.presentAlertDialog(title: AlertDialogText.parseErrorTitle, message: AlertDialogText.parseErrorMessage)
+            self.presentAlertDialog(title: AlertDialogStrings.ParseErrorTitle, message: AlertDialogStrings.ParseErrorMessage)
         case .serverError:
-            self.presentAlertDialog(title: AlertDialogText.credentialErrorTitle, message: AlertDialogText.credentialErrorMessage)
+            self.presentAlertDialog(title: AlertDialogStrings.CredentialErrorTitle, message: AlertDialogStrings.CredentialErrorMessage)
         default:
             break
         }
@@ -125,7 +126,8 @@ class LoginViewController: UIViewController {
     }
 }
 
-// MARK: Extension for configuring UI.
+// MARK: Extension for configuring UI
+
 extension LoginViewController{
 
     // MARK: Basic UI Configuration
@@ -175,7 +177,8 @@ extension LoginViewController{
     }
 }
 
-// MARK: Extension for UITextFieldDelegate.
+// MARK: Extension for UITextFieldDelegate
+
 extension LoginViewController : UITextFieldDelegate{
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         let txtFieldText = (textField.text ?? "") as NSString

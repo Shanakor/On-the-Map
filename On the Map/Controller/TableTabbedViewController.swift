@@ -14,7 +14,6 @@ class TableTabbedViewController: BaseTabbedViewController {
 
     private struct Identifiers{
         static let StudentLocationCell = "StudentLocationCell"
-        static let InformationPostingSegue = "ShowInformationPostingViewFromTableView"
     }
 
     // MARK: IBOutlets

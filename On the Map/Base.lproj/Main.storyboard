@@ -124,7 +124,7 @@
                         <outlet property="loadingIndicator" destination="wAr-zQ-XRq" id="Ix6-R5-jsG"/>
                         <outlet property="loginBtn" destination="NCm-oL-4Q0" id="I0h-qg-RGS"/>
                         <outlet property="passwordTextField" destination="Tqv-t8-5fS" id="ti1-yw-3DR"/>
-                        <segue destination="KLz-7s-CKu" kind="show" identifier="ShowMainScene" id="fIi-Ds-znk"/>
+                        <segue destination="KLz-7s-CKu" kind="show" identifier="ShowMainView" id="fIi-Ds-znk"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

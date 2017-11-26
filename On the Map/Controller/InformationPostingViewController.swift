@@ -25,10 +25,6 @@ class InformationPostingViewController: UIViewController {
         static let Message = "We were unable to find the entered location. Please try to be more specific."
     }
 
-    private struct Identifiers{
-        static let InformationPostingDetailViewController = "InformationPostingDetailViewController"
-    }
-
     // MARK: Properties
 
     private var coordinate: CLLocationCoordinate2D?

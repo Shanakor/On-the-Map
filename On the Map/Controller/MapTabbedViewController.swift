@@ -11,12 +11,6 @@ import MapKit
 
 class MapTabbedViewController: BaseTabbedViewController {
 
-    // MARK: Constants
-
-    private struct Identifiers{
-        static let InformationPostingSegue = "ShowInformationPostingViewFromMapView"
-    }
-
     // MARK: IBOutlets
 
     @IBOutlet weak var mapView: MKMapView!

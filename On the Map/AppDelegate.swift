@@ -19,7 +19,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     struct Identifiers{
         struct Segues {
-            static let MainScene = "ShowMainScene"
+            static let MainView = "ShowMainView"
+            static let InformationPostingFromMapView = "ShowInformationPostingViewFromMapView"
+            static let InformationPostingFromTableView = "ShowInformationPostingViewFromTableView"
+        }
+
+        struct ViewControllers {
+            static let InformationPostingDetail = "InformationPostingDetailViewController"
         }
     }
 
