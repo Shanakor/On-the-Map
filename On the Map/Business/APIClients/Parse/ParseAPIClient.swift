@@ -76,7 +76,7 @@ class ParseAPIClient: APIClient {
         }
 
         // Make the request.
-        taskForGETMethod(method: Methods.GetStudents, withPathExtension: nil, methodParameters: methodParameters){
+        taskForGETMethod(method: Methods.StudentLocation, withPathExtension: nil, methodParameters: methodParameters){
             (result, error) in
 
             guard error == nil else{
@@ -105,7 +105,7 @@ class ParseAPIClient: APIClient {
         ]
 
         // Make the request.
-        taskForGETMethod(method: Methods.GetStudents, withPathExtension: nil, methodParameters: methodParameters){
+        taskForGETMethod(method: Methods.StudentLocation, withPathExtension: nil, methodParameters: methodParameters){
             (result, error) in
 
             guard error == nil else{
@@ -136,7 +136,7 @@ class ParseAPIClient: APIClient {
     }
 
     func postStudentLocation(studentLocation: StudentLocation, completionHandler: @escaping (Bool, APIClientError?) -> Void){
-        taskForPOSTMethod(method: Methods.GetStudents, withPathExtension: nil, methodParameters: nil,
+        taskForPOSTMethod(method: Methods.StudentLocation, withPathExtension: nil, methodParameters: nil,
                 jsonBody: studentLocation.toJSONData()){
             (result, error) in
 
@@ -150,7 +150,7 @@ class ParseAPIClient: APIClient {
     }
 
     func putStudentLocation(studentLocation: StudentLocation, completionHandler: @escaping (Bool, APIClientError?) -> Void){
-        taskForPUTMethod(method: Methods.GetStudents, withPathExtension: "/\(studentLocation.objectID!)",
+        taskForPUTMethod(method: Methods.StudentLocation, withPathExtension: "/\(studentLocation.objectID!)",
                 methodParameters: nil, jsonBody: studentLocation.toJSONData()){
             (result, error) in
 

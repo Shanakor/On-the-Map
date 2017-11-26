@@ -15,7 +15,7 @@ extension ParseAPIClient {
     }
 
     struct Methods{
-        static let GetStudents = "/StudentLocation"
+        static let StudentLocation = "/StudentLocation"
     }
 
     struct HeaderKeys{
