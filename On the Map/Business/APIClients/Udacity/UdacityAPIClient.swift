@@ -101,4 +101,41 @@ class UdacityAPIClient: APIClient {
 
         completionHandler(accountKey, nil)
     }
+
+    public func getUserInfo(accountID: String, completionHandler: @escaping (Account?, APIError?) -> Void){
+        taskForGETMethod(method: Methods.Users + "/\(accountID)", methodParameters: nil){
+            (result, error) in
+
+            guard error == nil else{
+                completionHandler(nil, error)
+                return
+            }
+
+            self.convertUserDataWithCompletionHandler(result!, completionHandler: completionHandler)
+        }
+    }
+
+    private func convertUserDataWithCompletionHandler(_ parsedResult: [String: AnyObject], completionHandler: @escaping (Account?, APIError?) -> Void){
+        guard let user = parsedResult[JSONResponseKeys.User] as? [String: AnyObject] else{
+            completionHandler(nil, .parseError(description: "Cannot find key '\(JSONResponseKeys.User)' in \(parsedResult)"))
+            return
+        }
+
+        guard let userID = user[JSONResponseKeys.AccountKey] as? String else{
+            completionHandler(nil, .parseError(description: "Cannot find key '\(JSONResponseKeys.AccountKey)' in \(parsedResult)"))
+            return
+        }
+
+        guard let firstName = user[JSONResponseKeys.FirstName] as? String else{
+            completionHandler(nil, .parseError(description: "Cannot find key '\(JSONResponseKeys.FirstName)' in \(parsedResult)"))
+            return
+        }
+
+        guard let lastName = parsedResult[JSONResponseKeys.LastName] as? String else{
+            completionHandler(nil, .parseError(description: "Cannot find key '\(JSONResponseKeys.LastName)' in \(parsedResult)"))
+            return
+        }
+
+        completionHandler(Account(id: userID, firstName: firstName, lastName: lastName), nil)
+    }
 }
