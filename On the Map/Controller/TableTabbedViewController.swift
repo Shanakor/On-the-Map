@@ -10,18 +10,17 @@ import UIKit
 
 class TableTabbedViewController: BaseTabbedViewController {
 
+    // MARK: Constants
+
+    private struct Identifiers{
+        static let StudentLocationCell = "StudentLocationCell"
+        static let InformationPostingSegue = "ShowInformationPostingViewFromTableView"
+    }
+
     // MARK: IBOutlets
     
     @IBOutlet weak var tableView: UITableView!
 
-    // MARK: Constants
-
-    private struct Identifiers{
-        static let ReusableCell = "studentLocationCell"
-        static let TableCellImageView = "icon_pin"
-        static let AddLocationSegue = "PresentAddLocationSceneFromTableScene"
-    }
-    
     // MARK: Initialization.
     
     override func viewDidLoad() {
@@ -31,17 +30,19 @@ class TableTabbedViewController: BaseTabbedViewController {
         tableView.dataSource = self
     }
 
+    // MARK: BaseTabbedViewController members
+
     override func didFinishLoadingStudentLocations(success: Bool, error: ParseAPIClient.APIClientError?) {
         tableView.reloadData()
     }
 
-    // MARK: Navigation
     override func segueIdentifierForInformationPostingView() -> String {
-        return Identifiers.AddLocationSegue
+        return Identifiers.InformationPostingSegue
     }
 }
 
 // MARK: Extension for UITableViewDelegate and UITableViewDataSource
+
 extension TableTabbedViewController: UITableViewDelegate, UITableViewDataSource{
 
     // MARK: DataSource
@@ -55,9 +56,8 @@ extension TableTabbedViewController: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let studentLocation = studentLocationRepository.studentLocations[indexPath.row]
 
-        let cell = tableView.dequeueReusableCell(withIdentifier: Identifiers.ReusableCell)!
+        let cell = tableView.dequeueReusableCell(withIdentifier: Identifiers.StudentLocationCell)!
 
-        cell.imageView!.image = UIImage(named: Identifiers.TableCellImageView)
         cell.textLabel!.text = "\(studentLocation.firstName) \(studentLocation.lastName)"
         cell.detailTextLabel!.text = studentLocation.mediaURL
 
@@ -66,8 +66,8 @@ extension TableTabbedViewController: UITableViewDelegate, UITableViewDataSource{
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        let studentLocation = studentLocationRepository.studentLocations[indexPath.row]
 
+        let studentLocation = studentLocationRepository.studentLocations[indexPath.row]
         AppDelegate.openURL(urlString: studentLocation.mediaURL)
     }
 }
