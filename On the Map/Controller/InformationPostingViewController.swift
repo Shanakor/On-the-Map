@@ -21,8 +21,11 @@ class InformationPostingViewController: UIViewController {
     // MARK: Constants
 
     private struct AlertDialogStrings{
-        static let Title = "Invalid location"
-        static let Message = "We were unable to find the entered location. Please try to be more specific."
+        static let LocationErrorTitle = "Invalid location"
+        static let LocationErrorMessage = "We were unable to find the entered location. Please try to be more specific."
+
+        static let URLErrorTitle = "Invalid URL"
+        static let URLErrorMessage = "Please enter a valid URL"
     }
 
     private struct Identifiers{
@@ -64,19 +67,35 @@ class InformationPostingViewController: UIViewController {
     }
     
     @IBAction func findLocation(_ sender: Any) {
+        // Is URL valid?
+        if !self.isURLStringValid(linkTextField.text!){
+            self.presentAlertDialog(title: AlertDialogStrings.URLErrorTitle, message: AlertDialogStrings.URLErrorMessage)
+            return
+        }
+
+        // Try converting mapString into coordinates.
         mapString = locationTextField.text!
 
         geocodeMapString(mapString!){
             (success, coordinate) in
 
             if !success{
-                self.presentAlertDialog(title: AlertDialogStrings.Title, message: AlertDialogStrings.Message)
+                self.presentAlertDialog(title: AlertDialogStrings.LocationErrorTitle, message: AlertDialogStrings.LocationErrorMessage)
             }
             else{
                 self.coordinate = coordinate
                 self.presentInformationPostingDetailView()
             }
         }
+    }
+
+    private func isURLStringValid(_ urlString: String?) -> Bool {
+        guard let urlString = urlString,
+              let url = URL(string: urlString) else {
+            return false
+        }
+
+        return UIApplication.shared.canOpenURL(url)
     }
 
     private func geocodeMapString(_ mapString: String, completionHandler: @escaping (Bool, CLLocationCoordinate2D?) -> Void){
