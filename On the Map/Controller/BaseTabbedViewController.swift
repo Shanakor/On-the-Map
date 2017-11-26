@@ -46,6 +46,8 @@ class BaseTabbedViewController: UIViewController {
             UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(startAddLocationProcess)),
             UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(loadStudentLocations))
         ]
+
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Logout", style: .plain, target: self, action: #selector(logout))
     }
 
     private func initStudentLocationRepository() {
@@ -69,6 +71,18 @@ class BaseTabbedViewController: UIViewController {
             DispatchQueue.main.async{
                 self.didFinishLoadingStudentLocations(success: success, error: error)
             }
+        }
+    }
+
+    @objc func logout(){
+        UdacityAPIClient.shared.logout(){
+            (success, error) in
+
+            if error != nil{
+                print(error!)
+            }
+
+            self.navigationController!.dismiss(animated: true)
         }
     }
 

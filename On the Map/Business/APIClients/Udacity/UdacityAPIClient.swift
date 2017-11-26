@@ -48,8 +48,20 @@ class UdacityAPIClient: APIClient {
         return request
     }
 
-    override func createPUTRequest(URL: URL, jsonBody: Data?) -> URLRequest {
-        return URLRequest(url: URL)
+    override func createDELETERequest(URL: URL, jsonBody: Data?) -> URLRequest {
+        var request = URLRequest(url: URL)
+        request.httpMethod = "DELETE"
+
+        var xsrfCookie: HTTPCookie? = nil
+        let sharedCookieStorage = HTTPCookieStorage.shared
+        for cookie in sharedCookieStorage.cookies! {
+            if cookie.name == "XSRF-TOKEN" { xsrfCookie = cookie }
+        }
+        if let xsrfCookie = xsrfCookie {
+            request.setValue(xsrfCookie.value, forHTTPHeaderField: "X-XSRF-TOKEN")
+        }
+
+        return request
     }
 
     override func convertDataWithCompletionHandler(_ data: Data, completionHandler: @escaping ([String: AnyObject]?, APIError?) -> Void) {
@@ -65,7 +77,7 @@ class UdacityAPIClient: APIClient {
         let jsonBody = "{\"\(JSONBodyKeys.Udacity)\": {\"\(JSONBodyKeys.Username)\": \"\(username)\", \"\(JSONBodyKeys.password)\": \"\(password)\"}}"
                         .data(using: .utf8)
 
-        taskForPOSTMethod(method: Methods.NewSession, methodParameters: nil, jsonBody: jsonBody!){
+        taskForPOSTMethod(method: Methods.Session, methodParameters: nil, jsonBody: jsonBody!){
             (result, error) in
 
             guard error == nil else{
@@ -137,5 +149,18 @@ class UdacityAPIClient: APIClient {
         }
 
         completionHandler(Account(id: userID, firstName: firstName, lastName: lastName), nil)
+    }
+
+    public func logout(completionHandler: @escaping (Bool, APIError?) -> Void){
+        taskForDELETEMethod(method: Methods.Session, methodParameters: nil, jsonBody: nil){
+            (result, error) in
+
+            guard error == nil else{
+                completionHandler(false, error)
+                return
+            }
+
+            completionHandler(true, nil)
+        }
     }
 }

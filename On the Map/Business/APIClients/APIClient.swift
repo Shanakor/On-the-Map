@@ -74,16 +74,22 @@ class APIClient {
                 completionHandler: completionHandlerForGET)
     }
 
-    public func taskForPOSTMethod(method: String?, methodParameters: [String: String]?, jsonBody: Data, completionHandlerForPOST: @escaping ([String: AnyObject]?, APIError?) -> Void = { _, _ in }){
+    public func taskForPOSTMethod(method: String?, methodParameters: [String: String]?, jsonBody: Data?, completionHandlerForPOST: @escaping ([String: AnyObject]?, APIError?) -> Void = { _, _ in }){
 
         taskForHTTPMethod(method: method, methodParameters: methodParameters, jsonBody: jsonBody,
                 createRequest: createPOSTRequest, completionHandler: completionHandlerForPOST)
     }
 
-    public func taskForPUTMethod(method: String?, methodParameters: [String: String]?, jsonBody: Data, completionHandlerForPUT: @escaping ([String: AnyObject]?, APIError?) -> Void = { _, _ in }){
+    public func taskForPUTMethod(method: String?, methodParameters: [String: String]?, jsonBody: Data?, completionHandlerForPUT: @escaping ([String: AnyObject]?, APIError?) -> Void = { _, _ in }){
 
         taskForHTTPMethod(method: method, methodParameters: methodParameters, jsonBody: jsonBody,
                 createRequest: createPUTRequest, completionHandler: completionHandlerForPUT)
+    }
+
+    public func taskForDELETEMethod(method: String?, methodParameters: [String: String]?, jsonBody: Data?, completionHandlerForDELETE: @escaping ([String: AnyObject]?, APIError?) -> Void = { _, _ in }){
+
+        taskForHTTPMethod(method: method, methodParameters: methodParameters, jsonBody: jsonBody,
+                createRequest: createDELETERequest, completionHandler: completionHandlerForDELETE)
     }
 
     // MARK: Methods to be overridden by subclasses
@@ -101,6 +107,10 @@ class APIClient {
     }
 
     func createPUTRequest(URL: URL, jsonBody: Data?) -> URLRequest{
+        preconditionFailure("This method must be overridden")
+    }
+
+    func createDELETERequest(URL: URL, jsonBody: Data?) -> URLRequest{
         preconditionFailure("This method must be overridden")
     }
 
