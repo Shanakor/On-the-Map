@@ -24,6 +24,7 @@ class MapTabbedViewController: BaseTabbedViewController {
     // MARK: Properties
 
     private var mapViewDelegate: MapViewDelegate!
+    private var annotationToCenterOn: MKPointAnnotation?
 
     // MARK: Initialization
 
@@ -38,6 +39,12 @@ class MapTabbedViewController: BaseTabbedViewController {
         if success {
             let annotations = MKPointAnnotation.fromStudentLocations(studentLocationRepository.studentLocations)
             mapViewDelegate.refreshAnnotations(annotations)
+
+            if let annotationToCenterOn = annotationToCenterOn{
+                mapView.showAnnotations([annotationToCenterOn], animated: true)
+                mapView.selectAnnotation(annotationToCenterOn, animated: true)
+                self.annotationToCenterOn = nil
+            }
         } else {
             presentAlert(title: nil, message: error!.description)
         }
@@ -47,11 +54,7 @@ class MapTabbedViewController: BaseTabbedViewController {
         super.didFinishAddingStudentLocation(notification)
 
         let studentLocation = notification.object as! StudentLocation
-        let annotation = MKPointAnnotation.fromStudentLocation(studentLocation)
-
-        mapView.addAnnotation(annotation)
-        mapView.showAnnotations([annotation], animated: true)
-        mapView.selectAnnotation(annotation, animated: true)
+        annotationToCenterOn = MKPointAnnotation.fromStudentLocation(studentLocation)
     }
 
     // MARK: Navigation
