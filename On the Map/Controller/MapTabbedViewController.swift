@@ -45,10 +45,15 @@ class MapTabbedViewController: UIViewController {
             if success {
                 self.refreshAnnotations()
             } else {
-                let alertCtrl = UIAlertController(title: "", message: error!.description, preferredStyle: .alert)
-                self.present(alertCtrl, animated: true)
+                self.presentAlert(title: nil, message: error!.description)
             }
         }
+    }
+
+    // MARK: Error handling
+    private func presentAlert(title: String?, message: String) {
+        let alertCtrl = UIAlertController(title: title ?? "", message: message, preferredStyle: .alert)
+        self.present(alertCtrl, animated: true)
     }
 }
 
@@ -70,6 +75,16 @@ extension MapTabbedViewController: MKMapViewDelegate{
         }
 
         return pinView
+    }
+
+    func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
+
+        if let annotation = view.annotation,
+           let subtitle = annotation.subtitle,
+           let url = URL(string: subtitle!){
+
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        }
     }
 
     // MARK: MapView helper functions.
