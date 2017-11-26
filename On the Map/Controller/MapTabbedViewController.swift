@@ -18,21 +18,26 @@ class MapTabbedViewController: BaseTabbedViewController {
     // MARK: Constants
 
     private struct Identifiers{
-        static let annotationViewReusableIdentifier = "annotationViewReusableIdentifier"
         static let AddLocationSegue = "PresentAddLocationSceneFromMapScene"
     }
+
+    // MARK: Properties
+
+    private var mapViewDelegate: MapViewDelegate!
 
     // MARK: Initialization
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        mapView.delegate = self
+        mapViewDelegate = MapViewDelegate(mapView: mapView)
+        mapView.delegate = mapViewDelegate
     }
 
     override func studentLocationsDidLoad(success: Bool, error: ParseAPIClient.APIError?) {
         if success {
-            self.refreshAnnotations()
+            let annotations = MKPointAnnotation.fromStudentLocations(studentLocationRepository.studentLocations)
+            mapViewDelegate.refreshAnnotations(annotations)
         } else {
             presentAlert(title: nil, message: error!.description)
         }
@@ -42,43 +47,5 @@ class MapTabbedViewController: BaseTabbedViewController {
 
     override func segueIdentifierAddLocation() -> String {
         return Identifiers.AddLocationSegue
-    }
-}
-
-// MARK: Extension for MapViewDelegate
-extension MapTabbedViewController: MKMapViewDelegate{
-
-    // MARK: Delegate functions.
-
-    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-        var pinView = mapView.dequeueReusableAnnotationView(withIdentifier: Identifiers.annotationViewReusableIdentifier) as? MKPinAnnotationView
-
-        if pinView == nil{
-            pinView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: Identifiers.annotationViewReusableIdentifier)
-            pinView!.canShowCallout = true
-            pinView!.pinTintColor = UIColor.red
-            pinView!.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
-        } else{
-            pinView!.annotation = annotation
-        }
-
-        return pinView
-    }
-
-    func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
-
-        if let annotation = view.annotation,
-           let subtitle = annotation.subtitle,
-           let url = URL(string: subtitle!){
-
-            UIApplication.shared.open(url, options: [:], completionHandler: nil)
-        }
-    }
-
-    // MARK: MapView helper functions.
-
-    func refreshAnnotations(){
-        mapView.removeAnnotations(mapView.annotations)
-        mapView.addAnnotations(MKPointAnnotation.fromStudentLocations(studentLocationRepository.studentLocations))
     }
 }

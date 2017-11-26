@@ -16,6 +16,7 @@
 		198B4B721FCAE07800DA8DD9 /* TableTabbedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 198B4B711FCAE07800DA8DD9 /* TableTabbedViewController.swift */; };
 		198B4B741FCAEC8400DA8DD9 /* InformationPostingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 198B4B731FCAEC8400DA8DD9 /* InformationPostingViewController.swift */; };
 		3C9DE341616A4E50FE3A8388 /* ParseAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C9DE87A748AFC8647B20417 /* ParseAPIClient.swift */; };
+		3C9DE372D8815DCBFA78D0D9 /* MKPointAnnotationConvertExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C9DECB9218DD2236A12D7A9 /* MKPointAnnotationConvertExtension.swift */; };
 		3C9DE3CED278BE4BC7395E3B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3C9DE850D675D51A98907E8B /* Main.storyboard */; };
 		3C9DE5488847E36885BF03A7 /* ParseAPIConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C9DE86C49E0C80DD8F0FEA2 /* ParseAPIConstants.swift */; };
 		3C9DE6C24BE0FEB0836022E1 /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C9DE0FA28D086955D5C1246 /* APIClient.swift */; };
@@ -26,7 +27,7 @@
 		3C9DEB26FDCFA2EEFE94AF40 /* UdacityAPIConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C9DE2E5CA3318B9DE88105F /* UdacityAPIConstants.swift */; };
 		3C9DEBA4844E66C62583A493 /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C9DEEAAD28C5A7D03BA6B03 /* Account.swift */; };
 		3C9DED3CA69D37FCF1D5938A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3C9DE36FEEE11D2CA75F2F2D /* LaunchScreen.storyboard */; };
-		3C9DEF852DEF66B12EDF7D9A /* MKPointAnnotationConvertExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C9DEC307DE244B2766EE16E /* MKPointAnnotationConvertExtension.swift */; };
+		3C9DED73D8711D51F7D14800 /* MapViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C9DEBFCB77DA23FBF007E07 /* MapViewDelegate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -49,7 +50,8 @@
 		3C9DE87A748AFC8647B20417 /* ParseAPIClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParseAPIClient.swift; sourceTree = "<group>"; };
 		3C9DE964C95651A55925121E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3C9DE99720B47499911D69C3 /* StudentLocationRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentLocationRepository.swift; sourceTree = "<group>"; };
-		3C9DEC307DE244B2766EE16E /* MKPointAnnotationConvertExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MKPointAnnotationConvertExtension.swift; sourceTree = "<group>"; };
+		3C9DEBFCB77DA23FBF007E07 /* MapViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewDelegate.swift; sourceTree = "<group>"; };
+		3C9DECB9218DD2236A12D7A9 /* MKPointAnnotationConvertExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MKPointAnnotationConvertExtension.swift; sourceTree = "<group>"; };
 		3C9DED46623289574E9A06A3 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.info; path = Info.plist; sourceTree = "<group>"; };
 		3C9DEEAAD28C5A7D03BA6B03 /* Account.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -101,7 +103,8 @@
 				3C9DEA157071993470C5B099 /* Business */,
 				3C9DED46623289574E9A06A3 /* Info.plist */,
 				3C9DE1204B39DE1871BF5B5D /* Model */,
-				3C9DEC307DE244B2766EE16E /* MKPointAnnotationConvertExtension.swift */,
+				3C9DECB9218DD2236A12D7A9 /* MKPointAnnotationConvertExtension.swift */,
+				3C9DE2399520633F7A18C9C8 /* Delegates */,
 			);
 			path = "On the Map";
 			sourceTree = "<group>";
@@ -131,6 +134,14 @@
 				3C9DE850D675D51A98907E8B /* Main.storyboard */,
 			);
 			name = Storyboards;
+			sourceTree = "<group>";
+		};
+		3C9DE2399520633F7A18C9C8 /* Delegates */ = {
+			isa = PBXGroup;
+			children = (
+				3C9DEBFCB77DA23FBF007E07 /* MapViewDelegate.swift */,
+			);
+			path = Delegates;
 			sourceTree = "<group>";
 		};
 		3C9DE2650392ED17B2B05E16 /* Udacity */ = {
@@ -260,8 +271,9 @@
 				198B4B701FCADDE800DA8DD9 /* BaseTabbedViewController.swift in Sources */,
 				3C9DE9F2C45F9BDBBEEB8FB0 /* StudentLocationRepository.swift in Sources */,
 				3C9DE6C24BE0FEB0836022E1 /* APIClient.swift in Sources */,
-				3C9DEF852DEF66B12EDF7D9A /* MKPointAnnotationConvertExtension.swift in Sources */,
 				3C9DEBA4844E66C62583A493 /* Account.swift in Sources */,
+				3C9DE372D8815DCBFA78D0D9 /* MKPointAnnotationConvertExtension.swift in Sources */,
+				3C9DED73D8711D51F7D14800 /* MapViewDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
