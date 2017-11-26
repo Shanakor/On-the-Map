@@ -167,7 +167,7 @@
         <scene sceneID="AUw-kP-32E">
             <objects>
                 <navigationController id="94Z-zK-sGq" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="" image="icon_listview-deselected" selectedImage="icon_listview-selected" id="XNs-i0-bUA"/>
+                    <tabBarItem key="tabBarItem" title="" image="icon_listview-deselected" landscapeImage="icon_listview-deselected" selectedImage="icon_listview-selected" id="XNs-i0-bUA"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Xbq-sm-X5x">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -361,7 +361,7 @@
         <scene sceneID="J4z-s8-9Pf">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="JIN-wa-671" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="" image="icon_mapview-deselected" selectedImage="icon_mapview-selected" id="WCX-lb-J5S"/>
+                    <tabBarItem key="tabBarItem" title="" image="icon_mapview-deselected" landscapeImage="icon_mapview-deselected" selectedImage="icon_mapview-selected" id="WCX-lb-J5S"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="sbE-nj-PUl">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
