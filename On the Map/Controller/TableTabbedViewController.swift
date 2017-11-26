@@ -57,4 +57,13 @@ extension TableTabbedViewController: UITableViewDelegate, UITableViewDataSource{
 
         return cell
     }
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        let studentLocation = studentLocationRepository.studentLocations[indexPath.row]
+
+        if let url = URL(string: studentLocation.mediaURL) {
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        }
+    }
 }
