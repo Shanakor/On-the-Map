@@ -263,13 +263,13 @@
                                         <rect key="frame" x="0.0" y="0.0" width="335" height="30"/>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="emailAddress" returnKeyType="next" textContentType="email"/>
+                                        <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="next" textContentType="location"/>
                                     </textField>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Link" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="VSg-kY-BdC">
                                         <rect key="frame" x="0.0" y="38" width="335" height="30"/>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="go" secureTextEntry="YES" textContentType="password"/>
+                                        <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="URL" returnKeyType="go" textContentType="url"/>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EhB-wW-iUc">
                                         <rect key="frame" x="0.0" y="76" width="335" height="30"/>
@@ -278,6 +278,7 @@
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
                                         <connections>
+                                            <action selector="findLocation:" destination="8tP-Wk-B8o" eventType="touchUpInside" id="HhU-96-Yev"/>
                                             <action selector="login:" destination="BYZ-38-t0r" eventType="touchUpInside" id="mS4-Ms-nLy"/>
                                         </connections>
                                     </button>
@@ -301,6 +302,11 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="findLocationBtn" destination="EhB-wW-iUc" id="57r-4d-nR6"/>
+                        <outlet property="linkTextField" destination="VSg-kY-BdC" id="c8U-Fv-74e"/>
+                        <outlet property="locationTextField" destination="yBV-aI-NA9" id="VxT-OT-3mS"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8cZ-sh-GSn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
