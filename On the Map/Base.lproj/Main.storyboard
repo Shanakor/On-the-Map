@@ -156,6 +156,7 @@
                     <navigationItem key="navigationItem" title="On the Map" id="WMb-FX-gpf"/>
                     <connections>
                         <outlet property="mapView" destination="4c2-gE-A1c" id="zXH-Rh-Imx"/>
+                        <segue destination="8u8-rj-Gsy" kind="presentation" identifier="PresentAddLocationSceneFromMapScene" id="qjl-7U-UU5"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0WD-5a-JR6" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -234,6 +235,7 @@
                     <navigationItem key="navigationItem" title="On the Map" id="eAo-EI-WmQ"/>
                     <connections>
                         <outlet property="tableView" destination="U8r-AI-Imj" id="qoW-Sb-bLJ"/>
+                        <segue destination="8u8-rj-Gsy" kind="presentation" identifier="PresentAddLocationSceneFromTableScene" id="mf1-Ro-7w7"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PfB-8U-l8L" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -366,4 +368,7 @@
         <image name="icon_world" width="52" height="67"/>
         <image name="logo-u" width="62" height="62"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="mf1-Ro-7w7"/>
+    </inferredMetricsTieBreakers>
 </document>

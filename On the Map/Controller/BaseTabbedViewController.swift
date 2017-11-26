@@ -56,4 +56,13 @@ class BaseTabbedViewController: UIViewController {
         self.present(alertCtrl, animated: true)
     }
 
+    // MARK: Navigation
+
+    func segueIdentifierAddLocation() -> String{
+        fatalError("segueIdentifierAddLocation() can not be called on the BaseTabbedViewController class")
+    }
+
+    func presentAddLocationScene(){
+        performSegue(withIdentifier: segueIdentifierAddLocation(), sender: nil)
+    }
 }

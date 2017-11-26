@@ -19,6 +19,7 @@ class TableTabbedViewController: BaseTabbedViewController {
     private struct Identifiers{
         static let ReusableCell = "studentLocationCell"
         static let TableCellImageView = "icon_pin"
+        static let AddLocationSegue = "PresentAddLocationSceneFromTableScene"
     }
     
     // MARK: Initialization.
@@ -32,6 +33,12 @@ class TableTabbedViewController: BaseTabbedViewController {
 
     override func studentLocationsDidLoad(success: Bool, error: ParseAPIClient.ParseAPIError?) {
         tableView.reloadData()
+    }
+
+    // MARK: Navigation
+
+    override func segueIdentifierAddLocation() -> String {
+        return Identifiers.AddLocationSegue
     }
 }
 

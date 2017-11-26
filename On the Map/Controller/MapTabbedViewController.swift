@@ -19,6 +19,7 @@ class MapTabbedViewController: BaseTabbedViewController {
 
     private struct Identifiers{
         static let annotationViewReusableIdentifier = "annotationViewReusableIdentifier"
+        static let AddLocationSegue = "PresentAddLocationSceneFromMapScene"
     }
 
     // MARK: Initialization
@@ -35,6 +36,12 @@ class MapTabbedViewController: BaseTabbedViewController {
         } else {
             presentAlert(title: nil, message: error!.description)
         }
+    }
+
+    // MARK: Navigation
+
+    override func segueIdentifierAddLocation() -> String {
+        return Identifiers.AddLocationSegue
     }
 }
 
