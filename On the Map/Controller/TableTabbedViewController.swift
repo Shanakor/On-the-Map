@@ -69,8 +69,6 @@ extension TableTabbedViewController: UITableViewDelegate, UITableViewDataSource{
         tableView.deselectRow(at: indexPath, animated: true)
         let studentLocation = studentLocationRepository.studentLocations[indexPath.row]
 
-        if let url = URL(string: studentLocation.mediaURL) {
-            UIApplication.shared.open(url, options: [:], completionHandler: nil)
-        }
+        AppDelegate.openURL(urlString: studentLocation.mediaURL)
     }
 }

@@ -23,6 +23,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
 
+    // MARK: Common methods
+
+    static func openURL(urlString: String){
+        var urlString = urlString
+        let index = urlString.index(urlString.startIndex, offsetBy: 4)
+        let substring = urlString[..<index]
+
+        if substring != "http"{
+            urlString = "http://\(urlString)"
+        }
+
+        if let url = URL(string: urlString){
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        }
+    }
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.

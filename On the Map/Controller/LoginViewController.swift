@@ -99,7 +99,7 @@ class LoginViewController: UIViewController {
     }
 
     @IBAction func openSignUpPageInBrowser(_ sender: Any) {
-        UIApplication.shared.open(URL(string: UdacityAPIClient.Constants.SignUpURL)!, options: [:], completionHandler: nil)
+        AppDelegate.openURL(urlString: UdacityAPIClient.Constants.SignUpURL)
     }
 
     // MARK: Error handling

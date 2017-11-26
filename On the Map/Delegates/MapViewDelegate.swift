@@ -40,10 +40,9 @@ class MapViewDelegate: NSObject, MKMapViewDelegate{
     func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
 
         if let annotation = view.annotation,
-           let subtitle = annotation.subtitle,
-           let url = URL(string: subtitle!){
+           let subtitle = annotation.subtitle{
 
-            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            AppDelegate.openURL(urlString: subtitle!)
         }
     }
 
