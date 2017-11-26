@@ -42,13 +42,13 @@ class APIClient {
                 return
             }
 
-            self.convertDataWithCompletionHandler(data, completionHandler: completionHandler)
+            self.convertData(data, completionHandler: completionHandler)
         }
 
         task.resume()
     }
 
-    func convertDataWithCompletionHandler(_ data: Data, completionHandler: @escaping ([String: AnyObject]?, APIError?) -> Void) {
+    func convertData(_ data: Data, completionHandler: @escaping ([String: AnyObject]?, APIError?) -> Void) {
 
         let parsedResult: [String: AnyObject]!
 
