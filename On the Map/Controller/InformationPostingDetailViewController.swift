@@ -42,7 +42,6 @@ class InformationPostingDetailViewController: UIViewController {
                 mapString: mapString, mediaURL: mediaURL, uniqueKey: account.ID)
 
         let annotation = MKPointAnnotation.fromStudentLocation(studentLocation!)
-
-        mapViewDelegate.refreshAnnotations([annotation])
+        mapView.addAnnotation(annotation)
     }
 }
