@@ -75,10 +75,17 @@ class UdacityAPIClient: APIClient {
     // MARK: Convenience methods
 
     public func authenticate(username: String, password: String, completionHandler: @escaping (String?, APIClientError?) -> Void = { _, _ in }){
-        let jsonBody = "{\"\(JSONBodyKeys.Udacity)\": {\"\(JSONBodyKeys.Username)\": \"\(username)\", \"\(JSONBodyKeys.Password)\": \"\(password)\"}}"
-                        .data(using: .utf8)
+        // Construct JSON body.
+        let rawJsonBody = [
+            JSONBodyKeys.Udacity : [
+                JSONBodyKeys.Username: username,
+                JSONBodyKeys.Password: password
+            ]
+        ]
+        let jsonBodyData = try! JSONSerialization.data(withJSONObject: rawJsonBody)
 
-        taskForPOSTMethod(method: Methods.Session, withPathExtension: nil, methodParameters: nil, jsonBody: jsonBody!){
+        // Make request.
+        taskForPOSTMethod(method: Methods.Session, withPathExtension: nil, methodParameters: nil, jsonBody: jsonBodyData){
             (result, error) in
 
             guard error == nil else{
@@ -86,11 +93,11 @@ class UdacityAPIClient: APIClient {
                 return
             }
 
-            self.parseAuthData(result!, completionHandler: completionHandler)
+            self.parseAuthenticationData(result!, completionHandler: completionHandler)
         }
     }
 
-    private func parseAuthData(_ parsedResult: [String: AnyObject], completionHandler: @escaping (String?, APIClientError?) -> Void) {
+    private func parseAuthenticationData(_ parsedResult: [String: AnyObject], completionHandler: @escaping (String?, APIClientError?) -> Void) {
 
         if let _ = parsedResult[JSONResponseKeys.Status] as? Int{
             guard let errorString = parsedResult[JSONResponseKeys.Error] as? String else{
@@ -107,12 +114,12 @@ class UdacityAPIClient: APIClient {
             return
         }
 
-        guard let accountKey = accountDictionary[JSONResponseKeys.AccountKey] as? String else{
-            completionHandler(nil, .parseError(description: "Can not find key '\(JSONResponseKeys.AccountKey)' in \(accountDictionary)"))
+        guard let userID = accountDictionary[JSONResponseKeys.UserID] as? String else{
+            completionHandler(nil, .parseError(description: "Can not find key '\(JSONResponseKeys.UserID)' in \(accountDictionary)"))
             return
         }
 
-        completionHandler(accountKey, nil)
+        completionHandler(userID, nil)
     }
 
     public func getUserInfo(userID: String, completionHandler: @escaping (Account?, APIClientError?) -> Void){
@@ -134,8 +141,8 @@ class UdacityAPIClient: APIClient {
             return
         }
 
-        guard let userID = user[JSONResponseKeys.AccountKey] as? String else{
-            completionHandler(nil, .parseError(description: "Cannot find key '\(JSONResponseKeys.AccountKey)' in \(parsedResult)"))
+        guard let userID = user[JSONResponseKeys.UserID] as? String else{
+            completionHandler(nil, .parseError(description: "Cannot find key '\(JSONResponseKeys.UserID)' in \(parsedResult)"))
             return
         }
 

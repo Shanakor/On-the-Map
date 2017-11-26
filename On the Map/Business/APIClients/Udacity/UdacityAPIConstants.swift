@@ -39,7 +39,7 @@ extension UdacityAPIClient {
         static let Status = "status"
         static let Error = "error"
         static let Account = "account"
-        static let AccountKey = "key"
+        static let UserID = "key"
 
         static let User = "user"
         static let FirstName = "first_name"
