@@ -10,18 +10,28 @@ import UIKit
 
 class BaseTabbedViewController: UIViewController {
 
-    // MARK: Properties.
+    // MARK: Constants
+
+    struct Identifiers{
+        static let DidFinishAddingStudentLocationSelector = "didFinishAddingStudentLocation"
+    }
+
+    // MARK: Properties
 
     private(set) var studentLocationRepository: StudentLocationRepository!
 
-    // MARK: Initialization.
+    // MARK: Lifecycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         initNavigationBar()
         initStudentLocationRepository()
+
+        NotificationCenter.default.addObserver(self, selector: #selector(didFinishAddingStudentLocation(_:)),
+                name: NSNotification.Name(rawValue: Identifiers.DidFinishAddingStudentLocationSelector), object: nil)
     }
+
 
     private func initNavigationBar() {
         self.navigationItem.title = "On the Map"
@@ -31,22 +41,34 @@ class BaseTabbedViewController: UIViewController {
     private func initStudentLocationRepository() {
         studentLocationRepository = StudentLocationRepository.shared
 
-        if studentLocationRepository.isEmpty(){
+        if studentLocationRepository.studentLocations.isEmpty{
             loadStudentLocations()
         }
     }
+
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+
+    // MARK: Networking methods
 
     func loadStudentLocations(){
         studentLocationRepository.loadStudentLocations{
             (success, error) in
 
             DispatchQueue.main.async{
-                self.studentLocationsDidLoad(success: success, error: error)
+                self.didFinishLoadingStudentLocations(success: success, error: error)
             }
         }
     }
 
-    func studentLocationsDidLoad(success: Bool, error: ParseAPIClient.APIError?){
+    func didFinishLoadingStudentLocations(success: Bool, error: ParseAPIClient.APIError?){
+        preconditionFailure("This method has to be implemented")
+    }
+
+    // MARK: AddLocationDelegate members
+
+    @objc func didFinishAddingStudentLocation(_ notification: NSNotification) {
         preconditionFailure("This method has to be implemented")
     }
 

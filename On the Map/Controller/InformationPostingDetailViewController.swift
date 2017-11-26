@@ -73,10 +73,15 @@ class InformationPostingDetailViewController: UIViewController {
                     self.presentUploadErrorAlertDialog()
                     return
                 } else {
-                   self.dismiss(animated: true)
+                    self.dismiss()
                 }
             }
         }
+    }
+
+    private func dismiss() {
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: BaseTabbedViewController.Identifiers.DidFinishAddingStudentLocationSelector), object: studentLocation!)
+        self.navigationController!.topViewController!.dismiss(animated: true)
     }
 
     // MARK: Error handling
@@ -90,7 +95,7 @@ class InformationPostingDetailViewController: UIViewController {
     }
 
     private func onCancelTapped(_ action: UIAlertAction){
-        self.dismiss(animated: true)
+        self.dismiss()
     }
 
     private func onRetryTapped(_ action: UIAlertAction){

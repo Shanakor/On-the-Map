@@ -332,7 +332,6 @@
                         <outlet property="findLocationBtn" destination="EhB-wW-iUc" id="57r-4d-nR6"/>
                         <outlet property="linkTextField" destination="VSg-kY-BdC" id="c8U-Fv-74e"/>
                         <outlet property="locationTextField" destination="yBV-aI-NA9" id="VxT-OT-3mS"/>
-                        <segue destination="s6e-On-2A4" kind="showDetail" identifier="ShowInformationPostingDetailScene" id="eao-CM-R6s"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8cZ-sh-GSn" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -342,7 +341,7 @@
         <!--Information Posting Detail View Controller-->
         <scene sceneID="OnG-Yn-bQI">
             <objects>
-                <viewController id="s6e-On-2A4" customClass="InformationPostingDetailViewController" customModule="On_the_Map" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="InformationPostingDetailViewController" id="s6e-On-2A4" customClass="InformationPostingDetailViewController" customModule="On_the_Map" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="5Pp-Lx-tNq">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

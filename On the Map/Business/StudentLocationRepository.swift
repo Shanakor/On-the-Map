@@ -11,7 +11,7 @@ class StudentLocationRepository {
 
     static let shared = StudentLocationRepository()
 
-    private(set) var studentLocations = [StudentLocation]()
+    var studentLocations = [StudentLocation]()
 
     // MARK: Utility functions.
 
@@ -28,9 +28,5 @@ class StudentLocationRepository {
             self.studentLocations = studentLocations!
             completionHandler(true, nil)
         }
-    }
-
-    public func isEmpty() -> Bool{
-        return studentLocations.count == 0
     }
 }

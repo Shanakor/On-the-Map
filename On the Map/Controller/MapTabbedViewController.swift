@@ -34,13 +34,22 @@ class MapTabbedViewController: BaseTabbedViewController {
         mapView.delegate = mapViewDelegate
     }
 
-    override func studentLocationsDidLoad(success: Bool, error: ParseAPIClient.APIError?) {
+    override func didFinishLoadingStudentLocations(success: Bool, error: ParseAPIClient.APIError?) {
         if success {
             let annotations = MKPointAnnotation.fromStudentLocations(studentLocationRepository.studentLocations)
             mapViewDelegate.refreshAnnotations(annotations)
         } else {
             presentAlert(title: nil, message: error!.description)
         }
+    }
+
+    override func didFinishAddingStudentLocation(_ notification: NSNotification) {
+        let studentLocation = notification.object as! StudentLocation
+        let annotation = MKPointAnnotation.fromStudentLocation(studentLocation)
+
+        mapView.addAnnotation(annotation)
+        mapView.showAnnotations([annotation], animated: true)
+        mapView.selectAnnotation(annotation, animated: true)
     }
 
     // MARK: Navigation

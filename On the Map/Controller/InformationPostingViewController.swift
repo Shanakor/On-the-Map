@@ -26,7 +26,7 @@ class InformationPostingViewController: UIViewController {
     }
 
     private struct Identifiers{
-        static let InformationPostingDetailViewSegue = "ShowInformationPostingDetailScene"
+        static let InformationPostingDetailViewController = "InformationPostingDetailViewController"
     }
 
     // MARK: Properties
@@ -111,17 +111,13 @@ class InformationPostingViewController: UIViewController {
     // MARK: Navigation
 
     private func presentInformationPostingDetailView() {
-        self.performSegue(withIdentifier: Identifiers.InformationPostingDetailViewSegue, sender: nil)
-    }
+        let destCtrl = storyboard!.instantiateViewController(withIdentifier: Identifiers.InformationPostingDetailViewController) as! InformationPostingDetailViewController
 
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier! == Identifiers.InformationPostingDetailViewSegue{
-            let destCtrl = segue.destination as! InformationPostingDetailViewController
+        destCtrl.mapString = mapString!
+        destCtrl.coordinate = coordinate!
+        destCtrl.mediaURL = linkTextField.text!
 
-            destCtrl.mapString = mapString!
-            destCtrl.coordinate = coordinate!
-            destCtrl.mediaURL = linkTextField.text!
-        }
+        self.navigationController!.pushViewController(destCtrl, animated: true)
     }
 }
 
