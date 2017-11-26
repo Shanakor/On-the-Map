@@ -137,7 +137,7 @@ class ParseAPIClient: APIClient {
 
     func putStudentLocation(studentLocation: StudentLocation, completionHandler: @escaping (Bool?, APIError?) -> Void){
 
-        taskForPUTMethod(method: Methods.GetStudents + "/\(studentLocation.objectID)", methodParameters: nil, jsonBody: studentLocation.toJSONData()){
+        taskForPUTMethod(method: Methods.GetStudents + "/\(studentLocation.objectID!)", methodParameters: nil, jsonBody: studentLocation.toJSONData()){
             (result, error) in
 
             guard error == nil else{

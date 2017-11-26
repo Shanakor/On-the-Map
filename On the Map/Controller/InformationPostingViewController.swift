@@ -32,6 +32,7 @@ class InformationPostingViewController: UIViewController {
     // MARK: Properties
 
     private var coordinate: CLLocationCoordinate2D?
+    private var mapString: String?
 
     // MARK: Lifecycle
 
@@ -63,9 +64,9 @@ class InformationPostingViewController: UIViewController {
     }
     
     @IBAction func findLocation(_ sender: Any) {
-        let locationString = locationTextField.text!
+        mapString = locationTextField.text!
 
-        geocodeLocationString(locationString){
+        geocodeMapString(mapString!){
             (success, coordinate) in
 
             if !success{
@@ -78,10 +79,10 @@ class InformationPostingViewController: UIViewController {
         }
     }
 
-    private func geocodeLocationString(_ locationString: String, completionHandler: @escaping (Bool, CLLocationCoordinate2D?) -> Void){
+    private func geocodeMapString(_ mapString: String, completionHandler: @escaping (Bool, CLLocationCoordinate2D?) -> Void){
         let geocoder = CLGeocoder()
         
-        geocoder.geocodeAddressString(locationString) { (placemarks, error) in
+        geocoder.geocodeAddressString(mapString) { (placemarks, error) in
             
             guard error == nil else{
                 completionHandler(false, nil)
@@ -116,8 +117,10 @@ class InformationPostingViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier! == Identifiers.InformationPostingDetailViewSegue{
             let destCtrl = segue.destination as! InformationPostingDetailViewController
-            destCtrl.coordinate = coordinate
-            destCtrl.url = linkTextField.text!
+
+            destCtrl.mapString = mapString!
+            destCtrl.coordinate = coordinate!
+            destCtrl.mediaURL = linkTextField.text!
         }
     }
 }

@@ -16,16 +16,24 @@ struct StudentLocation {
     private(set) var longitude: Double
     private(set) var mapString: String
     private(set) var mediaURL: String
-    private(set) var objectID: String
+    private(set) var objectID: String?
     private(set) var uniqueKey: String
 //    private(set) var updatedAt: Date
 
-    private var dateFormatter: DateFormatter
-
     // MARK: Initialization.
+    init(firstName: String, lastName: String, latitude: Double, longitude: Double,
+         mapString: String, mediaURL: String, uniqueKey: String){
+        self.firstName = firstName
+        self.lastName = lastName
+        self.latitude = latitude
+        self.longitude = longitude
+        self.mapString = mapString
+        self.mediaURL = mediaURL
+        self.uniqueKey = uniqueKey
+    }
 
     init(dictionary: [String: AnyObject]) throws{
-        dateFormatter = DateFormatter()
+        let dateFormatter = DateFormatter()
         dateFormatter.locale = Locale(identifier: "en_US")
 
 //        guard let createdAtString = dictionary[ParseClient.JSONResponseKeys.CreatedAt] as? String,

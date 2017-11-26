@@ -17,16 +17,32 @@ class InformationPostingDetailViewController: UIViewController {
     
     // MARK: Properties
 
+    var mapString: String!
     var coordinate: CLLocationCoordinate2D!
-    var url: String!
+    var mediaURL: String!
 
+    private var mapViewDelegate: MapViewDelegate!
+    private var studentLocation: StudentLocation?
+
+    // MARK: Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        print(coordinate)
-        print(url)
+        mapViewDelegate = MapViewDelegate(mapView: mapView)
+        mapView.delegate = mapViewDelegate
     }
-    
-    // MARK: IBActions
-    
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        let account = (UIApplication.shared.delegate as! AppDelegate).account!
+
+        studentLocation = StudentLocation(firstName: account.firstName, lastName: account.lastName,
+                latitude: coordinate.latitude, longitude: coordinate.longitude,
+                mapString: mapString, mediaURL: mediaURL, uniqueKey: account.ID)
+
+        let annotation = MKPointAnnotation.fromStudentLocation(studentLocation!)
+
+        mapViewDelegate.refreshAnnotations([annotation])
+    }
 }
