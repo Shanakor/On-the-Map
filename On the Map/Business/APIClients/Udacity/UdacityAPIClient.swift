@@ -11,8 +11,6 @@ class UdacityAPIClient: APIClient {
 
     static let shared = UdacityAPIClient()
 
-    private(set) var sessionID: String?
-
     // MARK: APIClient members
 
     override func createURL(methodParameters: [String: String]?, withPathExtension: String?) -> URL? {
