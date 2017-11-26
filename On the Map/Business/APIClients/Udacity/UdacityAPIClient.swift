@@ -65,11 +65,11 @@ class UdacityAPIClient: APIClient {
         return request
     }
 
-    override func convertData(_ data: Data, completionHandler: @escaping ([String: AnyObject]?, APIError?) -> Void) {
+    override func parseData(_ data: Data, completionHandler: @escaping ([String: AnyObject]?, APIError?) -> Void) {
         let range = Range(5..<data.count)
         let subsetData = data.subdata(in: range)
 
-        super.convertData(subsetData, completionHandler: completionHandler)
+        super.parseData(subsetData, completionHandler: completionHandler)
     }
 
     // MARK: Convenience methods
@@ -86,11 +86,11 @@ class UdacityAPIClient: APIClient {
                 return
             }
 
-            self.convertAuthData(result!, completionHandler: completionHandler)
+            self.parseAuthData(result!, completionHandler: completionHandler)
         }
     }
 
-    private func convertAuthData(_ parsedResult: [String: AnyObject], completionHandler: @escaping (String?, APIError?) -> Void) {
+    private func parseAuthData(_ parsedResult: [String: AnyObject], completionHandler: @escaping (String?, APIError?) -> Void) {
 
         if let _ = parsedResult[JSONResponseKeys.Status] as? Int{
             guard let errorString = parsedResult[JSONResponseKeys.Error] as? String else{
@@ -124,11 +124,11 @@ class UdacityAPIClient: APIClient {
                 return
             }
 
-            self.convertUserData(result!, completionHandler: completionHandler)
+            self.parseUserData(result!, completionHandler: completionHandler)
         }
     }
 
-    private func convertUserData(_ parsedResult: [String: AnyObject], completionHandler: @escaping (Account?, APIError?) -> Void){
+    private func parseUserData(_ parsedResult: [String: AnyObject], completionHandler: @escaping (Account?, APIError?) -> Void){
         guard let user = parsedResult[JSONResponseKeys.User] as? [String: AnyObject] else{
             completionHandler(nil, .parseError(description: "Cannot find key '\(JSONResponseKeys.User)' in \(parsedResult)"))
             return
