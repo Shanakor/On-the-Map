@@ -65,7 +65,7 @@ class UdacityAPIClient: APIClient {
         return request
     }
 
-    override func parseData(_ data: Data, completionHandler: @escaping ([String: AnyObject]?, APIError?) -> Void) {
+    override func parseData(_ data: Data, completionHandler: @escaping ([String: AnyObject]?, APIClientError?) -> Void) {
         let range = Range(5..<data.count)
         let subsetData = data.subdata(in: range)
 
@@ -74,7 +74,7 @@ class UdacityAPIClient: APIClient {
 
     // MARK: Convenience methods
 
-    public func authenticate(username: String, password: String, completionHandler: @escaping (String?, APIError?) -> Void = {_, _ in }){
+    public func authenticate(username: String, password: String, completionHandler: @escaping (String?, APIClientError?) -> Void = { _, _ in }){
         let jsonBody = "{\"\(JSONBodyKeys.Udacity)\": {\"\(JSONBodyKeys.Username)\": \"\(username)\", \"\(JSONBodyKeys.password)\": \"\(password)\"}}"
                         .data(using: .utf8)
 
@@ -90,7 +90,7 @@ class UdacityAPIClient: APIClient {
         }
     }
 
-    private func parseAuthData(_ parsedResult: [String: AnyObject], completionHandler: @escaping (String?, APIError?) -> Void) {
+    private func parseAuthData(_ parsedResult: [String: AnyObject], completionHandler: @escaping (String?, APIClientError?) -> Void) {
 
         if let _ = parsedResult[JSONResponseKeys.Status] as? Int{
             guard let errorString = parsedResult[JSONResponseKeys.Error] as? String else{
@@ -115,7 +115,7 @@ class UdacityAPIClient: APIClient {
         completionHandler(accountKey, nil)
     }
 
-    public func getUserInfo(userID: String, completionHandler: @escaping (Account?, APIError?) -> Void){
+    public func getUserInfo(userID: String, completionHandler: @escaping (Account?, APIClientError?) -> Void){
         taskForGETMethod(method: Methods.Users, withPathExtension: "/\(userID)", methodParameters: nil){
             (result, error) in
 
@@ -128,7 +128,7 @@ class UdacityAPIClient: APIClient {
         }
     }
 
-    private func parseUserData(_ parsedResult: [String: AnyObject], completionHandler: @escaping (Account?, APIError?) -> Void){
+    private func parseUserData(_ parsedResult: [String: AnyObject], completionHandler: @escaping (Account?, APIClientError?) -> Void){
         guard let user = parsedResult[JSONResponseKeys.User] as? [String: AnyObject] else{
             completionHandler(nil, .parseError(description: "Cannot find key '\(JSONResponseKeys.User)' in \(parsedResult)"))
             return
@@ -152,7 +152,7 @@ class UdacityAPIClient: APIClient {
         completionHandler(Account(id: userID, firstName: firstName, lastName: lastName), nil)
     }
 
-    public func logout(completionHandler: @escaping (Bool, APIError?) -> Void){
+    public func logout(completionHandler: @escaping (Bool, APIClientError?) -> Void){
         taskForDELETEMethod(method: Methods.Session, withPathExtension: nil, methodParameters: nil, jsonBody: nil){
             (result, error) in
 

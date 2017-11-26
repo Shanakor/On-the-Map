@@ -35,7 +35,7 @@ class MapTabbedViewController: BaseTabbedViewController {
         mapView.delegate = mapViewDelegate
     }
 
-    override func didFinishLoadingStudentLocations(success: Bool, error: ParseAPIClient.APIError?) {
+    override func didFinishLoadingStudentLocations(success: Bool, error: ParseAPIClient.APIClientError?) {
         if success {
             let annotations = MKPointAnnotation.fromStudentLocations(studentLocationRepository.studentLocations)
             mapViewDelegate.refreshAnnotations(annotations)

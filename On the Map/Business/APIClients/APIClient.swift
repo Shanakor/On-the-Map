@@ -7,11 +7,11 @@ import Foundation
 
 class APIClient {
 
-    // MARK: Request methods.
+    // MARK: Abstract request methods
 
     public func taskForHTTPMethod(method: String?, withPathExtension pathExtension: String?, methodParameters: [String: String]?, jsonBody: Data?,
                                   createRequest: (URL, Data?) -> URLRequest,
-                                  completionHandler: @escaping ([String: AnyObject]?, APIError?) -> Void = { _, _ in }){
+                                  completionHandler: @escaping ([String: AnyObject]?, APIClientError?) -> Void = { _, _ in }){
 
         guard let URL = createURL(method: method, withPathExtension: pathExtension, methodParameters: methodParameters) else{
             completionHandler(nil, .initializationError(description: "Cannot form a valid URL with the given parameters!"))
@@ -48,7 +48,7 @@ class APIClient {
         task.resume()
     }
 
-    func parseData(_ data: Data, completionHandler: @escaping ([String: AnyObject]?, APIError?) -> Void) {
+    func parseData(_ data: Data, completionHandler: @escaping ([String: AnyObject]?, APIClientError?) -> Void) {
 
         let parsedResult: [String: AnyObject]!
 
@@ -63,7 +63,7 @@ class APIClient {
         completionHandler(parsedResult, nil)
     }
 
-    public func taskForGETMethod(method: String?, withPathExtension pathExtension: String?, methodParameters: [String: String]?, completionHandlerForGET: @escaping ([String: AnyObject]?, APIError?) -> Void = { _, _ in }){
+    public func taskForGETMethod(method: String?, withPathExtension pathExtension: String?, methodParameters: [String: String]?, completionHandlerForGET: @escaping ([String: AnyObject]?, APIClientError?) -> Void = { _, _ in }){
 
         let createParseAPIRequest = {(URL: URL, jsonBody: Data?) in
             self.createGETRequest(URL: URL)
@@ -74,19 +74,19 @@ class APIClient {
                 completionHandler: completionHandlerForGET)
     }
 
-    public func taskForPOSTMethod(method: String?, withPathExtension pathExtension: String?, methodParameters: [String: String]?, jsonBody: Data?, completionHandlerForPOST: @escaping ([String: AnyObject]?, APIError?) -> Void = { _, _ in }){
+    public func taskForPOSTMethod(method: String?, withPathExtension pathExtension: String?, methodParameters: [String: String]?, jsonBody: Data?, completionHandlerForPOST: @escaping ([String: AnyObject]?, APIClientError?) -> Void = { _, _ in }){
 
         taskForHTTPMethod(method: method, withPathExtension: pathExtension, methodParameters: methodParameters, jsonBody: jsonBody,
                 createRequest: createPOSTRequest, completionHandler: completionHandlerForPOST)
     }
 
-    public func taskForPUTMethod(method: String?, withPathExtension pathExtension: String?, methodParameters: [String: String]?, jsonBody: Data?, completionHandlerForPUT: @escaping ([String: AnyObject]?, APIError?) -> Void = { _, _ in }){
+    public func taskForPUTMethod(method: String?, withPathExtension pathExtension: String?, methodParameters: [String: String]?, jsonBody: Data?, completionHandlerForPUT: @escaping ([String: AnyObject]?, APIClientError?) -> Void = { _, _ in }){
 
         taskForHTTPMethod(method: method, withPathExtension: pathExtension, methodParameters: methodParameters, jsonBody: jsonBody,
                 createRequest: createPUTRequest, completionHandler: completionHandlerForPUT)
     }
 
-    public func taskForDELETEMethod(method: String?, withPathExtension pathExtension: String?, methodParameters: [String: String]?, jsonBody: Data?, completionHandlerForDELETE: @escaping ([String: AnyObject]?, APIError?) -> Void = { _, _ in }){
+    public func taskForDELETEMethod(method: String?, withPathExtension pathExtension: String?, methodParameters: [String: String]?, jsonBody: Data?, completionHandlerForDELETE: @escaping ([String: AnyObject]?, APIClientError?) -> Void = { _, _ in }){
 
         taskForHTTPMethod(method: method, withPathExtension: pathExtension, methodParameters: methodParameters, jsonBody: jsonBody,
                 createRequest: createDELETERequest, completionHandler: completionHandlerForDELETE)
@@ -116,7 +116,7 @@ class APIClient {
 
     // MARK: Error definitions
 
-    enum APIError: CustomStringConvertible, Error{
+    enum APIClientError: CustomStringConvertible, Error{
         case initializationError(description: String)
         case connectionError(description: String)
         case parseError(description: String)

@@ -73,7 +73,7 @@ class InformationPostingDetailViewController: UIViewController {
         }
     }
 
-    private func didFinishUploadingStudentLocation(_ success: Bool, _ error: APIClient.APIError?){
+    private func didFinishUploadingStudentLocation(_ success: Bool, _ error: APIClient.APIClientError?){
         DispatchQueue.main.async {
             if !success {
                 print(error!)

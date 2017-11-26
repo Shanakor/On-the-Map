@@ -86,7 +86,7 @@ class BaseTabbedViewController: UIViewController {
         }
     }
 
-    func didFinishLoadingStudentLocations(success: Bool, error: ParseAPIClient.APIError?){
+    func didFinishLoadingStudentLocations(success: Bool, error: ParseAPIClient.APIClientError?){
         preconditionFailure("This method has to be implemented")
     }
 

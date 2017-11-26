@@ -66,7 +66,7 @@ class LoginViewController: UIViewController {
         UdacityAPIClient.shared.authenticate(username: username, password: password, completionHandler: onAuthenticationDidFinish)
     }
 
-    private func onAuthenticationDidFinish(_ userID: String?, _ error: UdacityAPIClient.APIError?){
+    private func onAuthenticationDidFinish(_ userID: String?, _ error: UdacityAPIClient.APIClientError?){
         DispatchQueue.main.async {
             self.configureUILoading(loading: false)
         }
@@ -84,7 +84,7 @@ class LoginViewController: UIViewController {
         UdacityAPIClient.shared.getUserInfo(userID: userID!, completionHandler: onGetUserInfoDidFinish)
     }
 
-    private func onGetUserInfoDidFinish(_ account: Account?, _ error: UdacityAPIClient.APIError?){
+    private func onGetUserInfoDidFinish(_ account: Account?, _ error: UdacityAPIClient.APIClientError?){
         guard error == nil else{
             print(error!)
             presentAlertDialog(error!)
@@ -104,7 +104,7 @@ class LoginViewController: UIViewController {
 
     // MARK: Error handling
 
-    private func presentAlertDialog(_ error: UdacityAPIClient.APIError) {
+    private func presentAlertDialog(_ error: UdacityAPIClient.APIClientError) {
         switch(error){
         case .connectionError:
             self.presentAlertDialog(title: AlertDialogText.connectionErrorTitle, message: AlertDialogText.connectionErrorMessage)
