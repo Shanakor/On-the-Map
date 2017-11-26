@@ -25,6 +25,7 @@ class BaseTabbedViewController: UIViewController {
 
     private func initNavigationBar() {
         self.navigationItem.title = "On the Map"
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(presentAddLocationScene))
     }
 
     private func initStudentLocationRepository() {
@@ -62,7 +63,7 @@ class BaseTabbedViewController: UIViewController {
         fatalError("segueIdentifierAddLocation() can not be called on the BaseTabbedViewController class")
     }
 
-    func presentAddLocationScene(){
+    @objc func presentAddLocationScene(){
         performSegue(withIdentifier: segueIdentifierAddLocation(), sender: nil)
     }
 }
