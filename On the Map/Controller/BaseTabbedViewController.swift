@@ -47,7 +47,7 @@ class BaseTabbedViewController: UIViewController {
     }
 
     func studentLocationsDidLoad(success: Bool, error: ParseAPIClient.APIError?){
-        fatalError("studentLocationsDidLoad() can not be called on the BaseTabbedViewController class")
+        preconditionFailure("This method has to be implemented")
     }
 
     // MARK: Error handling
@@ -60,7 +60,7 @@ class BaseTabbedViewController: UIViewController {
     // MARK: Navigation
 
     func segueIdentifierAddLocation() -> String{
-        fatalError("segueIdentifierAddLocation() can not be called on the BaseTabbedViewController class")
+        preconditionFailure("This method has to be implemented")
     }
 
     @objc func presentAddLocationScene(){
