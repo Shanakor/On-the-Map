@@ -81,6 +81,18 @@ class LoginViewController: UIViewController {
             return
         }
 
+        UdacityAPIClient.shared.getUserInfo(userID: userID!, completionHandler: onGetUserInfoDidFinish)
+    }
+
+    private func onGetUserInfoDidFinish(_ account: Account?, _ error: UdacityAPIClient.APIError?){
+        guard error == nil else{
+            print(error!)
+            presentAlertDialog(error!)
+            return
+        }
+
+        (UIApplication.shared.delegate as! AppDelegate).account = account
+        print(account)
         DispatchQueue.main.async {
             self.performSegue(withIdentifier: AppDelegate.Identifiers.Segues.MainScene, sender: nil)
         }

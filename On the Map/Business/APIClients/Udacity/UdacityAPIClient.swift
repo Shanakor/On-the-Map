@@ -102,8 +102,8 @@ class UdacityAPIClient: APIClient {
         completionHandler(accountKey, nil)
     }
 
-    public func getUserInfo(accountID: String, completionHandler: @escaping (Account?, APIError?) -> Void){
-        taskForGETMethod(method: Methods.Users + "/\(accountID)", methodParameters: nil){
+    public func getUserInfo(userID: String, completionHandler: @escaping (Account?, APIError?) -> Void){
+        taskForGETMethod(method: Methods.Users + "/\(userID)", methodParameters: nil){
             (result, error) in
 
             guard error == nil else{
@@ -131,7 +131,7 @@ class UdacityAPIClient: APIClient {
             return
         }
 
-        guard let lastName = parsedResult[JSONResponseKeys.LastName] as? String else{
+        guard let lastName = user[JSONResponseKeys.LastName] as? String else{
             completionHandler(nil, .parseError(description: "Cannot find key '\(JSONResponseKeys.LastName)' in \(parsedResult)"))
             return
         }
