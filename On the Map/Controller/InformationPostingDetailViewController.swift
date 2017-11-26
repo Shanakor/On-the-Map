@@ -43,5 +43,7 @@ class InformationPostingDetailViewController: UIViewController {
 
         let annotation = MKPointAnnotation.fromStudentLocation(studentLocation!)
         mapView.addAnnotation(annotation)
+        mapView.showAnnotations([annotation], animated: true)
+        mapView.selectAnnotation(annotation, animated: true)
     }
 }
