@@ -245,7 +245,7 @@
         <!--Add Location-->
         <scene sceneID="mzG-pa-MH8">
             <objects>
-                <viewController id="8tP-Wk-B8o" sceneMemberID="viewController">
+                <viewController id="8tP-Wk-B8o" customClass="InformationPostingViewController" customModule="On_the_Map" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="aut-DS-g9F">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -295,7 +295,11 @@
                         <viewLayoutGuide key="safeArea" id="IID-oh-GLa"/>
                     </view>
                     <navigationItem key="navigationItem" title="Add Location" id="DWx-hs-ZKV">
-                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="MAu-H5-xl0"/>
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="MAu-H5-xl0">
+                            <connections>
+                                <action selector="dismissViewController:" destination="8tP-Wk-B8o" id="C2j-dC-5OI"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8cZ-sh-GSn" userLabel="First Responder" sceneMemberID="firstResponder"/>
