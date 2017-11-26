@@ -86,7 +86,7 @@ class InformationPostingDetailViewController: UIViewController {
     }
 
     private func dismiss() {
-        NotificationCenter.default.post(name: NSNotification.Name(rawValue: BaseTabbedViewController.Identifiers.DidFinishAddingStudentLocationSelector), object: studentLocation!)
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: BaseTabbedViewController.NotificationNames.DidFinishAddingStudentLocation), object: studentLocation!)
         self.navigationController!.topViewController!.dismiss(animated: true)
     }
 

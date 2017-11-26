@@ -12,14 +12,20 @@ class BaseTabbedViewController: UIViewController {
 
     // MARK: Constants
 
-    struct AlertDialogStrings{
+    private struct AlertDialogStrings{
         static let OverwriteTitle = ""
         static let OverwriteMessage = "You have already posted a student location. Would you like to overwrite it?"
         static let OverwritePositiveAction = "Overwrite"
         static let OverwriteNegativeAction = "Cancel"
     }
-    struct Identifiers{
-        static let DidFinishAddingStudentLocationSelector = "didFinishAddingStudentLocation"
+
+    private struct NavigationBarStrings{
+        static let Title = "On the Map"
+        static let Logout = "Logout"
+    }
+
+    struct NotificationNames {
+        static let DidFinishAddingStudentLocation = "didFinishAddingStudentLocation"
     }
 
     // MARK: Properties
@@ -35,19 +41,19 @@ class BaseTabbedViewController: UIViewController {
         initStudentLocationRepository()
 
         NotificationCenter.default.addObserver(self, selector: #selector(didFinishAddingStudentLocation(_:)),
-                name: NSNotification.Name(rawValue: Identifiers.DidFinishAddingStudentLocationSelector), object: nil)
+                name: NSNotification.Name(rawValue: NotificationNames.DidFinishAddingStudentLocation), object: nil)
     }
 
-
     private func initNavigationBar() {
-        self.navigationItem.title = "On the Map"
+        self.navigationItem.title = NavigationBarStrings.Title
 
         self.navigationItem.rightBarButtonItems = [
-            UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(startAddLocationProcess)),
+            UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(prepareForNavigatingToInformationPostingView)),
             UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(loadStudentLocations))
         ]
 
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Logout", style: .plain, target: self, action: #selector(logout))
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: NavigationBarStrings.Logout,
+                                                                style: .plain, target: self, action: #selector(logout))
     }
 
     private func initStudentLocationRepository() {
@@ -86,17 +92,11 @@ class BaseTabbedViewController: UIViewController {
         }
     }
 
-    func didFinishLoadingStudentLocations(success: Bool, error: ParseAPIClient.APIClientError?){
-        preconditionFailure("This method has to be implemented")
-    }
-
-    // MARK: AddLocationDelegate members
-
     @objc func didFinishAddingStudentLocation(_ notification: NSNotification) {
         loadStudentLocations()
     }
 
-    // MARK: Error handling
+    // MARK: Presenting errors
 
     func presentAlert(title: String?, message: String) {
         let alertCtrl = UIAlertController(title: title ?? "", message: message, preferredStyle: .alert)
@@ -107,7 +107,7 @@ class BaseTabbedViewController: UIViewController {
         let alertCtrl = UIAlertController(title: AlertDialogStrings.OverwriteTitle, message: AlertDialogStrings.OverwriteMessage, preferredStyle: .alert)
         alertCtrl.addAction(UIAlertAction(title: AlertDialogStrings.OverwriteNegativeAction, style: .cancel))
         alertCtrl.addAction(UIAlertAction(title: AlertDialogStrings.OverwritePositiveAction, style: .destructive){
-            alertAction in self.performSegue(withIdentifier: self.segueIdentifierAddLocation(), sender: nil)
+            alertAction in self.performSegue(withIdentifier: self.segueIdentifierForInformationPostingView(), sender: nil)
         })
 
         self.present(alertCtrl, animated: true)
@@ -115,15 +115,11 @@ class BaseTabbedViewController: UIViewController {
 
     // MARK: Navigation
 
-    func segueIdentifierAddLocation() -> String{
-        preconditionFailure("This method has to be implemented")
-    }
+    @objc func prepareForNavigatingToInformationPostingView(){
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
 
-    @objc func startAddLocationProcess(){
-        // Is there already a StudentLocation of this user?
-        let account = (UIApplication.shared.delegate as! AppDelegate).account!
-
-        ParseAPIClient.shared.getStudentLocation(uniqueKey: account.ID){
+        // Is there already a StudentLocation of current user?
+        ParseAPIClient.shared.getStudentLocation(uniqueKey: appDelegate.account!.ID){
             (studentLocation, error) in
 
             guard error == nil else{
@@ -132,12 +128,22 @@ class BaseTabbedViewController: UIViewController {
             }
 
             guard studentLocation == nil else{
-                (UIApplication.shared.delegate as! AppDelegate).studentLocationToOverwrite = studentLocation
+                appDelegate.studentLocationToOverwrite = studentLocation
                 self.presentOverwriteAlert()
                 return
             }
 
-            self.performSegue(withIdentifier: self.segueIdentifierAddLocation(), sender: nil)
+            self.performSegue(withIdentifier: self.segueIdentifierForInformationPostingView(), sender: nil)
         }
+    }
+
+    // MARK: Methods to be overridden by subclasses
+
+    func didFinishLoadingStudentLocations(success: Bool, error: ParseAPIClient.APIClientError?){
+        preconditionFailure("This method has to be implemented")
+    }
+
+    func segueIdentifierForInformationPostingView() -> String{
+        preconditionFailure("This method has to be implemented")
     }
 }

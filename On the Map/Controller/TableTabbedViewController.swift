@@ -36,8 +36,7 @@ class TableTabbedViewController: BaseTabbedViewController {
     }
 
     // MARK: Navigation
-
-    override func segueIdentifierAddLocation() -> String {
+    override func segueIdentifierForInformationPostingView() -> String {
         return Identifiers.AddLocationSegue
     }
 }
