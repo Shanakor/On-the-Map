@@ -85,7 +85,7 @@ class LoginViewController: UIViewController {
         }
     }
 
-    private func presentAlertDialog(_ error: UdacityAPIClient.UdacityAPIError) {
+    private func presentAlertDialog(_ error: UdacityAPIClient.APIError) {
         switch(error){
             case .connectionError:
                 self.presentAlertDialog(title: AlertDialogText.connectionErrorTitle, message: AlertDialogText.connectionErrorMessage)
@@ -93,6 +93,8 @@ class LoginViewController: UIViewController {
                 self.presentAlertDialog(title: AlertDialogText.parseErrorTitle, message: AlertDialogText.parseErrorMessage)
             case .serverError:
                 self.presentAlertDialog(title: AlertDialogText.credentialErrorTitle, message: AlertDialogText.credentialErrorMessage)
+            default:
+                break
         }
     }
 

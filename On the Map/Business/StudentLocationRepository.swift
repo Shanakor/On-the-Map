@@ -15,7 +15,7 @@ class StudentLocationRepository {
 
     // MARK: Utility functions.
 
-    public func loadStudentLocations(completionHandler: @escaping (Bool, ParseAPIClient.ParseAPIError?) -> Void){
+    public func loadStudentLocations(completionHandler: @escaping (Bool, ParseAPIClient.APIError?) -> Void){
 
         ParseAPIClient.shared.getStudentLocations(limit: ParseAPIClient.Constants.Limit, order: "-\(ParseAPIClient.JSONKeys.UpdatedAt)"){
             (studentLocations, error) in

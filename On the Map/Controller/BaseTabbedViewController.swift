@@ -46,7 +46,7 @@ class BaseTabbedViewController: UIViewController {
         }
     }
 
-    func studentLocationsDidLoad(success: Bool, error: ParseAPIClient.ParseAPIError?){
+    func studentLocationsDidLoad(success: Bool, error: ParseAPIClient.APIError?){
         fatalError("studentLocationsDidLoad() can not be called on the BaseTabbedViewController class")
     }
 

@@ -45,21 +45,4 @@ extension UdacityAPIClient {
         static let Account = "account"
         static let AccountKey = "key"
     }
-
-    enum UdacityAPIError: CustomStringConvertible{
-        case connectionError(description: String)
-        case parseError(description: String)
-        case serverError(description: String)
-
-        var description: String {
-            switch self {
-                case .connectionError(let description):
-                    return "Connection failure: \(description)"
-                case .parseError(let description):
-                    return "Parse failure: \(description)"
-                case .serverError(let description):
-                    return "Server returned error: \(description)"
-            }
-        }
-    }
 }

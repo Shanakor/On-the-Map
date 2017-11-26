@@ -5,62 +5,81 @@
 
 import Foundation
 
-class UdacityAPIClient {
+class UdacityAPIClient: APIClient {
 
     // MARK: Properties
 
-    // Singleton.
     static let shared = UdacityAPIClient()
 
     private(set) var sessionID: String?
-    private(set) var accountKey: String?
 
-    // MARK: Authentication
+    // MARK: APIClient members
 
-    public func authenticate(username: String, password: String, completionHandler: @escaping (Bool, UdacityAPIError?) -> Void = {_, _ in }){
-        let request = createAuthenticationRequest(username: username, password: password)
+    override func createURL(methodParameters: [String: String]?, withPathExtension: String?) -> URL? {
+        var urlComponents = URLComponents()
+        urlComponents.scheme = Constants.APIScheme
+        urlComponents.host = Constants.APIHost
+        urlComponents.path = Constants.APIPath + (withPathExtension ?? "")
 
-        let task = URLSession.shared.dataTask(with: request) {
-            data, response, error in
+        // Construct the query.
+        if let methodParameters = methodParameters{
+            var queryItems = [URLQueryItem]()
 
-            // GUARD: Did the request fail?
-            guard error == nil else {
-                completionHandler(false, .connectionError(description: "Request failed. Request: \(request)"))
-                return
+            for (key, value) in methodParameters{
+                queryItems.append(URLQueryItem(name: key, value: value))
             }
 
-            // GUARD: Did the request return status code OK?
-            guard let httpResponse = response as? HTTPURLResponse,
-                  httpResponse.statusCode >= 200 || httpResponse.statusCode <= 299 else {
-                completionHandler(false, .connectionError(description: "Status code was other than 2XX!"))
-                return
-            }
-
-            // GUARD: Did the request return actual data?
-            guard let data = data else {
-                completionHandler(false, .connectionError(description: "No data was returned!"))
-                return
-            }
-
-            self.convertAuthDataWithCompletionHandler(data, completionHandler: completionHandler)
+            urlComponents.queryItems = queryItems
         }
 
-        task.resume()
+        return urlComponents.url
     }
 
-    private func convertAuthDataWithCompletionHandler(_ data: Data, completionHandler: @escaping (Bool, UdacityAPIError?) -> Void) {
+    override func createGETRequest(URL: URL) -> URLRequest {
+        return URLRequest(url: URL)
+    }
 
-        let parsedResult: [String: AnyObject]!
+    override func createPOSTRequest(URL: URL, jsonBody: Data?) -> URLRequest {
+        var request = URLRequest(url: URL)
+        request.httpMethod = "POST"
+        request.addValue(HeaderValues.Accept, forHTTPHeaderField: HeaderKeys.Accept)
+        request.addValue(HeaderValues.ContentType, forHTTPHeaderField: HeaderKeys.ContentType)
+
+        request.httpBody = jsonBody
+
+        return request
+    }
+
+    override func createPUTRequest(URL: URL, jsonBody: Data?) -> URLRequest {
+        return URLRequest(url: URL)
+    }
+
+    override func convertDataWithCompletionHandler(_ data: Data, completionHandler: @escaping ([String: AnyObject]?, APIError?) -> Void) {
         let range = Range(5..<data.count)
         let subsetData = data.subdata(in: range)
 
-        do{
-            parsedResult = try JSONSerialization.jsonObject(with: subsetData, options: .allowFragments) as! [String: AnyObject]
+        super.convertDataWithCompletionHandler(subsetData, completionHandler: completionHandler)
+    }
+
+    // MARK: Convenience methods
+
+    public func authenticate(username: String, password: String, completionHandler: @escaping (Bool, APIError?) -> Void = {_, _ in }){
+        let jsonBody = "{\"\(JSONBodyKeys.Udacity)\": {\"\(JSONBodyKeys.Username)\": \"\(username)\", \"\(JSONBodyKeys.password)\": \"\(password)\"}}"
+                        .data(using: .utf8)
+
+        taskForPOSTMethod(method: Methods.NewSession, methodParameters: nil, jsonBody: jsonBody!){
+            (result, error) in
+
+            guard error == nil else{
+                completionHandler(false, error)
+                return
+            }
+
+            self.convertAuthDataWithCompletionHandler(result!, completionHandler: completionHandler)
         }
-        catch{
-            completionHandler(false, .parseError(description: "Could not convert to JSON from \(subsetData)"))
-            return
-        }
+    }
+
+    private func convertAuthDataWithCompletionHandler(_ parsedResult: [String: AnyObject], completionHandler: @escaping (Bool, APIError?) -> Void) {
 
         if let _ = parsedResult[JSONResponseKeys.Status] as? Int{
             guard let errorString = parsedResult[JSONResponseKeys.Error] as? String else{
@@ -82,26 +101,8 @@ class UdacityAPIClient {
             return
         }
 
-        self.accountKey = accountKey
+        // TODO: Handle retrieved account key.
+
         completionHandler(true, nil)
-    }
-
-    private func createAuthenticationRequest(username: String, password: String) -> URLRequest {
-        var request = URLRequest(url: createSessionURL())
-        request.httpMethod = "POST"
-        request.addValue(HeaderValues.Accept, forHTTPHeaderField: HeaderKeys.Accept)
-        request.addValue(HeaderValues.ContentType, forHTTPHeaderField: HeaderKeys.ContentType)
-        request.httpBody = "{\"\(JSONBodyKeys.Udacity)\": {\"\(JSONBodyKeys.Username)\": \"\(username)\", \"\(JSONBodyKeys.password)\": \"\(password)\"}}"
-                            .data(using: .utf8)
-        return request
-    }
-
-    private func createSessionURL() -> URL{
-        var urlComponents = URLComponents()
-        urlComponents.scheme = Constants.APIScheme
-        urlComponents.host = Constants.APIHost
-        urlComponents.path = Constants.APIPath + Methods.NewSession
-
-        return urlComponents.url!
     }
 }

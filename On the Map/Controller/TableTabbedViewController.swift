@@ -31,7 +31,7 @@ class TableTabbedViewController: BaseTabbedViewController {
         tableView.dataSource = self
     }
 
-    override func studentLocationsDidLoad(success: Bool, error: ParseAPIClient.ParseAPIError?) {
+    override func studentLocationsDidLoad(success: Bool, error: ParseAPIClient.APIError?) {
         tableView.reloadData()
     }
 

@@ -30,44 +30,44 @@ struct StudentLocation {
 
 //        guard let createdAtString = dictionary[ParseClient.JSONResponseKeys.CreatedAt] as? String,
 //                let createdAt = dateFormatter.date(from: createdAtString) else{
-//            throw ParseClient.ParseAPIError.parseError(description: "Can not find key '\(ParseClient.JSONResponseKeys.CreatedAt)' in \(dictionary)")
+//            throw ParseClient.APIError.parseError(description: "Can not find key '\(ParseClient.JSONResponseKeys.CreatedAt)' in \(dictionary)")
 //        }
 
         guard let firstName = dictionary[ParseAPIClient.JSONKeys.FirstName] as? String else{
-            throw ParseAPIClient.ParseAPIError.parseError(description: "Can not find key '\(ParseAPIClient.JSONKeys.FirstName)' in \(dictionary)")
+            throw ParseAPIClient.APIError.parseError(description: "Can not find key '\(ParseAPIClient.JSONKeys.FirstName)' in \(dictionary)")
         }
 
         guard let lastName = dictionary[ParseAPIClient.JSONKeys.LastName] as? String else{
-            throw ParseAPIClient.ParseAPIError.parseError(description: "Can not find key '\(ParseAPIClient.JSONKeys.LastName)' in \(dictionary)")
+            throw ParseAPIClient.APIError.parseError(description: "Can not find key '\(ParseAPIClient.JSONKeys.LastName)' in \(dictionary)")
         }
 
         guard let latitude = dictionary[ParseAPIClient.JSONKeys.Latitude] as? Double else{
-            throw ParseAPIClient.ParseAPIError.parseError(description: "Can not find key '\(ParseAPIClient.JSONKeys.Latitude)' in \(dictionary)")
+            throw ParseAPIClient.APIError.parseError(description: "Can not find key '\(ParseAPIClient.JSONKeys.Latitude)' in \(dictionary)")
         }
 
         guard let longitude = dictionary[ParseAPIClient.JSONKeys.Longitude] as? Double else{
-            throw ParseAPIClient.ParseAPIError.parseError(description: "Can not find key '\(ParseAPIClient.JSONKeys.Longitude)' in \(dictionary)")
+            throw ParseAPIClient.APIError.parseError(description: "Can not find key '\(ParseAPIClient.JSONKeys.Longitude)' in \(dictionary)")
         }
 
         guard let mapString = dictionary[ParseAPIClient.JSONKeys.MapString] as? String else{
-            throw ParseAPIClient.ParseAPIError.parseError(description: "Can not find key '\(ParseAPIClient.JSONKeys.MapString)' in \(dictionary)")
+            throw ParseAPIClient.APIError.parseError(description: "Can not find key '\(ParseAPIClient.JSONKeys.MapString)' in \(dictionary)")
         }
 
         guard let mediaURL = dictionary[ParseAPIClient.JSONKeys.MediaURL] as? String else{
-            throw ParseAPIClient.ParseAPIError.parseError(description: "Can not find key '\(ParseAPIClient.JSONKeys.MediaURL)' in \(dictionary)")
+            throw ParseAPIClient.APIError.parseError(description: "Can not find key '\(ParseAPIClient.JSONKeys.MediaURL)' in \(dictionary)")
         }
 
         guard let objectID = dictionary[ParseAPIClient.JSONKeys.ObjectID] as? String else{
-            throw ParseAPIClient.ParseAPIError.parseError(description: "Can not find key '\(ParseAPIClient.JSONKeys.ObjectID)' in \(dictionary)")
+            throw ParseAPIClient.APIError.parseError(description: "Can not find key '\(ParseAPIClient.JSONKeys.ObjectID)' in \(dictionary)")
         }
 
         guard let uniqueKey = dictionary[ParseAPIClient.JSONKeys.UniqueKey] as? String else{
-            throw ParseAPIClient.ParseAPIError.parseError(description: "Can not find key '\(ParseAPIClient.JSONKeys.UniqueKey)' in \(dictionary)")
+            throw ParseAPIClient.APIError.parseError(description: "Can not find key '\(ParseAPIClient.JSONKeys.UniqueKey)' in \(dictionary)")
         }
 
 //        guard let updatedAtString = dictionary[ParseClient.JSONResponseKeys.UpdatedAt] as? String,
 //                let updatedAt = dateFormatter.date(from: updatedAtString) else{
-//            throw ParseClient.ParseAPIError.parseError(description: "Can not find key '\(ParseClient.JSONResponseKeys.UpdatedAt)' in \(dictionary)")
+//            throw ParseClient.APIError.parseError(description: "Can not find key '\(ParseClient.JSONResponseKeys.UpdatedAt)' in \(dictionary)")
 //        }
 
 //        self.createdAt = createdAt
@@ -84,7 +84,7 @@ struct StudentLocation {
 
     static func studentLocations(from dictionaryArray: [[String: AnyObject]]) -> [StudentLocation]{
         var studentLocations = [StudentLocation]()
-        var errorLog = [Int: ParseAPIClient.ParseAPIError]()
+        var errorLog = [Int: ParseAPIClient.APIError]()
 
         var i = 0
         for dict in dictionaryArray{
@@ -94,7 +94,7 @@ struct StudentLocation {
                 studentLocations.append(studentLocation)
             }
             catch{
-                let apiError = error as! ParseAPIClient.ParseAPIError
+                let apiError = error as! ParseAPIClient.APIError
                 errorLog[i] = apiError
             }
 

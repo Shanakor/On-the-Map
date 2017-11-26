@@ -30,7 +30,7 @@ class MapTabbedViewController: BaseTabbedViewController {
         mapView.delegate = self
     }
 
-    override func studentLocationsDidLoad(success: Bool, error: ParseAPIClient.ParseAPIError?) {
+    override func studentLocationsDidLoad(success: Bool, error: ParseAPIClient.APIError?) {
         if success {
             self.refreshAnnotations()
         } else {

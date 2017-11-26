@@ -54,24 +54,4 @@ extension ParseAPIClient {
         static let UniqueKey = "uniqueKey"
         static let UpdatedAt = "updatedAt"
     }
-
-    enum ParseAPIError: CustomStringConvertible, Error{
-        case initializationError(description: String)
-        case connectionError(description: String)
-        case parseError(description: String)
-        case serverError(description: String)
-
-        var description: String {
-            switch self {
-                case .initializationError(let description):
-                    return "Initialisation error: \(description)"
-                case .connectionError(let description):
-                    return "Connection failure: \(description)"
-                case .parseError(let description):
-                    return "Parse failure: \(description)"
-                case .serverError(let description):
-                    return "Server returned error: \(description)"
-                }
-        }
-    }
 }
