@@ -41,7 +41,11 @@ class BaseTabbedViewController: UIViewController {
 
     private func initNavigationBar() {
         self.navigationItem.title = "On the Map"
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(startAddLocationProcess))
+
+        self.navigationItem.rightBarButtonItems = [
+            UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(startAddLocationProcess)),
+            UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(loadStudentLocations))
+        ]
     }
 
     private func initStudentLocationRepository() {
@@ -58,7 +62,7 @@ class BaseTabbedViewController: UIViewController {
 
     // MARK: Networking methods
 
-    func loadStudentLocations(){
+    @objc func loadStudentLocations(){
         studentLocationRepository.loadStudentLocations{
             (success, error) in
 
