@@ -49,15 +49,12 @@ extension TableTabbedViewController: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let studentLocation = studentLocationRepository.studentLocations[indexPath.row]
 
-        var cell = tableView.dequeueReusableCell(withIdentifier: Identifiers.ReusableCell)
-        if cell == nil{
-            cell = UITableViewCell(style: .subtitle, reuseIdentifier: Identifiers.ReusableCell)
-        }
+        let cell = tableView.dequeueReusableCell(withIdentifier: Identifiers.ReusableCell)!
 
-        cell!.imageView!.image = UIImage(named: Identifiers.TableCellImageView)
-        cell!.textLabel!.text = "\(studentLocation.firstName) \(studentLocation.lastName)"
-        cell!.detailTextLabel!.text = studentLocation.mediaURL
+        cell.imageView!.image = UIImage(named: Identifiers.TableCellImageView)
+        cell.textLabel!.text = "\(studentLocation.firstName) \(studentLocation.lastName)"
+        cell.detailTextLabel!.text = studentLocation.mediaURL
 
-        return cell!
+        return cell
     }
 }
