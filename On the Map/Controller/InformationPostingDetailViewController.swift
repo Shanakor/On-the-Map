@@ -10,7 +10,11 @@ import UIKit
 import MapKit
 
 class InformationPostingDetailViewController: UIViewController {
-
+    
+    // MARK: IBOutlets
+    
+    @IBOutlet weak var mapView: MKMapView!
+    
     // MARK: Properties
 
     var coordinate: CLLocationCoordinate2D!
@@ -22,4 +26,7 @@ class InformationPostingDetailViewController: UIViewController {
         print(coordinate)
         print(url)
     }
+    
+    // MARK: IBActions
+    
 }

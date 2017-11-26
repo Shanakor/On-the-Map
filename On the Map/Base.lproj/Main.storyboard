@@ -346,9 +346,38 @@
                     <view key="view" contentMode="scaleToFill" id="5Pp-Lx-tNq">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="TCC-d3-GMD">
+                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                            </mapView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kK8-AV-62Z">
+                                <rect key="frame" x="20" y="607" width="335" height="30"/>
+                                <color key="backgroundColor" red="0.0" green="0.58980089430000004" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <state key="normal" title="FINISH">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="findLocation:" destination="8tP-Wk-B8o" eventType="touchUpInside" id="ynd-J5-QEI"/>
+                                    <action selector="login:" destination="BYZ-38-t0r" eventType="touchUpInside" id="CmZ-Vv-0Ll"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="3cy-eS-tGw" firstAttribute="trailing" secondItem="kK8-AV-62Z" secondAttribute="trailing" constant="20" id="BRN-PG-Tm5"/>
+                            <constraint firstItem="3cy-eS-tGw" firstAttribute="bottom" secondItem="TCC-d3-GMD" secondAttribute="bottom" id="Bj9-pl-AAE"/>
+                            <constraint firstItem="TCC-d3-GMD" firstAttribute="height" secondItem="3cy-eS-tGw" secondAttribute="height" id="LFH-ML-Ugw"/>
+                            <constraint firstItem="TCC-d3-GMD" firstAttribute="top" secondItem="3cy-eS-tGw" secondAttribute="top" id="aim-m5-mYh"/>
+                            <constraint firstItem="TCC-d3-GMD" firstAttribute="leading" secondItem="3cy-eS-tGw" secondAttribute="leading" id="slW-St-fuE"/>
+                            <constraint firstItem="3cy-eS-tGw" firstAttribute="bottom" secondItem="kK8-AV-62Z" secondAttribute="bottom" constant="30" id="tse-X8-Ez5"/>
+                            <constraint firstItem="kK8-AV-62Z" firstAttribute="leading" secondItem="3cy-eS-tGw" secondAttribute="leading" constant="20" id="xzO-KW-zI7"/>
+                            <constraint firstItem="3cy-eS-tGw" firstAttribute="trailing" secondItem="TCC-d3-GMD" secondAttribute="trailing" id="zqo-SK-ZGc"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="3cy-eS-tGw"/>
                     </view>
+                    <connections>
+                        <outlet property="mapView" destination="TCC-d3-GMD" id="Bfp-dc-Woq"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7Jt-A4-UGL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
