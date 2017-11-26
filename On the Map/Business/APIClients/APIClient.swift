@@ -9,11 +9,11 @@ class APIClient {
 
     // MARK: Request methods.
 
-    public func taskForHTTPMethod(method: String?, methodParameters: [String: String]?, jsonBody: Data?,
+    public func taskForHTTPMethod(method: String?, withPathExtension pathExtension: String?, methodParameters: [String: String]?, jsonBody: Data?,
                                   createRequest: (URL, Data?) -> URLRequest,
                                   completionHandler: @escaping ([String: AnyObject]?, APIError?) -> Void = { _, _ in }){
 
-        guard let URL = createURL(methodParameters: methodParameters, withPathExtension: method) else{
+        guard let URL = createURL(method: method, withPathExtension: pathExtension, methodParameters: methodParameters) else{
             completionHandler(nil, .initializationError(description: "Cannot form a valid URL with the given parameters!"))
             return
         }
@@ -63,38 +63,38 @@ class APIClient {
         completionHandler(parsedResult, nil)
     }
 
-    public func taskForGETMethod(method: String?, methodParameters: [String: String]?, completionHandlerForGET: @escaping ([String: AnyObject]?, APIError?) -> Void = { _, _ in }){
+    public func taskForGETMethod(method: String?, withPathExtension pathExtension: String?, methodParameters: [String: String]?, completionHandlerForGET: @escaping ([String: AnyObject]?, APIError?) -> Void = { _, _ in }){
 
         let createParseAPIRequest = {(URL: URL, jsonBody: Data?) in
             self.createGETRequest(URL: URL)
         }
 
-        taskForHTTPMethod(method: method, methodParameters: methodParameters, jsonBody: nil,
+        taskForHTTPMethod(method: method, withPathExtension: pathExtension, methodParameters: methodParameters, jsonBody: nil,
                 createRequest: createParseAPIRequest,
                 completionHandler: completionHandlerForGET)
     }
 
-    public func taskForPOSTMethod(method: String?, methodParameters: [String: String]?, jsonBody: Data?, completionHandlerForPOST: @escaping ([String: AnyObject]?, APIError?) -> Void = { _, _ in }){
+    public func taskForPOSTMethod(method: String?, withPathExtension pathExtension: String?, methodParameters: [String: String]?, jsonBody: Data?, completionHandlerForPOST: @escaping ([String: AnyObject]?, APIError?) -> Void = { _, _ in }){
 
-        taskForHTTPMethod(method: method, methodParameters: methodParameters, jsonBody: jsonBody,
+        taskForHTTPMethod(method: method, withPathExtension: pathExtension, methodParameters: methodParameters, jsonBody: jsonBody,
                 createRequest: createPOSTRequest, completionHandler: completionHandlerForPOST)
     }
 
-    public func taskForPUTMethod(method: String?, methodParameters: [String: String]?, jsonBody: Data?, completionHandlerForPUT: @escaping ([String: AnyObject]?, APIError?) -> Void = { _, _ in }){
+    public func taskForPUTMethod(method: String?, withPathExtension pathExtension: String?, methodParameters: [String: String]?, jsonBody: Data?, completionHandlerForPUT: @escaping ([String: AnyObject]?, APIError?) -> Void = { _, _ in }){
 
-        taskForHTTPMethod(method: method, methodParameters: methodParameters, jsonBody: jsonBody,
+        taskForHTTPMethod(method: method, withPathExtension: pathExtension, methodParameters: methodParameters, jsonBody: jsonBody,
                 createRequest: createPUTRequest, completionHandler: completionHandlerForPUT)
     }
 
-    public func taskForDELETEMethod(method: String?, methodParameters: [String: String]?, jsonBody: Data?, completionHandlerForDELETE: @escaping ([String: AnyObject]?, APIError?) -> Void = { _, _ in }){
+    public func taskForDELETEMethod(method: String?, withPathExtension pathExtension: String?, methodParameters: [String: String]?, jsonBody: Data?, completionHandlerForDELETE: @escaping ([String: AnyObject]?, APIError?) -> Void = { _, _ in }){
 
-        taskForHTTPMethod(method: method, methodParameters: methodParameters, jsonBody: jsonBody,
+        taskForHTTPMethod(method: method, withPathExtension: pathExtension, methodParameters: methodParameters, jsonBody: jsonBody,
                 createRequest: createDELETERequest, completionHandler: completionHandlerForDELETE)
     }
 
     // MARK: Methods to be overridden by subclasses
 
-    func createURL(methodParameters: [String: String]?, withPathExtension: String?) -> URL? {
+    func createURL(method: String?, withPathExtension pathExtension: String?, methodParameters: [String: String]?) -> URL? {
         preconditionFailure("This method must be overridden")
     }
 

@@ -13,14 +13,15 @@ class UdacityAPIClient: APIClient {
 
     // MARK: APIClient members
 
-    override func createURL(methodParameters: [String: String]?, withPathExtension: String?) -> URL? {
+    override func createURL(method: String?, withPathExtension pathExtension: String?, methodParameters: [String: String]?) -> URL? {
         var urlComponents = URLComponents()
         urlComponents.scheme = Constants.APIScheme
         urlComponents.host = Constants.APIHost
-        urlComponents.path = Constants.APIPath + (withPathExtension ?? "")
+        urlComponents.path = Constants.APIPath + (method ?? "") + (pathExtension ?? "")
 
         // Construct the query.
-        if let methodParameters = methodParameters{
+        if let methodParameters = methodParameters,
+           methodParameters.count != 0{
             var queryItems = [URLQueryItem]()
 
             for (key, value) in methodParameters{
@@ -77,7 +78,7 @@ class UdacityAPIClient: APIClient {
         let jsonBody = "{\"\(JSONBodyKeys.Udacity)\": {\"\(JSONBodyKeys.Username)\": \"\(username)\", \"\(JSONBodyKeys.password)\": \"\(password)\"}}"
                         .data(using: .utf8)
 
-        taskForPOSTMethod(method: Methods.Session, methodParameters: nil, jsonBody: jsonBody!){
+        taskForPOSTMethod(method: Methods.Session, withPathExtension: nil, methodParameters: nil, jsonBody: jsonBody!){
             (result, error) in
 
             guard error == nil else{
@@ -115,7 +116,7 @@ class UdacityAPIClient: APIClient {
     }
 
     public func getUserInfo(userID: String, completionHandler: @escaping (Account?, APIError?) -> Void){
-        taskForGETMethod(method: Methods.Users + "/\(userID)", methodParameters: nil){
+        taskForGETMethod(method: Methods.Users, withPathExtension: "/\(userID)", methodParameters: nil){
             (result, error) in
 
             guard error == nil else{
@@ -152,7 +153,7 @@ class UdacityAPIClient: APIClient {
     }
 
     public func logout(completionHandler: @escaping (Bool, APIError?) -> Void){
-        taskForDELETEMethod(method: Methods.Session, methodParameters: nil, jsonBody: nil){
+        taskForDELETEMethod(method: Methods.Session, withPathExtension: nil, methodParameters: nil, jsonBody: nil){
             (result, error) in
 
             guard error == nil else{
