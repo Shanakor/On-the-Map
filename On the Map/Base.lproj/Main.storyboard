@@ -359,6 +359,7 @@
                                 <connections>
                                     <action selector="findLocation:" destination="8tP-Wk-B8o" eventType="touchUpInside" id="ynd-J5-QEI"/>
                                     <action selector="login:" destination="BYZ-38-t0r" eventType="touchUpInside" id="CmZ-Vv-0Ll"/>
+                                    <action selector="uploadStudentLocationAndDismiss:" destination="s6e-On-2A4" eventType="touchUpInside" id="68k-8A-FMZ"/>
                                 </connections>
                             </button>
                         </subviews>

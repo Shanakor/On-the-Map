@@ -122,7 +122,7 @@ class ParseAPIClient: APIClient {
         }
     }
 
-    func postStudentLocation(studentLocation: StudentLocation, completionHandler: @escaping (Bool?, APIError?) -> Void){
+    func postStudentLocation(studentLocation: StudentLocation, completionHandler: @escaping (Bool, APIError?) -> Void){
         taskForPOSTMethod(method: Methods.GetStudents, methodParameters: nil, jsonBody: studentLocation.toJSONData()){
             (result, error) in
 
@@ -135,7 +135,7 @@ class ParseAPIClient: APIClient {
         }
     }
 
-    func putStudentLocation(studentLocation: StudentLocation, completionHandler: @escaping (Bool?, APIError?) -> Void){
+    func putStudentLocation(studentLocation: StudentLocation, completionHandler: @escaping (Bool, APIError?) -> Void){
 
         taskForPUTMethod(method: Methods.GetStudents + "/\(studentLocation.objectID!)", methodParameters: nil, jsonBody: studentLocation.toJSONData()){
             (result, error) in

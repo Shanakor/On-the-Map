@@ -14,7 +14,16 @@ class InformationPostingDetailViewController: UIViewController {
     // MARK: IBOutlets
     
     @IBOutlet weak var mapView: MKMapView!
-    
+
+    // MARK: Constants
+
+    private struct AlertDialogStrings{
+        static let UploadErrorTitle = "Uploading failed"
+        static let UploadErrorMessage = "We were unable to upload the location."
+        static let UploadErrorPositiveAction = "Retry"
+        static let UploadErrorNegativeAction = "Discard"
+    }
+
     // MARK: Properties
 
     var mapString: String!
@@ -25,6 +34,7 @@ class InformationPostingDetailViewController: UIViewController {
     private var studentLocation: StudentLocation?
 
     // MARK: Lifecycle
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -35,6 +45,10 @@ class InformationPostingDetailViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
+        configureMapView()
+    }
+
+    private func configureMapView() {
         let account = (UIApplication.shared.delegate as! AppDelegate).account!
 
         studentLocation = StudentLocation(firstName: account.firstName, lastName: account.lastName,
@@ -45,5 +59,41 @@ class InformationPostingDetailViewController: UIViewController {
         mapView.addAnnotation(annotation)
         mapView.showAnnotations([annotation], animated: true)
         mapView.selectAnnotation(annotation, animated: true)
+    }
+
+    // MARK: IBActions
+
+    @IBAction func uploadStudentLocationAndDismiss(_ sender: Any) {
+        ParseAPIClient.shared.postStudentLocation(studentLocation: studentLocation!){
+            (success, error) in
+
+            DispatchQueue.main.async {
+                if !success {
+                    print(error!)
+                    self.presentUploadErrorAlertDialog()
+                    return
+                } else {
+                   self.dismiss(animated: true)
+                }
+            }
+        }
+    }
+
+    // MARK: Error handling
+
+    private func presentUploadErrorAlertDialog(){
+        let alertCtrl = UIAlertController(title: AlertDialogStrings.UploadErrorTitle, message: AlertDialogStrings.UploadErrorMessage, preferredStyle: .alert)
+        alertCtrl.addAction(UIAlertAction(title: AlertDialogStrings.UploadErrorNegativeAction, style: .destructive, handler: onCancelTapped))
+        alertCtrl.addAction(UIAlertAction(title: AlertDialogStrings.UploadErrorPositiveAction, style: .default, handler: onRetryTapped))
+
+        present(alertCtrl, animated: true)
+    }
+
+    private func onCancelTapped(_ action: UIAlertAction){
+        self.dismiss(animated: true)
+    }
+
+    private func onRetryTapped(_ action: UIAlertAction){
+        self.uploadStudentLocationAndDismiss(self)
     }
 }
