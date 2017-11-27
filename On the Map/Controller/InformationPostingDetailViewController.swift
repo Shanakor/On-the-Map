@@ -41,7 +41,6 @@ class InformationPostingDetailViewController: UIViewController {
 
     private func configureMapView() {
         let account = (UIApplication.shared.delegate as! AppDelegate).account!
-
         studentInformation = StudentInformation(firstName: account.firstName, lastName: account.lastName,
                 latitude: coordinate.latitude, longitude: coordinate.longitude,
                 mapString: mapString, mediaURL: mediaURL, uniqueKey: account.ID)
