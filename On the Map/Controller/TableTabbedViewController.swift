@@ -13,7 +13,7 @@ class TableTabbedViewController: BaseTabbedViewController {
     // MARK: Constants
 
     private struct Identifiers{
-        static let StudentLocationCell = "StudentLocationCell"
+        static let StudentInformationCell = "StudentInformationCell"
     }
 
     // MARK: IBOutlets
@@ -31,7 +31,7 @@ class TableTabbedViewController: BaseTabbedViewController {
 
     // MARK: BaseTabbedViewController members
 
-    override func didFinishLoadingStudentLocations(success: Bool, error: ParseAPIClient.APIClientError?) {
+    override func didFinishLoadingStudentInformations(success: Bool, error: ParseAPIClient.APIClientError?) {
         tableView.reloadData()
     }
 
@@ -47,18 +47,18 @@ extension TableTabbedViewController: UITableViewDelegate, UITableViewDataSource{
     // MARK: DataSource
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return studentLocationRepository.studentLocations.count
+        return studentInformationRepository.studentInformations.count
     }
 
     // MARK: Delegate
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let studentLocation = studentLocationRepository.studentLocations[indexPath.row]
+        let studentInformation = studentInformationRepository.studentInformations[indexPath.row]
 
-        let cell = tableView.dequeueReusableCell(withIdentifier: Identifiers.StudentLocationCell)!
+        let cell = tableView.dequeueReusableCell(withIdentifier: Identifiers.StudentInformationCell)!
 
-        cell.textLabel!.text = "\(studentLocation.firstName) \(studentLocation.lastName)"
-        cell.detailTextLabel!.text = studentLocation.mediaURL
+        cell.textLabel!.text = "\(studentInformation.firstName) \(studentInformation.lastName)"
+        cell.detailTextLabel!.text = studentInformation.mediaURL
 
         return cell
     }
@@ -66,7 +66,7 @@ extension TableTabbedViewController: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
 
-        let studentLocation = studentLocationRepository.studentLocations[indexPath.row]
-        AppDelegate.openURL(urlString: studentLocation.mediaURL)
+        let studentInformation = studentInformationRepository.studentInformations[indexPath.row]
+        AppDelegate.openURL(urlString: studentInformation.mediaURL)
     }
 }

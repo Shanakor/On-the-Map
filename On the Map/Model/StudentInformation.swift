@@ -5,7 +5,7 @@
 
 import Foundation
 
-struct StudentLocation {
+struct StudentInformation {
 
     // MARK: Properties.
 
@@ -90,16 +90,16 @@ struct StudentLocation {
 //        self.updatedAt = updatedAt
     }
 
-    static func studentLocations(from dictionaryArray: [[String: AnyObject]]) -> [StudentLocation]{
-        var studentLocations = [StudentLocation]()
+    static func studentInformations(from dictionaryArray: [[String: AnyObject]]) -> [StudentInformation]{
+        var studentInformations = [StudentInformation]()
         var errorLog = [Int: ParseAPIClient.APIClientError]()
 
         var i = 0
         for dict in dictionaryArray{
 
             do{
-                let studentLocation = try StudentLocation(dictionary: dict)
-                studentLocations.append(studentLocation)
+                let studentInformation = try StudentInformation(dictionary: dict)
+                studentInformations.append(studentInformation)
             }
             catch{
                 let apiError = error as! ParseAPIClient.APIClientError
@@ -114,7 +114,7 @@ struct StudentLocation {
             print("\t \(errorLog)")
         }
 
-        return studentLocations
+        return studentInformations
     }
 
     // MARK: JSON Conversion

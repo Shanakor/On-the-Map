@@ -31,9 +31,9 @@ class MapTabbedViewController: BaseTabbedViewController {
 
     // MARK: BaseTabbedViewController members
 
-    override func didFinishLoadingStudentLocations(success: Bool, error: ParseAPIClient.APIClientError?) {
+    override func didFinishLoadingStudentInformations(success: Bool, error: ParseAPIClient.APIClientError?) {
         if success {
-            let annotations = MKPointAnnotation.fromStudentLocations(studentLocationRepository.studentLocations)
+            let annotations = MKPointAnnotation.fromStudentInformations(studentInformationRepository.studentInformations)
             mapViewDelegate.refreshAnnotations(annotations)
 
             if let annotationToCenterOn = annotationToCenterOn{
@@ -46,11 +46,11 @@ class MapTabbedViewController: BaseTabbedViewController {
         }
     }
 
-    override func didFinishAddingStudentLocation(_ notification: NSNotification) {
-        super.didFinishAddingStudentLocation(notification)
+    override func didFinishAddingStudentInformation(_ notification: NSNotification) {
+        super.didFinishAddingStudentInformation(notification)
 
-        let studentLocation = notification.object as! StudentLocation
-        annotationToCenterOn = MKPointAnnotation.fromStudentLocation(studentLocation)
+        let studentInformation = notification.object as! StudentInformation
+        annotationToCenterOn = MKPointAnnotation.fromStudentInformation(studentInformation)
     }
 
     // MARK: Navigation

@@ -8,24 +8,24 @@ import MapKit
 
 extension MKPointAnnotation {
 
-    static func fromStudentLocation(_ studentLocation: StudentLocation) -> MKPointAnnotation{
+    static func fromStudentInformation(_ studentInformation: StudentInformation) -> MKPointAnnotation{
         let annotation = MKPointAnnotation()
 
-        let lat = CLLocationDegrees(studentLocation.latitude)
-        let long = CLLocationDegrees(studentLocation.longitude)
+        let lat = CLLocationDegrees(studentInformation.latitude)
+        let long = CLLocationDegrees(studentInformation.longitude)
         annotation.coordinate = CLLocationCoordinate2D(latitude: lat, longitude: long)
 
-        annotation.title = "\(studentLocation.firstName) \(studentLocation.lastName)"
-        annotation.subtitle = studentLocation.mediaURL
+        annotation.title = "\(studentInformation.firstName) \(studentInformation.lastName)"
+        annotation.subtitle = studentInformation.mediaURL
 
         return annotation
     }
 
-    static func fromStudentLocations(_ studentLocations: [StudentLocation]) -> [MKPointAnnotation]{
+    static func fromStudentInformations(_ studentInformations: [StudentInformation]) -> [MKPointAnnotation]{
         var annotations = [MKPointAnnotation]()
 
-        for studentLoc in studentLocations{
-            annotations.append(MKPointAnnotation.fromStudentLocation(studentLoc))
+        for studentLoc in studentInformations{
+            annotations.append(MKPointAnnotation.fromStudentInformation(studentLoc))
         }
 
         return annotations

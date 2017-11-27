@@ -20,9 +20,9 @@
 		3C9DE3CED278BE4BC7395E3B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3C9DE850D675D51A98907E8B /* Main.storyboard */; };
 		3C9DE5488847E36885BF03A7 /* ParseAPIConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C9DE86C49E0C80DD8F0FEA2 /* ParseAPIConstants.swift */; };
 		3C9DE6C24BE0FEB0836022E1 /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C9DE0FA28D086955D5C1246 /* APIClient.swift */; };
-		3C9DE933F234B73A8FC06AE9 /* StudentLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C9DE1A083075577C3A46372 /* StudentLocation.swift */; };
+		3C9DE933F234B73A8FC06AE9 /* StudentInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C9DE1A083075577C3A46372 /* StudentInformation.swift */; };
 		3C9DE9EBDD824D8833666A78 /* UdacityAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C9DE55C2AFBA5718D02422E /* UdacityAPIClient.swift */; };
-		3C9DE9F2C45F9BDBBEEB8FB0 /* StudentLocationRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C9DE99720B47499911D69C3 /* StudentLocationRepository.swift */; };
+		3C9DE9F2C45F9BDBBEEB8FB0 /* StudentInformationRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C9DE99720B47499911D69C3 /* StudentInformationRepository.swift */; };
 		3C9DEB1CAA0AD7876A79705B /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C9DE55A98323D073B3D4136 /* LoginViewController.swift */; };
 		3C9DEB26FDCFA2EEFE94AF40 /* UdacityAPIConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C9DE2E5CA3318B9DE88105F /* UdacityAPIConstants.swift */; };
 		3C9DEBA4844E66C62583A493 /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C9DEEAAD28C5A7D03BA6B03 /* Account.swift */; };
@@ -41,7 +41,7 @@
 		198B4B711FCAE07800DA8DD9 /* TableTabbedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableTabbedViewController.swift; sourceTree = "<group>"; };
 		198B4B731FCAEC8400DA8DD9 /* InformationPostingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InformationPostingViewController.swift; sourceTree = "<group>"; };
 		3C9DE0FA28D086955D5C1246 /* APIClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIClient.swift; sourceTree = "<group>"; };
-		3C9DE1A083075577C3A46372 /* StudentLocation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentLocation.swift; sourceTree = "<group>"; };
+		3C9DE1A083075577C3A46372 /* StudentInformation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentInformation.swift; sourceTree = "<group>"; };
 		3C9DE2E5CA3318B9DE88105F /* UdacityAPIConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UdacityAPIConstants.swift; sourceTree = "<group>"; };
 		3C9DE55A98323D073B3D4136 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		3C9DE55C2AFBA5718D02422E /* UdacityAPIClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UdacityAPIClient.swift; sourceTree = "<group>"; };
@@ -49,7 +49,7 @@
 		3C9DE86C49E0C80DD8F0FEA2 /* ParseAPIConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParseAPIConstants.swift; sourceTree = "<group>"; };
 		3C9DE87A748AFC8647B20417 /* ParseAPIClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParseAPIClient.swift; sourceTree = "<group>"; };
 		3C9DE964C95651A55925121E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		3C9DE99720B47499911D69C3 /* StudentLocationRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentLocationRepository.swift; sourceTree = "<group>"; };
+		3C9DE99720B47499911D69C3 /* StudentInformationRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentInformationRepository.swift; sourceTree = "<group>"; };
 		3C9DEBFCB77DA23FBF007E07 /* MapViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewDelegate.swift; sourceTree = "<group>"; };
 		3C9DECB9218DD2236A12D7A9 /* MKPointAnnotationConvertExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MKPointAnnotationConvertExtension.swift; sourceTree = "<group>"; };
 		3C9DED46623289574E9A06A3 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.info; path = Info.plist; sourceTree = "<group>"; };
@@ -121,7 +121,7 @@
 		3C9DE1204B39DE1871BF5B5D /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				3C9DE1A083075577C3A46372 /* StudentLocation.swift */,
+				3C9DE1A083075577C3A46372 /* StudentInformation.swift */,
 				3C9DEEAAD28C5A7D03BA6B03 /* Account.swift */,
 			);
 			path = Model;
@@ -167,7 +167,7 @@
 			isa = PBXGroup;
 			children = (
 				3C9DE97EC7B8A60100DBBD79 /* APIClients */,
-				3C9DE99720B47499911D69C3 /* StudentLocationRepository.swift */,
+				3C9DE99720B47499911D69C3 /* StudentInformationRepository.swift */,
 			);
 			path = Business;
 			sourceTree = "<group>";
@@ -267,9 +267,9 @@
 				195701AF1FC9DCDA00C216F1 /* MapTabbedViewController.swift in Sources */,
 				198B4B721FCAE07800DA8DD9 /* TableTabbedViewController.swift in Sources */,
 				3C9DE5488847E36885BF03A7 /* ParseAPIConstants.swift in Sources */,
-				3C9DE933F234B73A8FC06AE9 /* StudentLocation.swift in Sources */,
+				3C9DE933F234B73A8FC06AE9 /* StudentInformation.swift in Sources */,
 				198B4B701FCADDE800DA8DD9 /* BaseTabbedViewController.swift in Sources */,
-				3C9DE9F2C45F9BDBBEEB8FB0 /* StudentLocationRepository.swift in Sources */,
+				3C9DE9F2C45F9BDBBEEB8FB0 /* StudentInformationRepository.swift in Sources */,
 				3C9DE6C24BE0FEB0836022E1 /* APIClient.swift in Sources */,
 				3C9DEBA4844E66C62583A493 /* Account.swift in Sources */,
 				3C9DE372D8815DCBFA78D0D9 /* MKPointAnnotationConvertExtension.swift in Sources */,

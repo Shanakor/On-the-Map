@@ -192,7 +192,7 @@
                                 <rect key="frame" x="0.0" y="64" width="375" height="554"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="studentLocationCell" textLabel="FYK-c4-ctM" detailTextLabel="UGb-sY-1Wg" imageView="8nZ-gN-RtH" style="IBUITableViewCellStyleSubtitle" id="lYy-C7-9HC">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="StudentInformationCell" textLabel="FYK-c4-ctM" detailTextLabel="UGb-sY-1Wg" imageView="8nZ-gN-RtH" style="IBUITableViewCellStyleSubtitle" id="lYy-C7-9HC">
                                         <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="lYy-C7-9HC" id="Yjr-eh-YZK">
@@ -358,7 +358,7 @@
                                 <connections>
                                     <action selector="findLocation:" destination="8tP-Wk-B8o" eventType="touchUpInside" id="ynd-J5-QEI"/>
                                     <action selector="login:" destination="BYZ-38-t0r" eventType="touchUpInside" id="CmZ-Vv-0Ll"/>
-                                    <action selector="uploadStudentLocationAndDismiss:" destination="s6e-On-2A4" eventType="touchUpInside" id="68k-8A-FMZ"/>
+                                    <action selector="uploadStudentInformationAndDismiss:" destination="s6e-On-2A4" eventType="touchUpInside" id="68k-8A-FMZ"/>
                                 </connections>
                             </button>
                         </subviews>

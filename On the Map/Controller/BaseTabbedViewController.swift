@@ -25,12 +25,12 @@ class BaseTabbedViewController: UIViewController {
     }
 
     struct NotificationNames {
-        static let DidFinishAddingStudentLocation = "didFinishAddingStudentLocation"
+        static let DidFinishAddingStudentInformation = "didFinishAddingStudentInformation"
     }
 
     // MARK: Properties
 
-    private(set) var studentLocationRepository: StudentLocationRepository!
+    private(set) var studentInformationRepository: StudentInformationRepository!
 
     // MARK: Lifecycle
 
@@ -38,10 +38,10 @@ class BaseTabbedViewController: UIViewController {
         super.viewDidLoad()
 
         initNavigationBar()
-        initStudentLocationRepository()
+        initStudentInformationRepository()
 
-        NotificationCenter.default.addObserver(self, selector: #selector(didFinishAddingStudentLocation(_:)),
-                name: NSNotification.Name(rawValue: NotificationNames.DidFinishAddingStudentLocation), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(didFinishAddingStudentInformation(_:)),
+                name: NSNotification.Name(rawValue: NotificationNames.DidFinishAddingStudentInformation), object: nil)
     }
 
     private func initNavigationBar() {
@@ -49,18 +49,18 @@ class BaseTabbedViewController: UIViewController {
 
         self.navigationItem.rightBarButtonItems = [
             UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(prepareForNavigatingToInformationPostingView)),
-            UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(loadStudentLocations))
+            UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(loadStudentInformations))
         ]
 
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: NavigationBarStrings.Logout,
                                                                 style: .plain, target: self, action: #selector(logout))
     }
 
-    private func initStudentLocationRepository() {
-        studentLocationRepository = StudentLocationRepository.shared
+    private func initStudentInformationRepository() {
+        studentInformationRepository = StudentInformationRepository.shared
 
-        if studentLocationRepository.studentLocations.isEmpty{
-            loadStudentLocations()
+        if studentInformationRepository.studentInformations.isEmpty{
+            loadStudentInformations()
         }
     }
 
@@ -70,12 +70,12 @@ class BaseTabbedViewController: UIViewController {
 
     // MARK: Networking methods
 
-    @objc func loadStudentLocations(){
-        studentLocationRepository.loadStudentLocations{
+    @objc func loadStudentInformations(){
+        studentInformationRepository.loadStudentInformations{
             (success, error) in
 
             DispatchQueue.main.async{
-                self.didFinishLoadingStudentLocations(success: success, error: error)
+                self.didFinishLoadingStudentInformations(success: success, error: error)
             }
         }
     }
@@ -92,8 +92,8 @@ class BaseTabbedViewController: UIViewController {
         }
     }
 
-    @objc func didFinishAddingStudentLocation(_ notification: NSNotification) {
-        loadStudentLocations()
+    @objc func didFinishAddingStudentInformation(_ notification: NSNotification) {
+        loadStudentInformations()
     }
 
     // MARK: Presenting errors
@@ -118,17 +118,17 @@ class BaseTabbedViewController: UIViewController {
     @objc func prepareForNavigatingToInformationPostingView(){
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
 
-        // Is there already a StudentLocation of current user?
-        ParseAPIClient.shared.getStudentLocation(uniqueKey: appDelegate.account!.ID){
-            (studentLocation, error) in
+        // Is there already a StudentInformation of current user?
+        ParseAPIClient.shared.getStudentInformation(uniqueKey: appDelegate.account!.ID){
+            (studentInformation, error) in
 
             guard error == nil else{
                 print(error!)
                 return
             }
 
-            guard studentLocation == nil else{
-                appDelegate.studentLocationToOverwrite = studentLocation
+            guard studentInformation == nil else{
+                appDelegate.studentInformationToOverwrite = studentInformation
                 self.presentOverwriteAlert()
                 return
             }
@@ -139,7 +139,7 @@ class BaseTabbedViewController: UIViewController {
 
     // MARK: Methods to be overridden by subclasses
 
-    func didFinishLoadingStudentLocations(success: Bool, error: ParseAPIClient.APIClientError?){
+    func didFinishLoadingStudentInformations(success: Bool, error: ParseAPIClient.APIClientError?){
         preconditionFailure("This method has to be implemented")
     }
 

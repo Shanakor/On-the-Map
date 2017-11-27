@@ -31,7 +31,7 @@ class InformationPostingDetailViewController: UIViewController {
     var mediaURL: String!
 
     private var mapViewDelegate: MapViewDelegate!
-    private var studentLocation: StudentLocation?
+    private var studentInformation: StudentInformation?
 
     // MARK: Lifecycle
 
@@ -51,11 +51,11 @@ class InformationPostingDetailViewController: UIViewController {
     private func configureMapView() {
         let account = (UIApplication.shared.delegate as! AppDelegate).account!
 
-        studentLocation = StudentLocation(firstName: account.firstName, lastName: account.lastName,
+        studentInformation = StudentInformation(firstName: account.firstName, lastName: account.lastName,
                 latitude: coordinate.latitude, longitude: coordinate.longitude,
                 mapString: mapString, mediaURL: mediaURL, uniqueKey: account.ID)
 
-        let annotation = MKPointAnnotation.fromStudentLocation(studentLocation!)
+        let annotation = MKPointAnnotation.fromStudentInformation(studentInformation!)
         mapView.addAnnotation(annotation)
         mapView.showAnnotations([annotation], animated: true)
         mapView.selectAnnotation(annotation, animated: true)
@@ -63,17 +63,17 @@ class InformationPostingDetailViewController: UIViewController {
 
     // MARK: IBActions
 
-    @IBAction func uploadStudentLocationAndDismiss(_ sender: Any) {
-        if let studentLocationToOverwrite = (UIApplication.shared.delegate as! AppDelegate).studentLocationToOverwrite{
-            studentLocation!.objectID = studentLocationToOverwrite.objectID
-            ParseAPIClient.shared.putStudentLocation(studentLocation: studentLocation!, completionHandler: didFinishUploadingStudentLocation)
+    @IBAction func uploadStudentInformationAndDismiss(_ sender: Any) {
+        if let studentInformationToOverwrite = (UIApplication.shared.delegate as! AppDelegate).studentInformationToOverwrite{
+            studentInformation!.objectID = studentInformationToOverwrite.objectID
+            ParseAPIClient.shared.putStudentInformation(studentInformation: studentInformation!, completionHandler: didFinishUploadingStudentInformation)
         }
         else {
-            ParseAPIClient.shared.postStudentLocation(studentLocation: studentLocation!, completionHandler: didFinishUploadingStudentLocation)
+            ParseAPIClient.shared.postStudentInformation(studentInformation: studentInformation!, completionHandler: didFinishUploadingStudentInformation)
         }
     }
 
-    private func didFinishUploadingStudentLocation(_ success: Bool, _ error: APIClient.APIClientError?){
+    private func didFinishUploadingStudentInformation(_ success: Bool, _ error: APIClient.APIClientError?){
         DispatchQueue.main.async {
             if !success {
                 print(error!)
@@ -86,7 +86,7 @@ class InformationPostingDetailViewController: UIViewController {
     }
 
     private func dismiss() {
-        NotificationCenter.default.post(name: NSNotification.Name(rawValue: BaseTabbedViewController.NotificationNames.DidFinishAddingStudentLocation), object: studentLocation!)
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: BaseTabbedViewController.NotificationNames.DidFinishAddingStudentInformation), object: studentInformation!)
         self.navigationController!.topViewController!.dismiss(animated: true)
     }
 
@@ -105,6 +105,6 @@ class InformationPostingDetailViewController: UIViewController {
     }
 
     private func onRetryTapped(_ action: UIAlertAction){
-        self.uploadStudentLocationAndDismiss(self)
+        self.uploadStudentInformationAndDismiss(self)
     }
 }
