@@ -107,7 +107,8 @@ class InformationPostingViewController: UIViewController {
     // MARK: Navigation
 
     private func presentInformationPostingDetailView() {
-        let destCtrl = storyboard!.instantiateViewController(withIdentifier: Identifiers.InformationPostingDetailViewController) as! InformationPostingDetailViewController
+        let destCtrl = storyboard!.instantiateViewController(withIdentifier: AppDelegate.Identifiers.ViewControllers.InformationPostingDetail)
+                            as! InformationPostingDetailViewController
 
         destCtrl.mapString = mapString!
         destCtrl.coordinate = coordinate!

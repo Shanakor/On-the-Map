@@ -36,7 +36,7 @@ class TableTabbedViewController: BaseTabbedViewController {
     }
 
     override func segueIdentifierForInformationPostingView() -> String {
-        return Identifiers.InformationPostingSegue
+        return AppDelegate.Identifiers.Segues.InformationPostingFromTableView
     }
 }
 

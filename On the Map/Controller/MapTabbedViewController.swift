@@ -56,6 +56,6 @@ class MapTabbedViewController: BaseTabbedViewController {
     // MARK: Navigation
 
     override func segueIdentifierForInformationPostingView() -> String {
-        return Identifiers.InformationPostingSegue
+        return AppDelegate.Identifiers.Segues.InformationPostingFromMapView
     }
 }
