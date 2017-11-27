@@ -26,6 +26,7 @@
 		3C9DEB1CAA0AD7876A79705B /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C9DE55A98323D073B3D4136 /* LoginViewController.swift */; };
 		3C9DEB26FDCFA2EEFE94AF40 /* UdacityAPIConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C9DE2E5CA3318B9DE88105F /* UdacityAPIConstants.swift */; };
 		3C9DEBA4844E66C62583A493 /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C9DEEAAD28C5A7D03BA6B03 /* Account.swift */; };
+		3C9DECB88E374584212571A2 /* ErrorMessageConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C9DE66A5A78CF380D4CEAD9 /* ErrorMessageConstants.swift */; };
 		3C9DED3CA69D37FCF1D5938A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3C9DE36FEEE11D2CA75F2F2D /* LaunchScreen.storyboard */; };
 		3C9DED73D8711D51F7D14800 /* MapViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C9DEBFCB77DA23FBF007E07 /* MapViewDelegate.swift */; };
 /* End PBXBuildFile section */
@@ -45,6 +46,7 @@
 		3C9DE2E5CA3318B9DE88105F /* UdacityAPIConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UdacityAPIConstants.swift; sourceTree = "<group>"; };
 		3C9DE55A98323D073B3D4136 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		3C9DE55C2AFBA5718D02422E /* UdacityAPIClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UdacityAPIClient.swift; sourceTree = "<group>"; };
+		3C9DE66A5A78CF380D4CEAD9 /* ErrorMessageConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorMessageConstants.swift; sourceTree = "<group>"; };
 		3C9DE6CDE347973D1450516B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		3C9DE86C49E0C80DD8F0FEA2 /* ParseAPIConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParseAPIConstants.swift; sourceTree = "<group>"; };
 		3C9DE87A748AFC8647B20417 /* ParseAPIClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParseAPIClient.swift; sourceTree = "<group>"; };
@@ -105,6 +107,7 @@
 				3C9DE1204B39DE1871BF5B5D /* Model */,
 				3C9DECB9218DD2236A12D7A9 /* MKPointAnnotationConvertExtension.swift */,
 				3C9DE2399520633F7A18C9C8 /* Delegates */,
+				3C9DE66A5A78CF380D4CEAD9 /* ErrorMessageConstants.swift */,
 			);
 			path = "On the Map";
 			sourceTree = "<group>";
@@ -274,6 +277,7 @@
 				3C9DEBA4844E66C62583A493 /* Account.swift in Sources */,
 				3C9DE372D8815DCBFA78D0D9 /* MKPointAnnotationConvertExtension.swift in Sources */,
 				3C9DED73D8711D51F7D14800 /* MapViewDelegate.swift in Sources */,
+				3C9DECB88E374584212571A2 /* ErrorMessageConstants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

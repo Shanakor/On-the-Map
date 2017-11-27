@@ -10,15 +10,6 @@ import UIKit
 
 class BaseTabbedViewController: UIViewController {
 
-    // MARK: Constants
-
-    private struct AlertDialogStrings{
-        static let OverwriteTitle = ""
-        static let OverwriteMessage = "You have already posted a student location. Would you like to overwrite it?"
-        static let OverwritePositiveAction = "Overwrite"
-        static let OverwriteNegativeAction = "Cancel"
-    }
-
     private struct NavigationBarStrings{
         static let Title = "On the Map"
         static let Logout = "Logout"
@@ -106,9 +97,9 @@ class BaseTabbedViewController: UIViewController {
     }
 
     func presentOverwriteAlert(){
-        let alertCtrl = UIAlertController(title: AlertDialogStrings.OverwriteTitle, message: AlertDialogStrings.OverwriteMessage, preferredStyle: .alert)
-        alertCtrl.addAction(UIAlertAction(title: AlertDialogStrings.OverwriteNegativeAction, style: .cancel))
-        alertCtrl.addAction(UIAlertAction(title: AlertDialogStrings.OverwritePositiveAction, style: .destructive){
+        let alertCtrl = UIAlertController(title: ErrorMessageConstants.AlertDialogStrings.OverwriteAlert.Title, message: ErrorMessageConstants.AlertDialogStrings.OverwriteAlert.Message, preferredStyle: .alert)
+        alertCtrl.addAction(UIAlertAction(title: ErrorMessageConstants.AlertDialogStrings.OverwriteAlert.NegativeAction, style: .cancel))
+        alertCtrl.addAction(UIAlertAction(title: ErrorMessageConstants.AlertDialogStrings.OverwriteAlert.PositiveAction, style: .destructive){
             alertAction in self.performSegue(withIdentifier: self.segueIdentifierForInformationPostingView(), sender: nil)
         })
 

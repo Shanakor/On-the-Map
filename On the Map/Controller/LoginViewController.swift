@@ -10,20 +10,6 @@ import UIKit
 
 class LoginViewController: UIViewController {
 
-    // MARK: Constants
-
-    struct AlertDialogStrings {
-        static let ConnectionErrorTitle = "Connection failed"
-        static let ConnectionErrorMessage = "Please try again or verify that you are connected to the internet."
-
-        static let ParseErrorTitle = "Parse error"
-        static let ParseErrorMessage = "We could not process the data that was returned by the server. We are probably looking" +
-                " into it this very moment."
-
-        static let CredentialErrorTitle = "Unauthorized"
-        static let CredentialErrorMessage = "You entered an invalid username or password."
-    }
-
     // MARK: IBOutlets
     
     @IBOutlet weak var contentScrollView: UIScrollView!
@@ -108,11 +94,11 @@ class LoginViewController: UIViewController {
     private func presentAlertDialog(error: UdacityAPIClient.APIClientError) {
         switch(error){
         case .connectionError:
-            self.presentAlertDialog(title: AlertDialogStrings.ConnectionErrorTitle, message: AlertDialogStrings.ConnectionErrorMessage)
+            self.presentAlertDialog(title: ErrorMessageConstants.AlertDialogStrings.ConnectionError.Title, message: ErrorMessageConstants.AlertDialogStrings.ConnectionError.Message)
         case .parseError:
-            self.presentAlertDialog(title: AlertDialogStrings.ParseErrorTitle, message: AlertDialogStrings.ParseErrorMessage)
+            self.presentAlertDialog(title: ErrorMessageConstants.AlertDialogStrings.ParseError.Title, message: ErrorMessageConstants.AlertDialogStrings.ParseError.Message)
         case .serverError:
-            self.presentAlertDialog(title: AlertDialogStrings.CredentialErrorTitle, message: AlertDialogStrings.CredentialErrorMessage)
+            self.presentAlertDialog(title: ErrorMessageConstants.AlertDialogStrings.CredentialError.Title, message: ErrorMessageConstants.AlertDialogStrings.CredentialError.Message)
         default:
             break
         }

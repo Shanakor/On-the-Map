@@ -15,15 +15,6 @@ class InformationPostingDetailViewController: UIViewController {
     
     @IBOutlet weak var mapView: MKMapView!
 
-    // MARK: Constants
-
-    private struct AlertDialogStrings{
-        static let UploadErrorTitle = "Uploading failed"
-        static let UploadErrorMessage = "We were unable to upload the location."
-        static let UploadErrorPositiveAction = "Retry"
-        static let UploadErrorNegativeAction = "Discard"
-    }
-
     // MARK: Properties
 
     var mapString: String!
@@ -93,9 +84,9 @@ class InformationPostingDetailViewController: UIViewController {
     // MARK: Error handling
 
     private func presentUploadErrorAlertDialog(){
-        let alertCtrl = UIAlertController(title: AlertDialogStrings.UploadErrorTitle, message: AlertDialogStrings.UploadErrorMessage, preferredStyle: .alert)
-        alertCtrl.addAction(UIAlertAction(title: AlertDialogStrings.UploadErrorNegativeAction, style: .destructive, handler: onCancelTapped))
-        alertCtrl.addAction(UIAlertAction(title: AlertDialogStrings.UploadErrorPositiveAction, style: .default, handler: onRetryTapped))
+        let alertCtrl = UIAlertController(title: ErrorMessageConstants.AlertDialogStrings.UploadError.Title, message: ErrorMessageConstants.AlertDialogStrings.UploadError.Message, preferredStyle: .alert)
+        alertCtrl.addAction(UIAlertAction(title: ErrorMessageConstants.AlertDialogStrings.UploadError.NegativeAction, style: .destructive, handler: onCancelTapped))
+        alertCtrl.addAction(UIAlertAction(title: ErrorMessageConstants.AlertDialogStrings.UploadError.PositiveAction, style: .default, handler: onRetryTapped))
 
         present(alertCtrl, animated: true)
     }

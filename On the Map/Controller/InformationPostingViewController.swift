@@ -18,13 +18,6 @@ class InformationPostingViewController: UIViewController {
     @IBOutlet weak var mediaURLTextField: UITextField!
     @IBOutlet weak var findLocationBtn: UIButton!
     @IBOutlet weak var loadingIndicator: UIActivityIndicatorView!
-    
-    // MARK: Constants
-
-    private struct AlertDialogStrings{
-        static let LocationErrorTitle = "Invalid location"
-        static let LocationErrorMessage = "We were unable to find the entered location. Try to be more specific."
-    }
 
     // MARK: Properties
 
@@ -72,7 +65,7 @@ class InformationPostingViewController: UIViewController {
             }
 
             if !success{
-                self.presentAlertDialog(title: AlertDialogStrings.LocationErrorTitle, message: AlertDialogStrings.LocationErrorMessage)
+                self.presentAlertDialog(title: ErrorMessageConstants.AlertDialogStrings.LocationError.Title, message: ErrorMessageConstants.AlertDialogStrings.LocationError.Message)
             }
             else{
                 self.coordinate = coordinate
