@@ -14,15 +14,15 @@ class InformationPostingViewController: UIViewController {
     // MARK: IBOutlets
     
     @IBOutlet weak var contentScrollView: UIScrollView!
-    @IBOutlet weak var locationTextField: UITextField!
-    @IBOutlet weak var linkTextField: UITextField!
+    @IBOutlet weak var mapStringTextField: UITextField!
+    @IBOutlet weak var mediaURLTextField: UITextField!
     @IBOutlet weak var findLocationBtn: UIButton!
 
     // MARK: Constants
 
     private struct AlertDialogStrings{
-        static let Title = "Invalid location"
-        static let Message = "We were unable to find the entered location. Please try to be more specific."
+        static let LocationErrorTitle = "Invalid location"
+        static let LocationErrorMessage = "We were unable to find the entered location. Try to be more specific."
     }
 
     // MARK: Properties
@@ -36,15 +36,15 @@ class InformationPostingViewController: UIViewController {
         super.viewDidLoad()
 
         enableFindLocationButton(false)
-        locationTextField.delegate = self
-        linkTextField.delegate = self
+        mapStringTextField.delegate = self
+        mediaURLTextField.delegate = self
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
         addKeyboardObservers()
-        locationTextField.becomeFirstResponder()
+        mapStringTextField.becomeFirstResponder()
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -60,13 +60,13 @@ class InformationPostingViewController: UIViewController {
     }
     
     @IBAction func findLocation(_ sender: Any) {
-        mapString = locationTextField.text!
+        mapString = mapStringTextField.text!
 
         geocodeMapString(mapString!){
             (success, coordinate) in
 
             if !success{
-                self.presentAlertDialog(title: AlertDialogStrings.Title, message: AlertDialogStrings.Message)
+                self.presentAlertDialog(title: AlertDialogStrings.LocationErrorTitle, message: AlertDialogStrings.LocationErrorMessage)
             }
             else{
                 self.coordinate = coordinate
@@ -95,12 +95,10 @@ class InformationPostingViewController: UIViewController {
         }
     }
 
-    // MARK: Error handling
+    // MARK: Presenting errors.
 
     private func presentAlertDialog(title: String, message: String){
         let alertCtrl = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.alert)
-        alertCtrl.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: nil))
-
         self.present(alertCtrl, animated: true, completion: nil)
     }
 
@@ -112,13 +110,14 @@ class InformationPostingViewController: UIViewController {
 
         destCtrl.mapString = mapString!
         destCtrl.coordinate = coordinate!
-        destCtrl.mediaURL = linkTextField.text!
+        destCtrl.mediaURL = mediaURLTextField.text!
 
         self.navigationController!.pushViewController(destCtrl, animated: true)
     }
 }
 
 // MARK: Extension for configuring UI.
+
 extension InformationPostingViewController{
 
     // MARK: Basic UI Configuration
@@ -156,7 +155,8 @@ extension InformationPostingViewController{
     }
 }
 
-// MARK: Extension for UITextFieldDelegate.
+// MARK: Extension for UITextFieldDelegate
+
 extension InformationPostingViewController : UITextFieldDelegate{
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         let txtFieldText = (textField.text ?? "") as NSString
@@ -172,15 +172,15 @@ extension InformationPostingViewController : UITextFieldDelegate{
     }
 
     private func nonFirstResponderTextField() -> UITextField{
-        return locationTextField.isFirstResponder ? linkTextField : locationTextField
+        return mapStringTextField.isFirstResponder ? mediaURLTextField : mapStringTextField
     }
 
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        if textField == locationTextField {
-            linkTextField.becomeFirstResponder()
+        if textField == mapStringTextField {
+            mediaURLTextField.becomeFirstResponder()
             return false
         }
-        else if textField == linkTextField{
+        else if textField == mediaURLTextField {
             if findLocationBtn.isEnabled {
                 findLocation(self)
             }

@@ -330,8 +330,8 @@
                     <connections>
                         <outlet property="contentScrollView" destination="Bev-q8-0T1" id="icy-jq-9ia"/>
                         <outlet property="findLocationBtn" destination="EhB-wW-iUc" id="57r-4d-nR6"/>
-                        <outlet property="linkTextField" destination="VSg-kY-BdC" id="c8U-Fv-74e"/>
-                        <outlet property="locationTextField" destination="yBV-aI-NA9" id="VxT-OT-3mS"/>
+                        <outlet property="mapStringTextField" destination="yBV-aI-NA9" id="R05-cQ-lYd"/>
+                        <outlet property="mediaURLTextField" destination="VSg-kY-BdC" id="u6k-aa-bOw"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8cZ-sh-GSn" userLabel="First Responder" sceneMemberID="firstResponder"/>
