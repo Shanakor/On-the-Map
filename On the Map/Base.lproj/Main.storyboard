@@ -277,17 +277,25 @@
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                         <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="URL" returnKeyType="go" textContentType="url"/>
                                                     </textField>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EhB-wW-iUc">
+                                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Q4d-TD-9dP">
                                                         <rect key="frame" x="0.0" y="76" width="335" height="30"/>
-                                                        <color key="backgroundColor" red="0.0" green="0.58980089430000004" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                        <state key="normal" title="FIND LOCATION">
-                                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                        </state>
-                                                        <connections>
-                                                            <action selector="findLocation:" destination="8tP-Wk-B8o" eventType="touchUpInside" id="HhU-96-Yev"/>
-                                                            <action selector="login:" destination="BYZ-38-t0r" eventType="touchUpInside" id="mS4-Ms-nLy"/>
-                                                        </connections>
-                                                    </button>
+                                                        <subviews>
+                                                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="J45-x8-YLU">
+                                                                <rect key="frame" x="0.0" y="0.0" width="20" height="30"/>
+                                                            </activityIndicatorView>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EhB-wW-iUc">
+                                                                <rect key="frame" x="30" y="0.0" width="305" height="30"/>
+                                                                <color key="backgroundColor" red="0.0" green="0.58980089430000004" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                <state key="normal" title="FIND LOCATION">
+                                                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                </state>
+                                                                <connections>
+                                                                    <action selector="findLocation:" destination="8tP-Wk-B8o" eventType="touchUpInside" id="HhU-96-Yev"/>
+                                                                    <action selector="login:" destination="BYZ-38-t0r" eventType="touchUpInside" id="mS4-Ms-nLy"/>
+                                                                </connections>
+                                                            </button>
+                                                        </subviews>
+                                                    </stackView>
                                                 </subviews>
                                             </stackView>
                                         </subviews>
@@ -330,6 +338,7 @@
                     <connections>
                         <outlet property="contentScrollView" destination="Bev-q8-0T1" id="icy-jq-9ia"/>
                         <outlet property="findLocationBtn" destination="EhB-wW-iUc" id="57r-4d-nR6"/>
+                        <outlet property="loadingIndicator" destination="J45-x8-YLU" id="JUV-0S-lmo"/>
                         <outlet property="mapStringTextField" destination="yBV-aI-NA9" id="R05-cQ-lYd"/>
                         <outlet property="mediaURLTextField" destination="VSg-kY-BdC" id="u6k-aa-bOw"/>
                     </connections>

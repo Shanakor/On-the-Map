@@ -17,7 +17,8 @@ class InformationPostingViewController: UIViewController {
     @IBOutlet weak var mapStringTextField: UITextField!
     @IBOutlet weak var mediaURLTextField: UITextField!
     @IBOutlet weak var findLocationBtn: UIButton!
-
+    @IBOutlet weak var loadingIndicator: UIActivityIndicatorView!
+    
     // MARK: Constants
 
     private struct AlertDialogStrings{
@@ -60,10 +61,15 @@ class InformationPostingViewController: UIViewController {
     }
     
     @IBAction func findLocation(_ sender: Any) {
+        configureUILoading(loading: true)
         mapString = mapStringTextField.text!
 
         geocodeMapString(mapString!){
             (success, coordinate) in
+
+            DispatchQueue.main.async{
+                self.configureUILoading(loading: false)
+            }
 
             if !success{
                 self.presentAlertDialog(title: AlertDialogStrings.LocationErrorTitle, message: AlertDialogStrings.LocationErrorMessage)
@@ -125,6 +131,18 @@ extension InformationPostingViewController{
     private func enableFindLocationButton(_ enabled: Bool){
         findLocationBtn.isEnabled = enabled
         findLocationBtn.alpha = enabled ? 1.0 : 0.5
+    }
+
+    private func configureUILoading(loading: Bool){
+        if loading{
+            loadingIndicator.startAnimating()
+            view.endEditing(true)
+        }
+        else{
+            loadingIndicator.stopAnimating()
+        }
+
+        enableFindLocationButton(!loading)
     }
 
     // MARK: Keyboard behaviour
