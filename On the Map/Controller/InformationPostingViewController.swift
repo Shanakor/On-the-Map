@@ -105,6 +105,8 @@ class InformationPostingViewController: UIViewController {
 
     private func presentAlertDialog(title: String, message: String){
         let alertCtrl = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.alert)
+        alertCtrl.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+        
         self.present(alertCtrl, animated: true, completion: nil)
     }
 
