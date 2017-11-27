@@ -100,6 +100,8 @@ class BaseTabbedViewController: UIViewController {
 
     func presentAlert(title: String?, message: String) {
         let alertCtrl = UIAlertController(title: title ?? "", message: message, preferredStyle: .alert)
+        alertCtrl.addAction(UIAlertAction(title: "Ok", style: .default))
+
         self.present(alertCtrl, animated: true)
     }
 
