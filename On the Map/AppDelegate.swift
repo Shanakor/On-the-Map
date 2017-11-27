@@ -33,16 +33,29 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     static func openURL(urlString: String){
         var urlString = urlString
-        let index = urlString.index(urlString.startIndex, offsetBy: 4)
-        let substring = urlString[..<index]
 
-        if substring != "http"{
-            urlString = "http://\(urlString)"
+        if urlString.lengthOfBytes(using: .utf8) >= 4{
+            let index = urlString.index(urlString.startIndex, offsetBy: 4)
+            let substring = urlString[..<index]
+
+            if substring != "http"{
+                urlString = prefixUrlStringWithHttp(urlString: urlString)
+            }
+        }
+        else{
+            urlString = prefixUrlStringWithHttp(urlString: urlString)
         }
 
         if let url = URL(string: urlString){
             UIApplication.shared.open(url, options: [:], completionHandler: nil)
         }
+    }
+
+    private static func prefixUrlStringWithHttp(urlString: String) -> String{
+        var urlString = urlString
+        urlString = "http://\(urlString)"
+        return urlString
+
     }
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
