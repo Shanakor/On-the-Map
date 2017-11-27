@@ -32,7 +32,12 @@ class TableTabbedViewController: BaseTabbedViewController {
     // MARK: BaseTabbedViewController members
 
     override func didFinishLoadingStudentInformations(success: Bool, error: ParseAPIClient.APIClientError?) {
-        tableView.reloadData()
+        if success {
+            tableView.reloadData()
+        }
+        else{
+            presentAlert(title: "", message: error!.description)
+        }
     }
 
     override func segueIdentifierForInformationPostingView() -> String {
